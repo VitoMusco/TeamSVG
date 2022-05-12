@@ -201,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
 
     void jump() 
     {
+        if (isCrouched && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         lockRight = transform.right;
         lockForward = transform.forward;
