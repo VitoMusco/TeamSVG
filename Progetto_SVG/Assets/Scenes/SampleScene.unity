@@ -772,10 +772,14 @@ MonoBehaviour:
   playerHeslth: 10
   action: 0
   velocity: {x: 0, y: 0, z: 0}
-  isGrounded: 0
   wantsToUncrouch: 0
   canDoubleJump: 0
   canLevitate: 0
+  isGrounded: 0
+  isMoving: 0
+  isCrouched: 0
+  isWalking: 0
+  isRunning: 0
 --- !u!143 &1352947442
 CharacterController:
   m_ObjectHideFlags: 0
@@ -859,7 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01fc7308466443c42a84735e65b58006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
+  mouseSensitivity: 200
   playerBody: {fileID: 1352947443}
 --- !u!114 &1493704479
 MonoBehaviour:
