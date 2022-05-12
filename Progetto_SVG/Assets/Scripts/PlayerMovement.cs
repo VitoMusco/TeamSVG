@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public float damageForSeconds = 1f;
     public float playerHeslth = 10;
 
+    [SerializeField] private float action = 0;
     [SerializeField] Vector3 velocity;
     [SerializeField] private bool isGrounded;
     private bool isCrouched = false;
@@ -32,19 +33,19 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 lockRight;
     private Vector3 lockForward;
 
-    /*
-    private float walkBobSpeed = 14f;
+    
+    private float walkBobSpeed = 10f;
     private float walkBobAmount = 0.05f;
-    private float crouchBobSpeed = 8f;
+    private float crouchBobSpeed = 6f;
     private float crouchBobAmount = 0.025f;
     private float defaultYpos = 0;
     private float timer;
-    */
+    
 
     void Awake() 
     {
         playerCamera = GetComponentInChildren<Camera>();
-        //defaultYpos = playerCamera.transform.localPosition.y;
+        defaultYpos = playerCamera.transform.localPosition.y;
         anim = GetComponentInChildren<Animator>();
     }
     // Update is called once per frame
@@ -75,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         else
             move = lockRight * x + lockForward * z;
 
+        handleHeadBob(move.x,move.z);
         
         controller.Move(move * speed * Time.deltaTime);
 
@@ -131,15 +133,28 @@ public class PlayerMovement : MonoBehaviour
     void handleFallDamage() 
     {
         if (isGrounded && velocity.y < -30)
-        {           
-                print("mi sono fatto male");         
+        {
+            print("mi sono fatto male");
         }
-        
+    }
+
+    void handleHeadBob(float x, float z)
+    {
+        if (!isGrounded) return;
+
+        if (Mathf.Abs(x) > 0.1 || Mathf.Abs(z) > 0.1) {
+            timer += Time.deltaTime * walkBobSpeed;
+            playerCamera.transform.localPosition = new Vector3(
+                playerCamera.transform.localPosition.x,
+                defaultYpos + Mathf.Sin(timer) * walkBobAmount,
+                playerCamera.transform.localPosition.z
+                );
+        }
     }
 
     void handleAnimations()
     {
-        anim.SetFloat("Blend", 0f);
+        anim.SetFloat("Blend", action);
     }
 
     void jump() 
