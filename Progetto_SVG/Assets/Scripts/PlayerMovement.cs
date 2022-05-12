@@ -193,9 +193,9 @@ public class PlayerMovement : MonoBehaviour
     void handleAnimations()
     {
         if (isGrounded)
-            action = isWalking ? Mathf.Lerp(action, 1f, 0.25f) : isRunning ? Mathf.Lerp(action, 2f, 0.25f) : Mathf.Lerp(action, 0f, 0.1f);
+            action = isCrouched ? Mathf.Lerp(action, 0f, 0.25f) : isWalking ? Mathf.Lerp(action, 2f, 0.25f) : isRunning ? Mathf.Lerp(action, 3f, 0.25f) : Mathf.Lerp(action, 1f, 0.1f);
         else
-            action = Mathf.Lerp(action, 0f, 0.1f);
+            action = Mathf.Lerp(action, 4f, 0.1f);
         anim.SetFloat("Blend", action);
     }
 
