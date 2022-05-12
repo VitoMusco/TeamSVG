@@ -30,8 +30,11 @@ public class PlayerMovement : MonoBehaviour
     public bool canLevitate = false;
     private Vector3 lockRight;
     private Vector3 lockForward;
-    
-    
+    private float lockSpeed;
+
+
+    private float runBobSpeed = 14f;
+    private float runBobAmount = 0.08f;
     private float walkBobSpeed = 10f;
     private float walkBobAmount = 0.05f;
     private float crouchBobSpeed = 6f;
@@ -71,12 +74,12 @@ public class PlayerMovement : MonoBehaviour
         else
             isMoving = false;
 
-        if (isMoving && speed == 3f && !isCrouched)
+        if (isMoving && speed == 3f && !isCrouched && isGrounded)
             isWalking = true;
         else 
             isWalking = false;
 
-        if (isMoving && speed == 6f && !isCrouched)
+        if (isMoving && speed == 6f && !isCrouched && isGrounded)
             isRunning = true;
         else
             isRunning = false;
@@ -91,26 +94,26 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move;
         if (isGrounded)
+        {
             move = transform.right * x + transform.forward * z;
+            move = move * speed;
+        }
         else
+        {
             move = lockRight * x + lockForward * z;
+            move = move * lockSpeed;
+        }
 
         checkIfMoving(move.x, move.z);
         handleHeadBob();
         
-        controller.Move(move * speed * Time.deltaTime);
-       
-        if (isGrounded)
-        {
-            if (!isRunning && !isCrouched && Input.GetKeyDown("left shift"))
-            {
-                speed = 6f;
-            }
-            if (isRunning && Input.GetKeyUp("left shift"))
-            {
-                speed = 3f;
-            }
-        }
+        controller.Move(move * Time.deltaTime);
+
+
+        if (!isCrouched && Input.GetKeyDown("left shift"))
+            speed = 6f;   
+        if (Input.GetKeyUp("left shift"))
+            speed = 3f;
 
         //GESTIONE SALTO E DOPPIO SALTO
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -178,10 +181,10 @@ public class PlayerMovement : MonoBehaviour
         if (!isGrounded) return;
 
         if (isMoving) {
-            timer += Time.deltaTime * walkBobSpeed;
+            timer += Time.deltaTime * (isCrouched ? crouchBobSpeed : isWalking ? walkBobSpeed : runBobSpeed);
             playerCamera.transform.localPosition = new Vector3(
                 playerCamera.transform.localPosition.x,
-                defaultYpos + Mathf.Sin(timer) * walkBobAmount,
+                defaultYpos + Mathf.Sin(timer) * (isCrouched ? crouchBobAmount : isWalking ? walkBobAmount : runBobAmount),
                 playerCamera.transform.localPosition.z
                 );
         }
@@ -189,7 +192,10 @@ public class PlayerMovement : MonoBehaviour
 
     void handleAnimations()
     {
-        action = isWalking ? Mathf.Lerp(action, 1f, 0.25f) : isRunning ? Mathf.Lerp(action, 2f, 0.25f) : Mathf.Lerp(action, 0f, 0.1f);
+        if (isGrounded)
+            action = isWalking ? Mathf.Lerp(action, 1f, 0.25f) : isRunning ? Mathf.Lerp(action, 2f, 0.25f) : Mathf.Lerp(action, 0f, 0.1f);
+        else
+            action = Mathf.Lerp(action, 0f, 0.1f);
         anim.SetFloat("Blend", action);
     }
 
@@ -198,5 +204,6 @@ public class PlayerMovement : MonoBehaviour
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         lockRight = transform.right;
         lockForward = transform.forward;
+        lockSpeed = speed;
     }
 }
