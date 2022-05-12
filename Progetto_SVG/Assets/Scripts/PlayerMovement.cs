@@ -25,8 +25,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float action = 0;
     [SerializeField] Vector3 velocity;
-    [SerializeField] private bool isGrounded;
-    private bool isCrouched = false;
     [SerializeField] private bool wantsToUncrouch = false;
     public bool canDoubleJump;
     public bool canLevitate = false;
@@ -41,7 +39,12 @@ public class PlayerMovement : MonoBehaviour
     private float defaultYpos = 0;
     private float timer;
 
-    public bool isRun = false;
+
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isMoving = false;
+    [SerializeField] private bool isCrouched = false;
+    [SerializeField] private bool isWalking = false;
+    [SerializeField] private bool isRunning = false;
 
     void Awake() 
     {
@@ -59,9 +62,24 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //CONTROLLA SE SI E' A TERRA
-    void checkIfGrounded()
-    { 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+    void checkIfGrounded() => isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+    void checkIfMoving(float x, float z) 
+    {
+        if (Mathf.Abs(x) > 0.1 || Mathf.Abs(z) > 0.1)
+            isMoving = true;
+        else
+            isMoving = false;
+
+        if (isMoving && speed == 3f && !isCrouched)
+            isWalking = true;
+        else 
+            isWalking = false;
+
+        if (isMoving && speed == 6f && !isCrouched)
+            isRunning = true;
+        else
+            isRunning = false;
     }
 
     //GESTIONE MOVIMENTO
@@ -77,21 +95,20 @@ public class PlayerMovement : MonoBehaviour
         else
             move = lockRight * x + lockForward * z;
 
-        handleHeadBob(move.x,move.z);
+        checkIfMoving(move.x, move.z);
+        handleHeadBob();
         
         controller.Move(move * speed * Time.deltaTime);
        
         if (isGrounded)
         {
-            if (!isRun && Input.GetKeyDown("left shift"))
+            if (!isRunning && !isCrouched && Input.GetKeyDown("left shift"))
             {
                 speed = 6f;
-                isRun = true;
             }
-            if (isRun && Input.GetKeyUp("left shift"))
+            if (isRunning && Input.GetKeyUp("left shift"))
             {
                 speed = 3f;
-                isRun = false;
             }
         }
 
@@ -110,9 +127,12 @@ public class PlayerMovement : MonoBehaviour
         //GESTIONE CROUCH E LEVITAZIONE     
         if (!isCrouched && Input.GetKeyDown("left ctrl"))
         {
+            if (isRunning)
+                speed = 3f;
+
             controller.height = 1f;
             groundCheck.position = groundCheck.position + new Vector3(0f, .5f, 0f);
-            isCrouched = true;
+            isCrouched = true;  
         }
         
         if (isCrouched && Input.GetKeyUp("left ctrl"))
@@ -153,11 +173,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void handleHeadBob(float x, float z)
+    void handleHeadBob()
     {
         if (!isGrounded) return;
 
-        if (Mathf.Abs(x) > 0.1 || Mathf.Abs(z) > 0.1) {
+        if (isMoving) {
             timer += Time.deltaTime * walkBobSpeed;
             playerCamera.transform.localPosition = new Vector3(
                 playerCamera.transform.localPosition.x,
@@ -169,6 +189,7 @@ public class PlayerMovement : MonoBehaviour
 
     void handleAnimations()
     {
+        action = isWalking ? Mathf.Lerp(action, 1f, 0.25f) : isRunning ? Mathf.Lerp(action, 2f, 0.25f) : Mathf.Lerp(action, 0f, 0.1f);
         anim.SetFloat("Blend", action);
     }
 
