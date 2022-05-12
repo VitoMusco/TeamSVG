@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canLevitate = false;
     private Vector3 lockRight;
     private Vector3 lockForward;
-
+    
     
     private float walkBobSpeed = 10f;
     private float walkBobAmount = 0.05f;
@@ -40,7 +40,8 @@ public class PlayerMovement : MonoBehaviour
     private float crouchBobAmount = 0.025f;
     private float defaultYpos = 0;
     private float timer;
-    
+
+    public bool isRun = false;
 
     void Awake() 
     {
@@ -79,6 +80,20 @@ public class PlayerMovement : MonoBehaviour
         handleHeadBob(move.x,move.z);
         
         controller.Move(move * speed * Time.deltaTime);
+       
+        if (isGrounded)
+        {
+            if (!isRun && Input.GetKeyDown("left shift"))
+            {
+                speed = 6f;
+                isRun = true;
+            }
+            if (isRun && Input.GetKeyUp("left shift"))
+            {
+                speed = 3f;
+                isRun = false;
+            }
+        }
 
         //GESTIONE SALTO E DOPPIO SALTO
         if (Input.GetButtonDown("Jump") && isGrounded)
