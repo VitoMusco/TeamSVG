@@ -130,18 +130,11 @@ public class PlayerMovement : MonoBehaviour
 
     void handleFallDamage() 
     {
-        /*FALL DAMAGE DA RIVEDERE
-        if (isGrounded)
-        {
-            if(airTime > minSurviveFall)
-            {
-                //playerHealth -= damageForSeconds * airTime;
-                print("mi sono fatto male");
-            }
-            
-            airTime = 0;
+        if (isGrounded && velocity.y < -30)
+        {           
+                print("mi sono fatto male");         
         }
-        */
+        
     }
 
     void handleAnimations()
