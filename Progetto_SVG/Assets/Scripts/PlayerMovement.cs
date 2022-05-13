@@ -19,9 +19,6 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
 
     public float airTime = 0;
-    public float minSurviveFall = 6f;
-    public float damageForSeconds = 1f;
-    public float playerHeslth = 10;
 
     [SerializeField] private float action = 0;
     [SerializeField] Vector3 velocity;
@@ -60,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
     {
         checkIfGrounded();
         handleInputs();
-        handleFallDamage();
         handleAnimations();
     }
 
@@ -161,8 +157,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            handleFallDamage();
             if(!isGrounded)
                 velocity.y += gravity * gravityMultiplier * Time.deltaTime;
+            else
+                if(velocity.y < gravity)
+                    velocity.y = gravity;
         }
 
         controller.Move(velocity * Time.deltaTime);
@@ -171,7 +171,7 @@ public class PlayerMovement : MonoBehaviour
     void handleFallDamage() 
     {
         if (isGrounded && velocity.y < -30)
-        {
+        {     
             print("mi sono fatto male");
         }
     }
