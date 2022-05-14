@@ -14,9 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public float gravityMultiplier = 2f;
     public float jumpHeight = 3f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.1f;
-    public LayerMask groundMask;
 
     public float airTime = 0;
 
@@ -61,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //CONTROLLA SE SI E' A TERRA
-    void checkIfGrounded() => isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+    void checkIfGrounded() => isGrounded = controller.isGrounded;
 
     void checkIfMoving(float x, float z) 
     {
@@ -124,33 +121,27 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //GESTIONE CROUCH E LEVITAZIONE     
-        if (!isCrouched && Input.GetKeyDown("left ctrl"))
+        if (Input.GetKeyDown("left ctrl") && canCrouch)
         {
-            if (isRunning)
-                speed = 3f;
-
-            controller.height = 1f;
-            groundCheck.position = groundCheck.position + new Vector3(0f, .5f, 0f);
-            isCrouched = true;  
+            StartCoroutine(handleCrouch());
+            isCrouched = true;
         }
-        
-        if (isCrouched && Input.GetKeyUp("left ctrl"))
+        if (Input.GetKeyUp("left ctrl") && canCrouch)
         {
             wantsToUncrouch = true;
         }
         if (isCrouched && wantsToUncrouch)
         {
-            if(!Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
+            if (!Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
             {
-                controller.height = 2f;
-                groundCheck.position = groundCheck.position - new Vector3(0f, .5f, 0f);
+                StartCoroutine(handleCrouch());
                 isCrouched = false;
                 wantsToUncrouch = false;
             }
         }
 
-        //GESTIONE LEVITAZIONE
-        if (isCrouched && canLevitate)
+                //GESTIONE LEVITAZIONE
+                if (isCrouched && canLevitate)
         {
             if(!isGrounded)
                 velocity.y += -2f * Time.deltaTime;
@@ -190,12 +181,38 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    IEnumerator handleCrouch() 
+    {
+        if (isRunning)
+            speed = 3f;
+
+        float currentHeight = controller.height;
+        float targetHeight = isCrouched ? 2f : 1.25f;
+        float timeElapsed = 0;
+        float timeToCrouch = 0.1f;
+
+        Vector3 currentCenter = controller.center;
+        Vector3 targetCenter = isCrouched ? new Vector3(0f, 0f, 0f) : new Vector3(0f, 0.25f, 0f);
+
+        while (timeElapsed < timeToCrouch)
+        {
+            controller.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / timeToCrouch);
+            controller.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / timeToCrouch);
+            timeElapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        controller.height = targetHeight;
+        controller.center = targetCenter;
+    }
+
     void handleAnimations()
     {
         if (isGrounded)
             action = isCrouched ? Mathf.Lerp(action, 0f, 0.25f) : isWalking ? Mathf.Lerp(action, 2f, 0.25f) : isRunning ? Mathf.Lerp(action, 3f, 0.25f) : Mathf.Lerp(action, 1f, 0.1f);
         else
-            action = Mathf.Lerp(action, 4f, 1f);
+            action = Mathf.Lerp(action, 4f, 0.1f);
         anim.SetFloat("Blend", action);
     }
 
