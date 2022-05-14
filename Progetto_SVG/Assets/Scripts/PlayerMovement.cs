@@ -42,16 +42,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isRunning = false;
     [SerializeField] private bool canCrouch = true;
 
-    void Awake() 
-    {
+    void Awake() {
         controller = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
         defaultYpos = playerCamera.transform.localPosition.y;
         anim = GetComponentInChildren<Animator>();
     }
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         checkIfGrounded();
         handleInputs();
         handleAnimations();
@@ -60,8 +58,7 @@ public class PlayerMovement : MonoBehaviour
     //CONTROLLA SE SI E' A TERRA
     void checkIfGrounded() => isGrounded = controller.isGrounded;
 
-    void checkIfMoving(float x, float z) 
-    {
+    void checkIfMoving(float x, float z) {
         if (Mathf.Abs(x) > 0.1 || Mathf.Abs(z) > 0.1)
             isMoving = true;
         else
@@ -79,20 +76,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //GESTIONE MOVIMENTO
-    void handleInputs()
-    {
+    void handleInputs() {
         //MOVIMENTO
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
         Vector3 move;
-        if (isGrounded)
-        {
+        if (isGrounded) {
             move = transform.right * x + transform.forward * z;
             move = move * speed;
         }
-        else
-        {
+        else {
             move = lockRight * x + lockForward * z;
             move = move * lockSpeed;
         }
@@ -102,40 +96,31 @@ public class PlayerMovement : MonoBehaviour
         
         controller.Move(move * Time.deltaTime);
 
-
         if (!isCrouching && Input.GetKeyDown("left shift"))
             speed = 6f;   
         if (Input.GetKeyUp("left shift"))
             speed = 3f;
 
         //GESTIONE SALTO E DOPPIO SALTO
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            canDoubleJump = true;
+        if (Input.GetButtonDown("Jump") && isGrounded) {
             jump();
         }
-        else if (Input.GetButtonDown("Jump") && canDoubleJump)
-        {
+        else if (Input.GetButtonDown("Jump") && canDoubleJump) {
             jump();
-            canDoubleJump = false;
         }
 
         //GESTIONE CROUCH E LEVITAZIONE     
-        if (Input.GetKeyDown("left ctrl") && !isCrouching && canCrouch)
-        {
+        if (Input.GetKeyDown("left ctrl") && !isCrouching && canCrouch) {
             StartCoroutine(handleCrouch());
             isCrouching = true;
         }
-        if (Input.GetKeyUp("left ctrl"))
-        {
+        if (Input.GetKeyUp("left ctrl")) {
             wantsToUncrouch = true;
         }
         if (Input.GetKeyDown("left ctrl") && isCrouching && wantsToUncrouch)
             wantsToUncrouch = false;
-        if (isCrouching && wantsToUncrouch && canCrouch)
-        {
-            if (!Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
-            {
+        if (isCrouching && wantsToUncrouch && canCrouch) {
+            if (!Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) {
                 StartCoroutine(handleCrouch());
                 isCrouching = false;
                 wantsToUncrouch = false;
@@ -144,34 +129,28 @@ public class PlayerMovement : MonoBehaviour
         
 
         //GESTIONE LEVITAZIONE
-        if (isCrouching && canLevitate)
-        {
+        if (isCrouching && canLevitate) {
             if(!isGrounded)
                 velocity.y += -2f * Time.deltaTime;
         }
-        else
-        {
+        else {
             handleFallDamage();
             if(!isGrounded)
                 velocity.y += gravity * gravityMultiplier * Time.deltaTime;
-            else
-                if(velocity.y < gravity)
+            else if(velocity.y < gravity)
                     velocity.y = gravity;
         }
 
         controller.Move(velocity * Time.deltaTime);
     }
 
-    void handleFallDamage() 
-    {
-        if (isGrounded && velocity.y < -30)
-        {     
+    void handleFallDamage() {
+        if (isGrounded && velocity.y < -30) {     
             print("mi sono fatto male");
         }
     }
 
-    void handleHeadBob()
-    {
+    void handleHeadBob() {
         if (!isGrounded) return;
 
         if (isMoving) {
@@ -179,13 +158,11 @@ public class PlayerMovement : MonoBehaviour
             playerCamera.transform.localPosition = new Vector3(
                 playerCamera.transform.localPosition.x,
                 defaultYpos + Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : isWalking ? walkBobAmount : runBobAmount),
-                playerCamera.transform.localPosition.z
-                );
+                playerCamera.transform.localPosition.z);
         }
     }
 
-    IEnumerator handleCrouch() 
-    {
+    IEnumerator handleCrouch() {
         if (isRunning)
             speed = 3f;
 
@@ -198,8 +175,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 currentCenter = controller.center;
         Vector3 targetCenter = isCrouching ? new Vector3(0f, 0f, 0f) : new Vector3(0f, 0.25f, 0f);
 
-        while (timeElapsed < timeToCrouch)
-        {
+        while (timeElapsed < timeToCrouch) {
             controller.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / timeToCrouch);
             controller.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / timeToCrouch);
             timeElapsed += Time.deltaTime;
@@ -212,18 +188,19 @@ public class PlayerMovement : MonoBehaviour
         canCrouch = true;
     }
 
-    void handleAnimations()
-    {
+    void handleAnimations() {
         if (isGrounded)
-            action = isCrouching ? Mathf.Lerp(action, 1, 0.25f) : isWalking ? Mathf.Lerp(action, 3f, 0.25f) : isRunning ? Mathf.Lerp(action, 4f, 0.25f) : Mathf.Lerp(action, 2f, 0.1f);
+            action = isCrouching ? Mathf.Lerp(action, 1, 0.25f) : isWalking ? Mathf.Lerp(action, 3f, 0.25f) : 
+                isRunning ? Mathf.Lerp(action, 4f, 0.25f) : Mathf.Lerp(action, 2f, 0.1f);
         else
             action = Mathf.Lerp(action, 5f, 0.1f);
         anim.SetFloat("Blend", action);
     }
 
-    void jump() 
-    {
+    void jump() {
         if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
+
+        canDoubleJump = !canDoubleJump;
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         lockRight = transform.right;
         lockForward = transform.forward;
