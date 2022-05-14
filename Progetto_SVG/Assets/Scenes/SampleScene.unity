@@ -1139,22 +1139,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839d27ec78eab7d41bcc4a8f7ff31d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1352947442}
   speed: 3
   gravity: -9.81
   gravityMultiplier: 2
   jumpHeight: 3
-  airTime: 0
   action: 0
   velocity: {x: 0, y: 0, z: 0}
   wantsToUncrouch: 0
   canDoubleJump: 0
-  canLevitate: 0
+  canLevitate: 1
   isGrounded: 0
   isMoving: 0
-  isCrouched: 0
+  isCrouching: 0
   isWalking: 0
   isRunning: 0
+  canCrouch: 1
+  isLevitating: 0
+  hasDoubleJumped: 0
 --- !u!143 &1352947442
 CharacterController:
   m_ObjectHideFlags: 0

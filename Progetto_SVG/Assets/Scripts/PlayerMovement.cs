@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isWalking = false;
     [SerializeField] private bool isRunning = false;
     [SerializeField] private bool canCrouch = true;
+    [SerializeField] private bool isLevitating = false;
+    [SerializeField] private bool hasDoubleJumped = false;
 
     void Awake() {
         controller = GetComponent<CharacterController>();
@@ -106,7 +108,12 @@ public class PlayerMovement : MonoBehaviour
             jump();
         }
         else if (Input.GetButtonDown("Jump") && canDoubleJump) {
+            StartCoroutine(handleDoubleJump());
+            hasDoubleJumped = true;
             jump();
+        }
+        if (hasDoubleJumped && isGrounded) {
+            hasDoubleJumped = false;
         }
 
         //GESTIONE CROUCH E LEVITAZIONE     
@@ -130,10 +137,14 @@ public class PlayerMovement : MonoBehaviour
 
         //GESTIONE LEVITAZIONE
         if (isCrouching && canLevitate) {
-            if(!isGrounded)
+            if (!isGrounded) {
                 velocity.y += -2f * Time.deltaTime;
+                isLevitating = true;
+            }
+            else isLevitating = false;
         }
         else {
+            isLevitating = false;
             handleFallDamage();
             if(!isGrounded)
                 velocity.y += gravity * gravityMultiplier * Time.deltaTime;
@@ -190,10 +201,11 @@ public class PlayerMovement : MonoBehaviour
 
     void handleAnimations() {
         if (isGrounded)
-            action = isCrouching ? Mathf.Lerp(action, 1, 0.25f) : isWalking ? Mathf.Lerp(action, 3f, 0.25f) : 
-                isRunning ? Mathf.Lerp(action, 4f, 0.25f) : Mathf.Lerp(action, 2f, 0.1f);
+            action = isCrouching ? Mathf.Lerp(action, 2, 0.25f) : isWalking ? Mathf.Lerp(action, 4f, 0.25f) : 
+                isRunning ? Mathf.Lerp(action, 5f, 0.25f) : Mathf.Lerp(action, 3f, 0.1f);
         else
-            action = Mathf.Lerp(action, 5f, 0.1f);
+            action = isLevitating ? Mathf.Lerp(action, 1, 0.25f) : Mathf.Lerp(action, 6f, 0.1f);
+
         anim.SetFloat("Blend", action);
     }
 
@@ -205,5 +217,17 @@ public class PlayerMovement : MonoBehaviour
         lockRight = transform.right;
         lockForward = transform.forward;
         lockSpeed = speed;
+    }
+
+    IEnumerator handleDoubleJump() {
+        float timeToFinish = 0.36f;
+        float timeElapsed = 0;
+        anim.SetBool("DoubleJumping", true);
+        while (timeElapsed < timeToFinish) {
+            timeElapsed += Time.deltaTime;
+
+            yield return null;
+        }
+        anim.SetBool("DoubleJumping", false);
     }
 }
