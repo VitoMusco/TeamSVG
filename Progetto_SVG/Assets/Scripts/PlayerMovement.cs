@@ -121,12 +121,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //GESTIONE CROUCH E LEVITAZIONE     
-        if (Input.GetKeyDown("left ctrl") && canCrouch)
+        if (Input.GetKeyDown("left ctrl"))
         {
             StartCoroutine(handleCrouch());
             isCrouched = true;
         }
-        if (Input.GetKeyUp("left ctrl") && canCrouch)
+        if (Input.GetKeyUp("left ctrl"))
         {
             wantsToUncrouch = true;
         }
