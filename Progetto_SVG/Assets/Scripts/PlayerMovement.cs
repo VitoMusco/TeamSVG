@@ -5,23 +5,21 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public CharacterController controller;
+    private CharacterController controller;
     private Camera playerCamera;
     private Animator anim;
 
-    public float speed = 3f;
-    public float gravity = -9.81f;
-    public float gravityMultiplier = 2f;
-    public float jumpHeight = 3f;
-
-
-    public float airTime = 0;
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float gravityMultiplier = 2f;
+    [SerializeField] private float jumpHeight = 3f;
 
     [SerializeField] private float action = 0;
     [SerializeField] Vector3 velocity;
     [SerializeField] private bool wantsToUncrouch = false;
-    public bool canDoubleJump;
-    public bool canLevitate = false;
+    [SerializeField] private bool canDoubleJump;
+    [SerializeField] private bool canLevitate = false;
+
     private Vector3 lockRight;
     private Vector3 lockForward;
     private float lockSpeed;
@@ -39,12 +37,14 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isMoving = false;
-    [SerializeField] private bool isCrouched = false;
+    [SerializeField] private bool isCrouching = false;
     [SerializeField] private bool isWalking = false;
     [SerializeField] private bool isRunning = false;
+    [SerializeField] private bool canCrouch = true;
 
     void Awake() 
     {
+        controller = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
         defaultYpos = playerCamera.transform.localPosition.y;
         anim = GetComponentInChildren<Animator>();
@@ -67,12 +67,12 @@ public class PlayerMovement : MonoBehaviour
         else
             isMoving = false;
 
-        if (isMoving && speed == 3f && !isCrouched && isGrounded)
+        if (isMoving && speed == 3f && !isCrouching && isGrounded)
             isWalking = true;
         else 
             isWalking = false;
 
-        if (isMoving && speed == 6f && !isCrouched && isGrounded)
+        if (isMoving && speed == 6f && !isCrouching && isGrounded)
             isRunning = true;
         else
             isRunning = false;
@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(move * Time.deltaTime);
 
 
-        if (!isCrouched && Input.GetKeyDown("left shift"))
+        if (!isCrouching && Input.GetKeyDown("left shift"))
             speed = 6f;   
         if (Input.GetKeyUp("left shift"))
             speed = 3f;
@@ -121,31 +121,30 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //GESTIONE CROUCH E LEVITAZIONE     
-        if (Input.GetKeyDown("left ctrl") && !isCrouched)
+        if (Input.GetKeyDown("left ctrl") && !isCrouching && canCrouch)
         {
             StartCoroutine(handleCrouch());
-            isCrouched = true;
+            isCrouching = true;
         }
         if (Input.GetKeyUp("left ctrl"))
         {
             wantsToUncrouch = true;
         }
-        if (isCrouched && wantsToUncrouch)
+        if (Input.GetKeyDown("left ctrl") && isCrouching && wantsToUncrouch)
+            wantsToUncrouch = false;
+        if (isCrouching && wantsToUncrouch && canCrouch)
         {
             if (!Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
             {
                 StartCoroutine(handleCrouch());
-                isCrouched = false;
+                isCrouching = false;
                 wantsToUncrouch = false;
             }
         }
-        if (!isCrouched && wantsToUncrouch) 
-        {
-            wantsToUncrouch = false;
-        }
+        
 
         //GESTIONE LEVITAZIONE
-        if (isCrouched && canLevitate)
+        if (isCrouching && canLevitate)
         {
             if(!isGrounded)
                 velocity.y += -2f * Time.deltaTime;
@@ -176,10 +175,10 @@ public class PlayerMovement : MonoBehaviour
         if (!isGrounded) return;
 
         if (isMoving) {
-            timer += Time.deltaTime * (isCrouched ? crouchBobSpeed : isWalking ? walkBobSpeed : runBobSpeed);
+            timer += Time.deltaTime * (isCrouching ? crouchBobSpeed : isWalking ? walkBobSpeed : runBobSpeed);
             playerCamera.transform.localPosition = new Vector3(
                 playerCamera.transform.localPosition.x,
-                defaultYpos + Mathf.Sin(timer) * (isCrouched ? crouchBobAmount : isWalking ? walkBobAmount : runBobAmount),
+                defaultYpos + Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : isWalking ? walkBobAmount : runBobAmount),
                 playerCamera.transform.localPosition.z
                 );
         }
@@ -190,13 +189,14 @@ public class PlayerMovement : MonoBehaviour
         if (isRunning)
             speed = 3f;
 
+        canCrouch = false;
         float currentHeight = controller.height;
-        float targetHeight = isCrouched ? 2f : 1.25f;
+        float targetHeight = isCrouching ? 2f : 1.25f;
         float timeElapsed = 0;
         float timeToCrouch = 0.1f;
 
         Vector3 currentCenter = controller.center;
-        Vector3 targetCenter = isCrouched ? new Vector3(0f, 0f, 0f) : new Vector3(0f, 0.25f, 0f);
+        Vector3 targetCenter = isCrouching ? new Vector3(0f, 0f, 0f) : new Vector3(0f, 0.25f, 0f);
 
         while (timeElapsed < timeToCrouch)
         {
@@ -209,12 +209,13 @@ public class PlayerMovement : MonoBehaviour
 
         controller.height = targetHeight;
         controller.center = targetCenter;
+        canCrouch = true;
     }
 
     void handleAnimations()
     {
         if (isGrounded)
-            action = isCrouched ? Mathf.Lerp(action, 1, 0.25f) : isWalking ? Mathf.Lerp(action, 3f, 0.25f) : isRunning ? Mathf.Lerp(action, 4f, 0.25f) : Mathf.Lerp(action, 2f, 0.1f);
+            action = isCrouching ? Mathf.Lerp(action, 1, 0.25f) : isWalking ? Mathf.Lerp(action, 3f, 0.25f) : isRunning ? Mathf.Lerp(action, 4f, 0.25f) : Mathf.Lerp(action, 2f, 0.1f);
         else
             action = Mathf.Lerp(action, 5f, 0.1f);
         anim.SetFloat("Blend", action);
@@ -222,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
 
     void jump() 
     {
-        if (isCrouched && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
+        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         lockRight = transform.right;
         lockForward = transform.forward;
