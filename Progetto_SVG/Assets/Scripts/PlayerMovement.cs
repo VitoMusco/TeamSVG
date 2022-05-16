@@ -13,12 +13,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float gravityMultiplier = 2f;
     [SerializeField] private float jumpHeight = 3f;
-
     [SerializeField] private float action = 0;
+    [SerializeField] private float verticalVelocity;
+
     [SerializeField] Vector3 velocity;
     [SerializeField] private bool wantsToUncrouch = false;
     [SerializeField] private bool canDoubleJump;
     [SerializeField] private bool canLevitate = false;
+
+    private float x;
+    private float z;
+    private float lockX;
+    private float lockZ;
 
     private Vector3 lockRight;
     private Vector3 lockForward;
@@ -80,23 +86,23 @@ public class PlayerMovement : MonoBehaviour
     //GESTIONE MOVIMENTO
     void handleInputs() {
         //MOVIMENTO
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        x = Input.GetAxis("Horizontal");
+        z = Input.GetAxis("Vertical");
 
-        Vector3 move;
+        verticalVelocity = velocity.y;
+
         if (isGrounded) {
-            move = transform.right * x + transform.forward * z;
-            move = move * speed;
+            velocity = transform.right * x + transform.forward * z;
+            velocity = velocity * speed;
         }
         else {
-            move = lockRight * x + lockForward * z;
-            move = move * lockSpeed;
+            velocity = lockRight * lockX + lockForward * lockZ;
+            velocity = velocity * lockSpeed;
         }
 
-        checkIfMoving(move.x, move.z);
+        velocity.y = verticalVelocity;
+        checkIfMoving(velocity.x, velocity.z);
         handleHeadBob();
-        
-        controller.Move(move * Time.deltaTime);
 
         if (!isCrouching && Input.GetKeyDown("left shift"))
             speed = 6f;   
@@ -223,9 +229,11 @@ public class PlayerMovement : MonoBehaviour
 
     void jump() {
         if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
-        velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+        velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);       
         lockRight = transform.right;
         lockForward = transform.forward;
+        lockX = x;
+        lockZ = z;
         lockSpeed = speed;
     }
 
