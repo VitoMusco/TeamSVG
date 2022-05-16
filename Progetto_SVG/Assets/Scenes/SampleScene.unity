@@ -713,7 +713,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5a7039cd3c5aa7043b80539a708d0a1a, type: 2}
+      objectReference: {fileID: 4874126678125670354, guid: 2489564696e9c7b449defc7b2a4b513f,
+        type: 3}
     - target: {fileID: 8006400597500952356, guid: 2489564696e9c7b449defc7b2a4b513f,
         type: 3}
       propertyPath: m_Layer
@@ -1144,6 +1145,7 @@ MonoBehaviour:
   gravityMultiplier: 2
   jumpHeight: 3
   action: 0
+  verticalVelocity: 0
   velocity: {x: 0, y: 0, z: 0}
   wantsToUncrouch: 0
   canDoubleJump: 0
