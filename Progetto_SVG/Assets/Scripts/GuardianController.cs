@@ -46,21 +46,26 @@ public class GuardianController : MonoBehaviour
         playerInLaserAttackRange = Physics.CheckSphere(transform.position, laserAttackRange, whatIsPlayer);
         playerInSlamAttackRange = Physics.CheckSphere(transform.position, slamAttackRange, whatIsPlayer);
 
-        if (playerInSightRange && !playerInLaserAttackRange) chase();
-        if (playerInSlamAttackRange && playerInSightRange) attack(2f);
-        else if (playerInLaserAttackRange && playerInSightRange) attack(3f);
+        handleBehaviour();
+        //if (playerInSightRange && !playerInLaserAttackRange) chase();
+        //if (playerInSlamAttackRange && playerInSightRange) attack(2f);
+        //else if (playerInLaserAttackRange && playerInSightRange) attack(3f);
 
-        handleAnimations();
+        //handleAnimations();
     }
 
-    private void chase() {
+    void handleBehaviour() { 
+        
+    }
+
+    /*private void chase() {
         if (isAttacking != 0f) return;
 
         agent.SetDestination(player.position);
         isWalking = true;
         isAttacking = 0f;
-    }
-    private void attack(float type) {
+    }*/
+    /*private void attack(float type) {
 
         agent.SetDestination(transform.position);
         var playerPosition = player.position;
@@ -78,9 +83,9 @@ public class GuardianController : MonoBehaviour
 
     private void ResetAttack() {
         alreadyAttacked = false;
-    }
+    }*/
 
-    private void handleAnimations() {
+    /*private void handleAnimations() {
         if (!isWalking)
             action = Mathf.Lerp(action, 0f, 0.25f);
             anim.SetFloat("Blend", action);
@@ -96,7 +101,7 @@ public class GuardianController : MonoBehaviour
             if (isAttacking == 3f && !isSlamming && !isShooting)
                 StartCoroutine(shoot());
         }
-    }
+    }*/
 
     IEnumerator slam() {
         float timeElapsed = 0f;
