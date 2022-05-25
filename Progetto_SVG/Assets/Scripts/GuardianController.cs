@@ -14,9 +14,10 @@ public class GuardianController : MonoBehaviour
 
     [SerializeField] private float action = 0f;
     [SerializeField] private bool isWalking = false;
-    [SerializeField] private float isAttacking = 0f;
     [SerializeField] private float timeToSlam;
     [SerializeField] private float timeToShoot;
+    [SerializeField] private bool hasShot = false;
+    [SerializeField] private bool hasSlammed = false;
     [SerializeField] private bool isShooting = false;
     [SerializeField] private bool isSlamming = false;
 
@@ -47,35 +48,45 @@ public class GuardianController : MonoBehaviour
         playerInSlamAttackRange = Physics.CheckSphere(transform.position, slamAttackRange, whatIsPlayer);
 
         handleBehaviour();
-        //if (playerInSightRange && !playerInLaserAttackRange) chase();
-        //if (playerInSlamAttackRange && playerInSightRange) attack(2f);
-        //else if (playerInLaserAttackRange && playerInSightRange) attack(3f);
-
-        //handleAnimations();
+        handleAnimations();
     }
 
-    void handleBehaviour() { 
-        
+    void handleBehaviour() {
+        if (!hasShot) {
+            if (playerInSightRange && !playerInLaserAttackRange && !isSlamming && !isShooting) chase();
+            if (playerInLaserAttackRange && playerInSightRange) {
+                if (!isSlamming) {
+                    StartCoroutine(shoot());
+                }
+            }
+        }
+        if (!hasSlammed && hasShot) {
+            if (playerInSightRange && !playerInSlamAttackRange && !isSlamming && !isShooting) chase();
+            if (playerInSlamAttackRange && playerInSightRange) {
+                if (!isShooting) {
+                    StartCoroutine(slam());
+                }
+            }
+        }
+        if (hasShot && hasSlammed) {
+            hasShot = false;
+            hasSlammed = false;
+        }
     }
 
-    /*private void chase() {
-        if (isAttacking != 0f) return;
-
+    private void chase() {
         agent.SetDestination(player.position);
         isWalking = true;
-        isAttacking = 0f;
-    }*/
-    /*private void attack(float type) {
+    }
+    private void attack() {
 
         agent.SetDestination(transform.position);
         var playerPosition = player.position;
         playerPosition.y = 0;
         transform.LookAt(playerPosition);
-
+    
         if (!alreadyAttacked) {
-            //ATTACCA!
             isWalking = false;
-            isAttacking = type;
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -83,27 +94,21 @@ public class GuardianController : MonoBehaviour
 
     private void ResetAttack() {
         alreadyAttacked = false;
-    }*/
+    }
 
-    /*private void handleAnimations() {
+    private void handleAnimations() {
         if (!isWalking)
-            action = Mathf.Lerp(action, 0f, 0.25f);
-            anim.SetFloat("Blend", action);
-        if (isWalking) {
             action = Mathf.Lerp(action, 1f, 0.25f);
-            anim.SetFloat("Blend", action);
-        }
-        else if(isAttacking != 0f) {
-            anim.SetFloat("Blend", isAttacking);
-            if (isAttacking == 2f && !isSlamming && !isShooting) {
-                StartCoroutine(slam());
-            }
-            if (isAttacking == 3f && !isSlamming && !isShooting)
-                StartCoroutine(shoot());
-        }
-    }*/
+        if (isWalking)
+            action = Mathf.Lerp(action, 2f, 0.25f);
+        anim.SetFloat("Blend", action);
+    }
 
     IEnumerator slam() {
+        agent.SetDestination(transform.position);
+        aim();       
+
+        isWalking = false;
         float timeElapsed = 0f;
         anim.SetTrigger("Slam");
         while (timeElapsed < timeToSlam) {
@@ -111,12 +116,17 @@ public class GuardianController : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
+        //Slam
         anim.ResetTrigger("Slam");
         isSlamming = false;
-        isAttacking = 0f;
+        hasSlammed = true;
     }
 
     IEnumerator shoot() {
+        agent.SetDestination(transform.position);
+        aim();
+
+        isWalking = false;
         float timeElapsed = 0f;
         anim.SetTrigger("StartShooting");
         while (timeElapsed < timeToShoot)
@@ -125,13 +135,15 @@ public class GuardianController : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
-        timeElapsed = 0f;
+        isShooting = false;
         anim.ResetTrigger("StartShooting");
         //Sparo
         anim.SetTrigger("StopShooting");
-        anim.ResetTrigger("StartShooting");
-        isShooting = false;
-        isAttacking = 0f;
+        hasShot = true;
+    }
+
+    void aim() {
+        transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
     }
 
     private void OnDrawGizmosSelected() {
