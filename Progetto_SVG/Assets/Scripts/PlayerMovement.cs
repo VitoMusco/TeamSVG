@@ -161,6 +161,18 @@ public class PlayerMovement : MonoBehaviour
         }
 
         controller.Move(velocity * Time.deltaTime);
+
+        //GESTIONE ATTACCO
+        if (Input.GetMouseButtonDown(0))
+            anim.SetTrigger("Attacking");
+        if (Input.GetMouseButtonUp(0))
+            anim.ResetTrigger("Attacking");
+
+        //GESTIONE DIFESA
+        if (Input.GetMouseButtonDown(1))
+            anim.SetBool("Defending",true);
+        if (Input.GetMouseButtonUp(1))
+            anim.SetBool("Defending", false);
     }
 
     void handleFallDamage() {
