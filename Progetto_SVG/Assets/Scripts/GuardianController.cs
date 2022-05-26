@@ -10,6 +10,7 @@ public class GuardianController : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public Transform shootSource;
+    public LineRenderer shootBeam;
 
     private Animator anim;
 
@@ -23,6 +24,7 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private bool isSlamming = false;
     [SerializeField] private bool canAim = true;
     [SerializeField] private float timeToAim = 1f;
+    [SerializeField] private float timeSpentShooting = 3f;
 
     //Attacking
     public float timeBetweenAttacks;
@@ -41,6 +43,8 @@ public class GuardianController : MonoBehaviour
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
+        shootBeam = GetComponentInChildren<LineRenderer>();
+        shootBeam.enabled = false;
     }
 
     // Update is called once per frame
@@ -156,15 +160,18 @@ public class GuardianController : MonoBehaviour
     }
 
     IEnumerator shoot() {
-        RaycastHit hit;
-        float timeSpentShooting = 2f;
+        RaycastHit hit;       
         float timeElapsed = 0f;
+        shootBeam.enabled = true;
         while (timeElapsed < timeSpentShooting) {
             timeElapsed += Time.deltaTime;
-            Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit);
+            shootBeam.SetPosition(0, shootSource.position);
+            Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit);            
+            shootBeam.SetPosition(1, hit.point);
             Debug.DrawRay(shootSource.transform.position, shootSource.transform.forward * hit.distance, Color.green);
             yield return null;
         }
+        shootBeam.enabled = false;
         isShooting = false;
         anim.ResetTrigger("StartShooting");
         anim.SetTrigger("StopShooting");
