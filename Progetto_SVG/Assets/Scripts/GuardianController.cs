@@ -20,6 +20,8 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private bool hasSlammed = false;
     [SerializeField] private bool isShooting = false;
     [SerializeField] private bool isSlamming = false;
+    [SerializeField] private bool canAim = true;
+    [SerializeField] private float timeToAim = 1f;
 
     //Attacking
     public float timeBetweenAttacks;
@@ -78,6 +80,7 @@ public class GuardianController : MonoBehaviour
         agent.SetDestination(player.position);
         isWalking = true;
     }
+    /*
     private void attack() {
 
         agent.SetDestination(transform.position);
@@ -85,13 +88,8 @@ public class GuardianController : MonoBehaviour
         playerPosition.y = 0;
         transform.LookAt(playerPosition);
     
-        if (!alreadyAttacked) {
-            isWalking = false;
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-        }
-    }
-
+        
+    }*/
     private void ResetAttack() {
         alreadyAttacked = false;
     }
@@ -106,44 +104,71 @@ public class GuardianController : MonoBehaviour
 
     IEnumerator slam() {
         agent.SetDestination(transform.position);
-        aim();       
+        if (canAim)
+            StartCoroutine(aim());
+        canAim = false;
 
-        isWalking = false;
-        float timeElapsed = 0f;
-        anim.SetTrigger("Slam");
-        while (timeElapsed < timeToSlam) {
-            isSlamming = true;
-            timeElapsed += Time.deltaTime;
-            yield return null;
+        if (!alreadyAttacked)
+        {
+            isWalking = false;
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
+            float timeElapsed = 0f;
+            anim.SetTrigger("Slam");
+            while (timeElapsed < timeToSlam)
+            {
+                isSlamming = true;
+                timeElapsed += Time.deltaTime;
+                yield return null;
+            }
+            //Slam
+            anim.ResetTrigger("Slam");
+            isSlamming = false;
+            hasSlammed = true;
+            canAim = true;
         }
-        //Slam
-        anim.ResetTrigger("Slam");
-        isSlamming = false;
-        hasSlammed = true;
     }
 
     IEnumerator shoot() {
-        agent.SetDestination(transform.position);
-        aim();
-
-        isWalking = false;
         float timeElapsed = 0f;
-        anim.SetTrigger("StartShooting");
-        while (timeElapsed < timeToShoot)
+        agent.SetDestination(transform.position);
+        if (!alreadyAttacked)
         {
-            isShooting = true;
-            timeElapsed += Time.deltaTime;
-            yield return null;
+            isWalking = false;
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        
+            anim.SetTrigger("StartShooting");
+            if (canAim)
+                StartCoroutine(aim());
+            canAim = false;
+            while (timeElapsed < timeToShoot)
+            {
+                isShooting = true;
+                timeElapsed += Time.deltaTime;
+                yield return null;
+            }
+            isShooting = false;
+            anim.ResetTrigger("StartShooting");
+            //Sparo
+            anim.SetTrigger("StopShooting");
+            hasShot = true;
+            canAim = true;
         }
-        isShooting = false;
-        anim.ResetTrigger("StartShooting");
-        //Sparo
-        anim.SetTrigger("StopShooting");
-        hasShot = true;
     }
 
-    void aim() {
-        transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+    IEnumerator aim() {
+        float timeElapsed = 0f;
+        Quaternion whereToLook = Quaternion.LookRotation(player.position - transform.position);
+        while (timeElapsed < timeToAim) {
+            transform.rotation = Quaternion.Slerp(transform.rotation, whereToLook, timeElapsed / timeToAim);
+
+            timeElapsed += Time.deltaTime;
+
+            yield return null;
+        }
+        transform.rotation = whereToLook;
     }
 
     private void OnDrawGizmosSelected() {
