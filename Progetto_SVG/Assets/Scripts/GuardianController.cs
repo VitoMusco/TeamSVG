@@ -9,6 +9,7 @@ public class GuardianController : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
+    public Transform shootSource;
 
     private Animator anim;
 
@@ -34,7 +35,7 @@ public class GuardianController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    
+
     }
 
     void Awake() {
@@ -54,15 +55,15 @@ public class GuardianController : MonoBehaviour
     }
 
     void handleBehaviour() {
-        if (!hasShot) {
+        if (!hasShot && !alreadyAttacked) {
             if (playerInSightRange && !playerInLaserAttackRange && !isSlamming && !isShooting) chase();
             if (playerInLaserAttackRange && playerInSightRange) {
                 if (!isSlamming) {
-                    StartCoroutine(shoot());
+                    StartCoroutine(startShooting());
                 }
             }
         }
-        if (!hasSlammed && hasShot) {
+        if (!hasSlammed && hasShot && !alreadyAttacked) {
             if (playerInSightRange && !playerInSlamAttackRange && !isSlamming && !isShooting) chase();
             if (playerInSlamAttackRange && playerInSightRange) {
                 if (!isShooting) {
@@ -130,15 +131,13 @@ public class GuardianController : MonoBehaviour
         }
     }
 
-    IEnumerator shoot() {
+    IEnumerator startShooting() {
         float timeElapsed = 0f;
         agent.SetDestination(transform.position);
-        if (!alreadyAttacked)
-        {
+        if (!alreadyAttacked) {
             isWalking = false;
             alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-        
+
             anim.SetTrigger("StartShooting");
             if (canAim)
                 StartCoroutine(aim());
@@ -149,19 +148,33 @@ public class GuardianController : MonoBehaviour
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
-            isShooting = false;
-            anim.ResetTrigger("StartShooting");
-            //Sparo
-            anim.SetTrigger("StopShooting");
+            StartCoroutine(shoot());
             hasShot = true;
             canAim = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
+    }
+
+    IEnumerator shoot() {
+        RaycastHit hit;
+        float timeSpentShooting = 2f;
+        float timeElapsed = 0f;
+        while (timeElapsed < timeSpentShooting) {
+            timeElapsed += Time.deltaTime;
+            Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit);
+            Debug.DrawRay(shootSource.transform.position, shootSource.transform.forward * hit.distance, Color.green);
+            yield return null;
+        }
+        isShooting = false;
+        anim.ResetTrigger("StartShooting");
+        anim.SetTrigger("StopShooting");
     }
 
     IEnumerator aim() {
         float timeElapsed = 0f;
-        Quaternion whereToLook = Quaternion.LookRotation(player.position - transform.position);
+        Quaternion whereToLook = new Quaternion();
         while (timeElapsed < timeToAim) {
+            whereToLook = Quaternion.LookRotation(player.position - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, whereToLook, timeElapsed / timeToAim);
 
             timeElapsed += Time.deltaTime;
@@ -169,6 +182,10 @@ public class GuardianController : MonoBehaviour
             yield return null;
         }
         transform.rotation = whereToLook;
+    }
+
+    public void takeDamage(float amount) {
+        print("Ho preso " + amount + " danni");
     }
 
     private void OnDrawGizmosSelected() {

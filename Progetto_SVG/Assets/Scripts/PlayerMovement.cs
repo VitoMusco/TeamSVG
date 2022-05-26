@@ -47,7 +47,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isWalking = false;
     [SerializeField] private bool isRunning = false;
     [SerializeField] private bool canCrouch = true;
+    [SerializeField] private bool canShoot = true;
     [SerializeField] private bool isLevitating = false;
+    [SerializeField] private bool isAttacking = false;
+    [SerializeField] private bool isDefending = false;
+
     [SerializeField] private bool hasDoubleJumped = false;
 
     void Awake() {
@@ -163,16 +167,26 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //GESTIONE ATTACCO
-        if (Input.GetMouseButtonDown(0))
-            anim.SetTrigger("Attacking");
+        if (Input.GetMouseButtonDown(0) && canShoot)
+        {
+            //ATTACCA
+            isAttacking = true;
+            Invoke(nameof(shoot),0.15f);
+            canShoot = false;
+            Invoke(nameof(resetShoot), 1f);
+        }
         if (Input.GetMouseButtonUp(0))
-            anim.ResetTrigger("Attacking");
+            isAttacking = false;
 
         //GESTIONE DIFESA
         if (Input.GetMouseButtonDown(1))
-            anim.SetBool("Defending",true);
+            isDefending = true;
         if (Input.GetMouseButtonUp(1))
-            anim.SetBool("Defending", false);
+            isDefending = false;
+    }
+
+    void resetShoot() {
+        canShoot = true;
     }
 
     void handleFallDamage() {
@@ -229,7 +243,26 @@ public class PlayerMovement : MonoBehaviour
         canCrouch = true;
     }
 
+    void shoot() {
+        RaycastHit hit;
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit))
+        {
+            Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * hit.distance, Color.green);
+            if(hit.collider.tag == "Guardian")
+                hit.collider.GetComponent<GuardianController>().takeDamage(10f);
+        }
+    }
+
     void handleAnimations() {
+        if (isAttacking)
+            anim.SetTrigger("Attacking");
+        else
+            anim.ResetTrigger("Attacking");
+        if (isDefending)
+            anim.SetBool("Defending", true);
+        else
+            anim.SetBool("Defending", false);
+        
         if (isGrounded)
             action = isCrouching ? Mathf.Lerp(action, 2, 0.25f) : isWalking ? Mathf.Lerp(action, 4f, 0.25f) : 
                 isRunning ? Mathf.Lerp(action, 5f, 0.25f) : Mathf.Lerp(action, 3f, 0.1f);
