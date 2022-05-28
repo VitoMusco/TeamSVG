@@ -11,8 +11,6 @@ public class GuardianController : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public Transform shootSource;
     public LineRenderer shootBeam;
-    private GameObject sphereBeam;
-    public Transform originalSphereTransform;
 
     private Animator anim;
 
@@ -47,9 +45,6 @@ public class GuardianController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         shootBeam = GetComponentInChildren<LineRenderer>();
         shootBeam.enabled = false;
-        sphereBeam = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphereBeam.SetActive(false);
-        originalSphereTransform = sphereBeam.transform;
     }
 
     // Update is called once per frame
@@ -151,13 +146,8 @@ public class GuardianController : MonoBehaviour
             if (canAim)
                 StartCoroutine(aim());
             canAim = false;
-            sphereBeam.SetActive(true);
-            
-            
             while (timeElapsed < timeToShoot)
             {
-                sphereBeam.transform.position = shootSource.transform.position;
-                sphereBeam.transform.localScale += new Vector3(0.0005f, 0.0005f, 0.0005f);
                 isShooting = true;
                 timeElapsed += Time.deltaTime;
                 yield return null;
@@ -175,16 +165,14 @@ public class GuardianController : MonoBehaviour
         shootBeam.enabled = true;
         while (timeElapsed < timeSpentShooting) {
             timeElapsed += Time.deltaTime;
-            sphereBeam.transform.position = shootSource.transform.position;
-            shootBeam.SetPosition(0, sphereBeam.transform.position);
-            Physics.Raycast(sphereBeam.transform.position, sphereBeam.transform.forward, out hit);            
+            shootBeam.SetPosition(0, shootSource.position);
+            Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit);            
             shootBeam.SetPosition(1, hit.point);
-            //Debug.DrawRay(sphereBeam.transform.position, shootSource.transform.forward * hit.distance, Color.green);
+            Debug.DrawRay(shootSource.transform.position, shootSource.transform.forward * hit.distance, Color.green);
             yield return null;
         }
         shootBeam.enabled = false;
-        sphereBeam.SetActive(false);
-        sphereBeam.transform.SetPositionAndRotation(originalSphereTransform.position, originalSphereTransform.rotation);
+        isShooting = false;
         anim.ResetTrigger("StartShooting");
         anim.SetTrigger("StopShooting");
     }
