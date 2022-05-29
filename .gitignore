@@ -69,3 +69,8 @@ Progetto_SVG/UserSettings/Layouts/CurrentMaximizeLayout.dwlt
 Progetto_SVG/.vsconfig
 Progetto_SVG/ProjectSettings/Packages/com.unity.probuilder/Settings.json
 Progetto_SVG/ProjectSettings/Packages/com.unity.probuilder/Settings.json
+Progetto_SVG/ProjectSettings/Packages/com.unity.probuilder/Settings.json
+*.dwlt
+*.json
+*.json
+*.dwlt
