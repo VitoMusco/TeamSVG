@@ -11,6 +11,7 @@ public class GuardianController : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public Transform shootSource;
     public LineRenderer shootBeam;
+    public ParticleSystem laserParticles;
 
     private Animator anim;
 
@@ -45,6 +46,7 @@ public class GuardianController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         shootBeam = GetComponentInChildren<LineRenderer>();
         shootBeam.enabled = false;
+        laserParticles.Stop();
     }
 
     // Update is called once per frame
@@ -163,6 +165,7 @@ public class GuardianController : MonoBehaviour
         RaycastHit hit;       
         float timeElapsed = 0f;
         shootBeam.enabled = true;
+        laserParticles.Play();
         while (timeElapsed < timeSpentShooting) {
             timeElapsed += Time.deltaTime;
             shootBeam.SetPosition(0, shootSource.position);
@@ -175,6 +178,7 @@ public class GuardianController : MonoBehaviour
             yield return null;
         }
         shootBeam.enabled = false;
+        laserParticles.Stop();
         isShooting = false;
         anim.ResetTrigger("StartShooting");
         anim.SetTrigger("StopShooting");

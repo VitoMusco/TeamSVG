@@ -35,9 +35,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ElectricityAmount: 0
+    - _LineThickness: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    - _SimpleNoiseScale: 20
+    m_Colors:
+    - _Color: {r: 2.1176472, g: 0, b: 2.227451, a: 1}
+    - _DistortionNoiseSpeed: {r: 0.1, g: -0.5, b: 0, a: 0}
+    - _ElectricitySpeed: {r: -0.1, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8585501220604818580
 MonoBehaviour:
