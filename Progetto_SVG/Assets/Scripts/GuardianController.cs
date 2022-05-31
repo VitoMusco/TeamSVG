@@ -11,7 +11,9 @@ public class GuardianController : MonoBehaviour
     public LayerMask whatIsGround, whatIsPlayer;
     public Transform shootSource;
     public LineRenderer shootBeam;
-    public ParticleSystem laserParticles;
+    public ParticleSystem laserParticles; 
+    public ParticleSystem chargeParticles;
+    public GameObject slamCollider;
 
     private Animator anim;
 
@@ -47,6 +49,7 @@ public class GuardianController : MonoBehaviour
         shootBeam = GetComponentInChildren<LineRenderer>();
         shootBeam.enabled = false;
         laserParticles.Stop();
+        chargeParticles.Stop();
     }
 
     // Update is called once per frame
@@ -129,7 +132,7 @@ public class GuardianController : MonoBehaviour
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
-            //Slam
+            Instantiate(slamCollider, transform.position + new Vector3(0f, 1f, 0f), transform.rotation);
             anim.ResetTrigger("Slam");
             isSlamming = false;
             hasSlammed = true;
@@ -148,6 +151,7 @@ public class GuardianController : MonoBehaviour
             if (canAim)
                 StartCoroutine(aim());
             canAim = false;
+            chargeParticles.Play();
             while (timeElapsed < timeToShoot)
             {
                 isShooting = true;
@@ -187,9 +191,14 @@ public class GuardianController : MonoBehaviour
     IEnumerator aim() {
         float timeElapsed = 0f;
         Quaternion whereToLook = new Quaternion();
-        while (timeElapsed < timeToAim) {
-            whereToLook = Quaternion.LookRotation(player.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, whereToLook, timeElapsed / timeToAim);
+        Quaternion startRotation = transform.rotation;
+        Vector3 lookPos;
+        while (timeElapsed < timeToAim) {         
+            lookPos = player.position - transform.position;
+            if (lookPos.x < 2 || lookPos.z < 2)
+                lookPos.y = 0;
+            whereToLook = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(startRotation, whereToLook, timeElapsed / timeToAim);
 
             timeElapsed += Time.deltaTime;
 
