@@ -97,8 +97,9 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 32aebdf790cd7fd48a3762190accf78f,
+  m_LightingDataAsset: {fileID: 112000000, guid: b9d409b35a73da34d8e6501aeb2a348d,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 9212c26bc4f68ad4481de614ef278052,
     type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -5071,12 +5072,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 645128197}
+    m_ConstrainedObject: {fileID: 2035964540}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
         transform: {fileID: 1419688179}
-        weight: 0.3
+        weight: 0.2
       m_Item1:
         transform: {fileID: 0}
         weight: 0
@@ -10372,12 +10373,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!4 &645128197 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -1626732431376047314, guid: 694257dd7494a0344b6fe7c03e222601,
-    type: 3}
-  m_PrefabInstance: {fileID: 1975146891}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &750766076
 GameObject:
   m_ObjectHideFlags: 0
@@ -10429,7 +10424,7 @@ MonoBehaviour:
       m_Length: 1
       m_Item0:
         transform: {fileID: 1419688179}
-        weight: 0.75
+        weight: 0.8
       m_Item1:
         transform: {fileID: 0}
         weight: 0
@@ -15846,3 +15841,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 694257dd7494a0344b6fe7c03e222601, type: 3}
+--- !u!4 &2035964540 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3043212742692397192, guid: 694257dd7494a0344b6fe7c03e222601,
+    type: 3}
+  m_PrefabInstance: {fileID: 1975146891}
+  m_PrefabAsset: {fileID: 0}
