@@ -10192,8 +10192,9 @@ MonoBehaviour:
   canAim: 1
   timeToAim: 1
   timeSpentShooting: 4
-  timeBetweenAttacks: 7
-  sightRange: 26
+  timeAfterShooting: 2.9
+  timeAfterSlamming: 2.7
+  sightRange: 36
   laserAttackRange: 21
   slamAttackRange: 17
   playerInSightRange: 0
@@ -10308,7 +10309,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.8521042
+        value: 0.9451256
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -10316,8 +10317,8 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.41579896
-        value: 0.5276953
+        time: 0.51154786
+        value: 0.6858374
         inSlope: 0.24175829
         outSlope: 0.24175829
         tangentMode: 0
@@ -10326,7 +10327,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 1
-        value: 0.45039663
+        value: 0.9294616
         inSlope: 0
         outSlope: 0
         tangentMode: 0

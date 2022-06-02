@@ -47,7 +47,7 @@ Material:
     - _DistortionAmount: 0
     - _DistortionScale: 30
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 2.9960785, g: 2.9960785, b: 2.9960785, a: 1}
     - _DistortionSpeed: {r: 3, g: 0, b: 0, a: 0}
     - _MainTextureSpeed: {r: -3, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

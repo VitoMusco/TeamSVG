@@ -30,7 +30,7 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private float timeSpentShooting = 3f;
 
     //Attacking
-    public float timeBetweenAttacks;
+    public float timeAfterShooting, timeAfterSlamming;
     bool alreadyAttacked;
 
     //States
@@ -122,7 +122,6 @@ public class GuardianController : MonoBehaviour
         {
             isWalking = false;
             alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
 
             float timeElapsed = 0f;
             anim.SetTrigger("Slam");
@@ -137,6 +136,7 @@ public class GuardianController : MonoBehaviour
             isSlamming = false;
             hasSlammed = true;
             canAim = true;
+            Invoke(nameof(ResetAttack), timeAfterSlamming);
         }
     }
 
@@ -161,7 +161,6 @@ public class GuardianController : MonoBehaviour
             StartCoroutine(shoot());
             hasShot = true;
             canAim = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
 
@@ -186,6 +185,7 @@ public class GuardianController : MonoBehaviour
         isShooting = false;
         anim.ResetTrigger("StartShooting");
         anim.SetTrigger("StopShooting");
+        Invoke(nameof(ResetAttack), timeAfterShooting);
     }
 
     IEnumerator aim() {
@@ -195,7 +195,7 @@ public class GuardianController : MonoBehaviour
         Vector3 lookPos;
         while (timeElapsed < timeToAim) {         
             lookPos = player.position - transform.position;
-            if (lookPos.x < 2 || lookPos.z < 2)
+            if (lookPos.x < 3 || lookPos.z < 3)
                 lookPos.y = 0;
             whereToLook = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(startRotation, whereToLook, timeElapsed / timeToAim);
