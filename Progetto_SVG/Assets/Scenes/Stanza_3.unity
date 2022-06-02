@@ -108,15 +108,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
-    agentHeight: 2
+    agentRadius: 3
+    agentHeight: 3.5
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 1
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -10667,6 +10667,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: -4365977739500692245, guid: 2ffaad5eb7e0acb46a88687cdf39dbac,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -4056338144191708402, guid: 2ffaad5eb7e0acb46a88687cdf39dbac,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -10691,6 +10696,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -1071302230196921521, guid: 2ffaad5eb7e0acb46a88687cdf39dbac,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -849255127246080926, guid: 2ffaad5eb7e0acb46a88687cdf39dbac,
         type: 3}
@@ -10721,6 +10731,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5594834299365455420, guid: 2ffaad5eb7e0acb46a88687cdf39dbac,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5953051990326490803, guid: 2ffaad5eb7e0acb46a88687cdf39dbac,
         type: 3}

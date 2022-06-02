@@ -48,7 +48,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CutoffHeight: 52
+    - _CutoffHeight: 53
     - _EdgeWidth: 0.2
     - _NoiseScale: 20
     - _NoiseSpeed: -0.2
@@ -57,5 +57,6 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 0, b: 0, a: 0}
-    - _EdgeColor: {r: 1.286275, g: 0, b: 1.254902, a: 1}
+    - _EdgeColor: {r: 4.237095, g: 0, b: 4.14836, a: 1}
+    - _NoiseSpeed: {r: 0.3, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
