@@ -13,6 +13,7 @@ public class GuardianController : MonoBehaviour
     public LineRenderer shootBeam;
     public ParticleSystem laserParticles; 
     public ParticleSystem chargeParticles;
+    public ParticleSystem slamParticles;
     public GameObject slamCollider;
 
     private Animator anim;
@@ -50,6 +51,7 @@ public class GuardianController : MonoBehaviour
         shootBeam.enabled = false;
         laserParticles.Stop();
         chargeParticles.Stop();
+        slamParticles.Stop();
     }
 
     // Update is called once per frame
@@ -132,6 +134,7 @@ public class GuardianController : MonoBehaviour
                 yield return null;
             }
             Instantiate(slamCollider, transform.position + new Vector3(0f, 1f, 0f), transform.rotation);
+            slamParticles.Play();
             anim.ResetTrigger("Slam");
             isSlamming = false;
             hasSlammed = true;
