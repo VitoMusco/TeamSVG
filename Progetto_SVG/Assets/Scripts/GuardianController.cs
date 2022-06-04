@@ -21,6 +21,7 @@ public class GuardianController : MonoBehaviour
 
     [SerializeField] private float action = 0f;
     [SerializeField] private bool isWalking = false;
+    [SerializeField] private bool isAlive = true;
     [SerializeField] private float timeToSlam;
     [SerializeField] private float timeToShoot;
     [SerializeField] private bool hasShot = false;
@@ -238,9 +239,9 @@ public class GuardianController : MonoBehaviour
             print("sono morto!");
         }
     }
-}
 
-private void OnDrawGizmosSelected() {
+    private void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, laserAttackRange);
         Gizmos.color = Color.green;

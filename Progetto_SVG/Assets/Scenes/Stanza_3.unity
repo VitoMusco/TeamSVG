@@ -19867,6 +19867,7 @@ MonoBehaviour:
     type: 3}
   action: 0
   isWalking: 0
+  isAlive: 1
   timeToSlam: 1.5
   timeToShoot: 5
   hasShot: 0
