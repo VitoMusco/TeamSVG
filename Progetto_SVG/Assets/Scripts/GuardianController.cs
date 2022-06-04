@@ -17,6 +17,7 @@ public class GuardianController : MonoBehaviour
     public GameObject slamCollider;
 
     private Animator anim;
+    private float health = 100;
 
     [SerializeField] private float action = 0f;
     [SerializeField] private bool isWalking = false;
@@ -214,11 +215,32 @@ public class GuardianController : MonoBehaviour
         transform.rotation = whereToLook;
     }
 
-    public void takeDamage(float amount) {
-        print("Ho preso " + amount + " danni");
+    public void checkHealth()
+    {
+        if (health <= 0)
+            isAlive = false;
+        else
+        {
+            print("Salute rimanente: " + health);
+        }
     }
 
-    private void OnDrawGizmosSelected() {
+    public void takeDamage(float amount)
+    {
+        if (isAlive)
+        {
+            print("Ho preso " + amount + " danni");
+            health -= amount;
+            checkHealth();
+        }
+        else
+        {
+            print("sono morto!");
+        }
+    }
+}
+
+private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, laserAttackRange);
         Gizmos.color = Color.green;

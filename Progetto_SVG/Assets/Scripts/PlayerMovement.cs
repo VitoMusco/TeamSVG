@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     private float crouchBobAmount = 0.025f;
     private float defaultYpos = 0;
     private float timer;
+    private float health = 100f;
+    private bool isAlive = true;
 
 
     [SerializeField] private bool isGrounded;
@@ -293,9 +295,26 @@ public class PlayerMovement : MonoBehaviour
         }
         anim.SetBool("DoubleJumping", false);
     }
+    public void checkHealth()
+    {
+        if (health <= 0)
+            isAlive = false;
+        else {
+            print("Salute rimanente: " + health);
+        }
+    }
 
     public void takeDamage(float amount)
     {
-        print("Ho preso " + amount + " danni");
+        if (isAlive)
+        {
+            print("Ho preso " + amount + " danni");
+            health -= amount;
+            checkHealth();
+        }
+        else
+        {
+            print("sono morto!");
+        }
     }
 }
