@@ -176,7 +176,11 @@ public class GuardianController : MonoBehaviour
             timeElapsed += Time.deltaTime;
             shootBeam.SetPosition(0, shootSource.position);
             if (Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit, 42f))
+            {
                 shootBeam.SetPosition(1, hit.point);
+                if (hit.collider.tag == "Player")
+                    hit.collider.GetComponent<PlayerMovement>().takeDamage(8f);
+            }             
             else {
                 shootBeam.SetPosition(1, shootSource.transform.position + shootSource.transform.forward * 100f);
             }

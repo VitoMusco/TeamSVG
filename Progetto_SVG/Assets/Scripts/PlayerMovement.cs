@@ -293,4 +293,9 @@ public class PlayerMovement : MonoBehaviour
         }
         anim.SetBool("DoubleJumping", false);
     }
+
+    public void takeDamage(float amount)
+    {
+        print("Ho preso " + amount + " danni");
+    }
 }
