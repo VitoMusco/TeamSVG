@@ -6,14 +6,14 @@ using  UnityEngine.SceneManagement;//per cambiare scena
 public class Menu : MonoBehaviour
 {
     public void NewGame(){
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(0);
     }
      public void ContinueGame(){
         
     }
      public void ExitGame(){
         Application.Quit();
-        Debug.log("Esci");
+        Debug.Log("Esci");
     }
      public void OptionGame(){
         
