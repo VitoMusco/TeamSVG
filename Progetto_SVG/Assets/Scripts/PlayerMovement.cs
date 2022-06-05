@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Transform predictedMovement;
+    public Transform shootSource;
 
+    private LineRenderer shootBeam;
     private CharacterController controller;
     private Camera playerCamera;
     private Animator anim;
 
+    [SerializeField] private float predictedVelocityMultiplier = 3f;
     [SerializeField] private float speed = 3f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float gravityMultiplier = 2f;
@@ -40,10 +43,10 @@ public class PlayerMovement : MonoBehaviour
     private float crouchBobAmount = 0.025f;
     private float defaultYpos = 0;
     private float timer;
-    private float health = 100f;
     private bool isAlive = true;
 
-
+    [SerializeField] private float health = 100f;
+    [SerializeField] private float timeToShoot = 0.4f;
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isMoving = false;
     [SerializeField] private bool isCrouching = false;
@@ -58,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool hasDoubleJumped = false;
 
     void Awake() {
+        shootBeam = GetComponentInChildren<LineRenderer>();
+        shootBeam.enabled = false;
         controller = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
         defaultYpos = playerCamera.transform.localPosition.y;
@@ -65,12 +70,12 @@ public class PlayerMovement : MonoBehaviour
     }
     // Update is called once per frame
     void Update() {
-        //if (isAlive) {
+        if (isAlive) {
             checkIfGrounded();
             handleInputs();
             handleMovementPrediction();
             handleAnimations();
-        //}     
+        }     
     }
 
     //CONTROLLA SE SI E' A TERRA
@@ -176,10 +181,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
             //ATTACCA
-            isAttacking = true;
-            Invoke(nameof(shoot),0.15f);
-            canShoot = false;
-            Invoke(nameof(resetShoot), 1f);
+            if (canShoot) {
+                isAttacking = true;
+                Invoke(nameof(shoot), timeToShoot);
+                canShoot = false;
+                Invoke(nameof(resetShoot), 1f);
+            }
         }
         if (Input.GetMouseButtonUp(0))
             isAttacking = false;
@@ -194,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
     void handleMovementPrediction() {
         Vector3 XZVelocity = velocity;
         XZVelocity.y = 0;
-        predictedMovement.position = Vector3.Lerp(predictedMovement.position, transform.position + XZVelocity * 3, 0.25f);
+        predictedMovement.position = Vector3.Lerp(predictedMovement.position, transform.position + XZVelocity * predictedVelocityMultiplier, 0.25f);
     }
 
     void resetShoot() {
@@ -257,12 +264,23 @@ public class PlayerMovement : MonoBehaviour
 
     void shoot() {
         RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit))
+        shootBeam.enabled = true;
+        shootBeam.SetPosition(0, shootSource.transform.position);
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f))
         {
+            shootBeam.SetPosition(1, hit.point);
             Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * hit.distance, Color.green);
-            if(hit.collider.tag == "Guardian")
+            if (hit.collider.tag == "Guardian")
                 hit.collider.GetComponent<GuardianController>().takeDamage(10f);
         }
+        else {
+            shootBeam.SetPosition(1, playerCamera.transform.position + playerCamera.transform.forward * 100f);
+        }
+        Invoke(nameof(removeBeam), 1f);
+    }
+
+    void removeBeam() {
+        shootBeam.enabled = false;
     }
 
     void handleAnimations() {
