@@ -18,7 +18,7 @@ public class GuardianController : MonoBehaviour
     public GameObject slamCollider;
 
     private Animator anim;
-    private float health = 100;
+    private float health = 600;
 
     [SerializeField] private float action = 0f;
     [SerializeField] private bool isWalking = false;
