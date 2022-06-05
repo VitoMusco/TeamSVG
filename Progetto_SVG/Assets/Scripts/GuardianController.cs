@@ -122,8 +122,8 @@ public class GuardianController : MonoBehaviour
 
     IEnumerator slam() {
         agent.SetDestination(transform.position);
-        /*if (canAim)
-            StartCoroutine(aim());*/
+        if (canAim)
+            StartCoroutine(aim());
         canAim = false;
 
         if (!alreadyAttacked)
