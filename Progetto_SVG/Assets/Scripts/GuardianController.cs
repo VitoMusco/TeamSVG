@@ -206,8 +206,9 @@ public class GuardianController : MonoBehaviour
         Quaternion whereToLook = new Quaternion();
         Quaternion startRotation = transform.rotation;
         Vector3 lookPos;
+        Vector3 predictedLocation = playerPrediction.position;
         while (timeElapsed < timeToAim) {         
-            lookPos = playerPrediction.position - transform.position;
+            lookPos = predictedLocation - transform.position;
             //if (lookPos.x < 3 || lookPos.z < 3)
             lookPos.y = 0;
             whereToLook = Quaternion.LookRotation(lookPos);

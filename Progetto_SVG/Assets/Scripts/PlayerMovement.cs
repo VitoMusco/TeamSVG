@@ -194,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
     void handleMovementPrediction() {
         Vector3 XZVelocity = velocity;
         XZVelocity.y = 0;
-        predictedMovement.position = Vector3.Lerp(predictedMovement.position, transform.position + XZVelocity * 2, 0.25f);
+        predictedMovement.position = Vector3.Lerp(predictedMovement.position, transform.position + XZVelocity * 3, 0.25f);
     }
 
     void resetShoot() {
