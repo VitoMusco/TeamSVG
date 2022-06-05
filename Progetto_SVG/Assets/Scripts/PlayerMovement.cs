@@ -64,9 +64,11 @@ public class PlayerMovement : MonoBehaviour
     }
     // Update is called once per frame
     void Update() {
-        checkIfGrounded();
-        handleInputs();
-        handleAnimations();
+        if (isAlive) {
+            checkIfGrounded();
+            handleInputs();
+            handleAnimations();
+        }     
     }
 
     //CONTROLLA SE SI E' A TERRA
@@ -315,6 +317,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             print("sono morto!");
+            Update();
         }
     }
 }

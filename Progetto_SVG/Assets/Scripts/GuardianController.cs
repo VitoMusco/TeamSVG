@@ -59,12 +59,15 @@ public class GuardianController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInLaserAttackRange = Physics.CheckSphere(transform.position, laserAttackRange, whatIsPlayer);
-        playerInSlamAttackRange = Physics.CheckSphere(transform.position, slamAttackRange, whatIsPlayer);
+        if (isAlive)
+        {
+            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            playerInLaserAttackRange = Physics.CheckSphere(transform.position, laserAttackRange, whatIsPlayer);
+            playerInSlamAttackRange = Physics.CheckSphere(transform.position, slamAttackRange, whatIsPlayer);
 
-        handleBehaviour();
-        handleAnimations();
+            handleBehaviour();
+            handleAnimations();
+        }       
     }
 
     void handleBehaviour() {
@@ -237,6 +240,7 @@ public class GuardianController : MonoBehaviour
         else
         {
             print("sono morto!");
+            Update();
         }
     }
 

@@ -25,9 +25,7 @@ public class CameraLook : MonoBehaviour
         yRotation -= mouseY;
         yRotation = Mathf.Clamp(yRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(yRotation,0,0);
-        playerBody.Rotate(Vector3.up * mouseX);
-
-
+        transform.localRotation = Quaternion.Euler(yRotation, 0, 0);
+        playerBody.Rotate(Vector3.up * mouseX);        
     }
 }
