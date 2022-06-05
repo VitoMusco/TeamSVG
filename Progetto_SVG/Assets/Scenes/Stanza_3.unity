@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12734169, g: 0.054428216, b: 0.29048574, a: 1}
+  m_IndirectSpecularColor: {r: 0.12582365, g: 0.053881135, b: 0.28584456, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -125,6 +125,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 4d578385cf3826a428f4cbf9feffb2c8, type: 2}
+--- !u!1 &75388763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 75388764}
+  m_Layer: 6
+  m_Name: MovementPrediction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &75388764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75388763}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1419688179}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &136282549
 GameObject:
   m_ObjectHideFlags: 0
@@ -6166,7 +6197,7 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.17103328
         - serializedVersion: 3
-          time: 0.9662874
+          time: 0.98780227
           value: 1
           inSlope: 0.044292785
           outSlope: 0.044292785
@@ -19852,6 +19883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   player: {fileID: 1419688179}
+  playerPrediction: {fileID: 75388764}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -19869,14 +19901,14 @@ MonoBehaviour:
   isWalking: 0
   isAlive: 1
   timeToSlam: 1.5
-  timeToShoot: 5
+  timeToShoot: 4
   hasShot: 0
   hasSlammed: 0
   isShooting: 0
   isSlamming: 0
   canAim: 1
   timeToAim: 1
-  timeSpentShooting: 4
+  timeSpentShooting: 2
   timeAfterShooting: 2.9
   timeAfterSlamming: 2.7
   sightRange: 36
@@ -25060,6 +25092,11 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3158481078841949050, guid: fec9b469a925dee43ba8717605949609,
+        type: 3}
+      propertyPath: predictedMovement
+      value: 
+      objectReference: {fileID: 75388764}
     - target: {fileID: 3158481078841949051, guid: fec9b469a925dee43ba8717605949609,
         type: 3}
       propertyPath: m_Name

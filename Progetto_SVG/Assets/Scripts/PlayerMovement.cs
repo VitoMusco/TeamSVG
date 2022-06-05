@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform predictedMovement;
 
     private CharacterController controller;
     private Camera playerCamera;
@@ -64,11 +65,12 @@ public class PlayerMovement : MonoBehaviour
     }
     // Update is called once per frame
     void Update() {
-        if (isAlive) {
+        //if (isAlive) {
             checkIfGrounded();
             handleInputs();
+            handleMovementPrediction();
             handleAnimations();
-        }     
+        //}     
     }
 
     //CONTROLLA SE SI E' A TERRA
@@ -187,6 +189,12 @@ public class PlayerMovement : MonoBehaviour
             isDefending = true;
         if (Input.GetMouseButtonUp(1))
             isDefending = false;
+    }
+
+    void handleMovementPrediction() {
+        Vector3 XZVelocity = velocity;
+        XZVelocity.y = 0;
+        predictedMovement.position = Vector3.Lerp(predictedMovement.position, transform.position + XZVelocity * 2, 0.25f);
     }
 
     void resetShoot() {

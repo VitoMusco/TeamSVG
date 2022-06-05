@@ -8,6 +8,7 @@ public class GuardianController : MonoBehaviour
 
     public NavMeshAgent agent;
     public Transform player;
+    public Transform playerPrediction;
     public LayerMask whatIsGround, whatIsPlayer;
     public Transform shootSource;
     public LineRenderer shootBeam;
@@ -121,8 +122,8 @@ public class GuardianController : MonoBehaviour
 
     IEnumerator slam() {
         agent.SetDestination(transform.position);
-        if (canAim)
-            StartCoroutine(aim());
+        /*if (canAim)
+            StartCoroutine(aim());*/
         canAim = false;
 
         if (!alreadyAttacked)
@@ -206,7 +207,7 @@ public class GuardianController : MonoBehaviour
         Quaternion startRotation = transform.rotation;
         Vector3 lookPos;
         while (timeElapsed < timeToAim) {         
-            lookPos = player.position - transform.position;
+            lookPos = playerPrediction.position - transform.position;
             //if (lookPos.x < 3 || lookPos.z < 3)
             lookPos.y = 0;
             whereToLook = Quaternion.LookRotation(lookPos);
