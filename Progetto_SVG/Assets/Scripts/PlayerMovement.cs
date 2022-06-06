@@ -204,8 +204,6 @@ public class PlayerMovement : MonoBehaviour
                 Invoke(nameof(resetShoot), 1f);
             }
         }
-        if (Input.GetMouseButtonUp(0))
-            isAttacking = false;
 
         //GESTIONE DIFESA
         if (Input.GetMouseButtonDown(1) && !isAttacking && magicStamina > 0f) {
@@ -303,6 +301,7 @@ public class PlayerMovement : MonoBehaviour
         particleShoot.Play();
         StartCoroutine(expandShootBeam());
         StartCoroutine(shrinkShootBeam());
+        isAttacking = false;
         //Invoke(nameof(removeBeam), 1f);
     }
 
