@@ -32,6 +32,7 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private bool canAim = true;
     [SerializeField] private float timeToAim = 1f;
     [SerializeField] private float timeSpentShooting = 3f;
+    [SerializeField] private float timeBetweenShots = 0.1f;
 
     //Attacking
     public float timeAfterShooting, timeAfterSlamming;
@@ -176,16 +177,21 @@ public class GuardianController : MonoBehaviour
     IEnumerator shoot() {
         RaycastHit hit;       
         float timeElapsed = 0f;
+        float timeAfterLastShot = 0f;
         shootBeam.enabled = true;
         laserParticles.Play();
         while (timeElapsed < timeSpentShooting) {
             timeElapsed += Time.deltaTime;
+            timeAfterLastShot += Time.deltaTime;
             shootBeam.SetPosition(0, shootSource.position);
             if (Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit, 42f))
             {
                 shootBeam.SetPosition(1, hit.point);
-                if (hit.collider.tag == "Player")
-                    hit.collider.GetComponent<PlayerMovement>().takeDamage(8f);
+                if (timeAfterLastShot > timeBetweenShots) {
+                    if (hit.collider.tag == "Player")
+                        hit.collider.GetComponent<PlayerMovement>().takeDamage(8f);
+                    timeAfterLastShot = 0f;
+                }
             }             
             else {
                 shootBeam.SetPosition(1, shootSource.transform.position + shootSource.transform.forward * 100f);

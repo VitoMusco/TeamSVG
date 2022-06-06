@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isDefending = false;
     [SerializeField] private float attackStaminaRemove = 10;
-    [SerializeField] private float defenseStaminaRemove = 2;
+    [SerializeField] private float defenseStaminaAdd = 2;
     [SerializeField] private float runStaminaRemove = 5;
     [SerializeField] private float staminaToRemove = 0f;
     [SerializeField] private float staminaRemovalMultiplier = 1f;
@@ -426,8 +426,9 @@ public class PlayerMovement : MonoBehaviour
                 attackTime = 0f;
             }
                 
-            if (isDefending && defenseTime > staminaRemovalTime) {
-                staminaToRemove = defenseStaminaRemove;
+            if (isDefending && defenseTime > staminaAddTime) {
+                if(magicStamina + defenseStaminaAdd <= 100f)
+                    magicStamina += defenseStaminaAdd;
                 defenseTime = 0f;
             }
                 

@@ -5473,6 +5473,11 @@ PrefabInstance:
       propertyPath: playerPrediction
       value: 
       objectReference: {fileID: 75388764}
+    - target: {fileID: 6059994734502243842, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: timeBetweenShots
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6059994734725936475, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
