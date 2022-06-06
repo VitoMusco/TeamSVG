@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private float x;
     private float z;
     private float lockX;
-    private float lockZ;
+    private float lockZ;  
 
     private Vector3 lockRight;
     private Vector3 lockForward;
@@ -49,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isAlive = true;
 
     [SerializeField] private float health = 100f;
+    [SerializeField] private float magicStamina = 100f;
+    [SerializeField] private float timeAfterAnAction = 0f;
     [SerializeField] private float timeToShoot = 0.4f;
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isMoving = false;
@@ -62,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isDefending = false;
 
     [SerializeField] private bool hasDoubleJumped = false;
+    [SerializeField] private float maxTimeAfterAnAction = 2f;
 
     void Awake() {
         shieldRenderer.enabled = false;
@@ -73,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         playerCamera = GetComponentInChildren<Camera>();
         defaultYpos = playerCamera.transform.localPosition.y;
         anim = GetComponentInChildren<Animator>();
+        StartCoroutine(handleStamina());
     }
     // Update is called once per frame
     void Update() {
@@ -80,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
             checkIfGrounded();
             handleInputs();
             handleMovementPrediction();
-            handleAnimations();
+            handleAnimations(); 
         }     
     }
 
@@ -104,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
             isRunning = false;
     }
 
-    //GESTIONE MOVIMENTO
+    //GESTIONE INPUT
     void handleInputs() {
         //MOVIMENTO
         x = Input.GetAxis("Horizontal");
@@ -319,9 +323,7 @@ public class PlayerMovement : MonoBehaviour
 
     void handleAnimations() {
         if (isAttacking) {
-            int attack = Random.Range(1, 3);
-            print(attack);
-            anim.SetInteger("Attacking", attack);
+            anim.SetInteger("Attacking", Random.Range(1, 3));
         }
         else
             anim.SetInteger("Attacking", 0);
@@ -361,7 +363,7 @@ public class PlayerMovement : MonoBehaviour
         }
         anim.SetBool("DoubleJumping", false);
     }
-    public void checkHealth()
+    void checkHealth()
     {
         if (health <= 0)
             isAlive = false;
@@ -382,6 +384,62 @@ public class PlayerMovement : MonoBehaviour
         {
             print("sono morto!");
             Update();
+        }
+    }
+
+     IEnumerator handleStamina() {
+        float staminaToAdd = 5f;
+        float staminaToRemove = 0f;
+        float staminaRemovalTime = 0.25f;
+        float staminaAddTime = 0.25f;
+        float stopTime = 0f;
+        float attackTime = 0f;
+        float defenseTime = 0f;
+        float runTime = 0f;
+
+        while (isAlive) {           
+            if (timeAfterAnAction < maxTimeAfterAnAction)
+                timeAfterAnAction += Time.deltaTime;
+            if(attackTime < maxTimeAfterAnAction)
+                attackTime += Time.deltaTime;
+            if(defenseTime < maxTimeAfterAnAction)
+                defenseTime += Time.deltaTime;
+            if(runTime < maxTimeAfterAnAction)
+                runTime += Time.deltaTime;
+            if(stopTime < maxTimeAfterAnAction)
+                stopTime += Time.deltaTime;
+
+            if (isAttacking && attackTime > staminaRemovalTime) {
+                staminaToRemove = 5;
+                attackTime = 0f;
+            }
+                
+            if (isDefending && defenseTime > staminaRemovalTime) {
+                staminaToRemove = 1;
+                defenseTime = 0f;
+            }
+                
+            if (isRunning && runTime > staminaRemovalTime) {
+                staminaToRemove = 5;
+                runTime = 0f;
+            }
+            if (staminaToRemove > 0f)
+                timeAfterAnAction = 0f;
+            if (timeAfterAnAction >= maxTimeAfterAnAction && stopTime > staminaAddTime && magicStamina < 100) {
+                if (magicStamina + staminaToAdd > 100f)
+                    magicStamina = 100f;
+                else
+                    magicStamina += staminaToAdd;
+                stopTime = 0f;
+            }
+            else {
+                if (magicStamina - staminaToRemove < 0f)
+                    magicStamina = 0f;
+                else
+                    magicStamina -= staminaToRemove;
+            }
+            staminaToRemove = 0f;
+            yield return null;
         }
     }
 }
