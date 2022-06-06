@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public Transform predictedMovement;
     public Transform shootSource;
+    public MeshRenderer shieldRenderer;
+    public MeshRenderer decalRenderer;
+
 
     private LineRenderer shootBeam;
     private CharacterController controller;
@@ -61,6 +64,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool hasDoubleJumped = false;
 
     void Awake() {
+        shieldRenderer.enabled = false;
+        decalRenderer.enabled = false;
         shootBeam = GetComponentInChildren<LineRenderer>();
         shootBeam.enabled = false;
         shootBeam.widthMultiplier = 0f;
@@ -193,10 +198,16 @@ public class PlayerMovement : MonoBehaviour
             isAttacking = false;
 
         //GESTIONE DIFESA
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1)) {
+            shieldRenderer.enabled = true;
+            decalRenderer.enabled = true;
             isDefending = true;
-        if (Input.GetMouseButtonUp(1))
+        }
+        if (Input.GetMouseButtonUp(1)) {
+            shieldRenderer.enabled = false;
+            decalRenderer.enabled = false;
             isDefending = false;
+        }
     }
 
     void handleMovementPrediction() {
@@ -307,10 +318,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void handleAnimations() {
-        if (isAttacking)
-            anim.SetTrigger("Attacking");
+        if (isAttacking) {
+            int attack = Random.Range(1, 3);
+            print(attack);
+            anim.SetInteger("Attacking", attack);
+        }
         else
-            anim.ResetTrigger("Attacking");
+            anim.SetInteger("Attacking", 0);
+
         if (isDefending)
             anim.SetBool("Defending", true);
         else
