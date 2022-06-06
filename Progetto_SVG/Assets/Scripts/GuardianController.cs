@@ -19,6 +19,7 @@ public class GuardianController : MonoBehaviour
 
     private Animator anim;
     private float health = 600;
+    private RaycastHit hit;
 
     [SerializeField] private float action = 0f;
     [SerializeField] private bool isWalking = false;
@@ -64,7 +65,14 @@ public class GuardianController : MonoBehaviour
         if (isAlive)
         {
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-            playerInLaserAttackRange = Physics.CheckSphere(transform.position, laserAttackRange, whatIsPlayer);
+            if (Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit, 42f))
+            {
+                Debug.DrawRay(shootSource.transform.position, shootSource.transform.forward * hit.distance, Color.green);
+                print(hit.collider.tag);
+                if (hit.collider.tag == "Player")
+                    playerInLaserAttackRange = Physics.CheckSphere(transform.position, laserAttackRange, whatIsPlayer);
+            }
+            else playerInLaserAttackRange = false;
             playerInSlamAttackRange = Physics.CheckSphere(transform.position, slamAttackRange, whatIsPlayer);
 
             handleBehaviour();
@@ -74,7 +82,7 @@ public class GuardianController : MonoBehaviour
 
     void handleBehaviour() {
         if (!hasShot && !alreadyAttacked) {
-            if (playerInSightRange && !playerInLaserAttackRange && !isSlamming && !isShooting) chase();
+            if (playerInSightRange && !playerInLaserAttackRange && !isSlamming && !isShooting ) chase();
             if (playerInLaserAttackRange && playerInSightRange) {
                 if (!isSlamming) {
                     StartCoroutine(startShooting());
@@ -174,8 +182,7 @@ public class GuardianController : MonoBehaviour
         }
     }
 
-    IEnumerator shoot() {
-        RaycastHit hit;       
+    IEnumerator shoot() {     
         float timeElapsed = 0f;
         float timeAfterLastShot = 0f;
         shootBeam.enabled = true;
