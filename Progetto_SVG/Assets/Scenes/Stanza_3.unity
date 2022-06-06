@@ -566,6 +566,21 @@ PrefabInstance:
       propertyPath: shieldRenderer
       value: 
       objectReference: {fileID: 8717442600780225281}
+    - target: {fileID: 4491019888161604391, guid: fec9b469a925dee43ba8717605949609,
+        type: 3}
+      propertyPath: runStaminaRemove
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491019888161604391, guid: fec9b469a925dee43ba8717605949609,
+        type: 3}
+      propertyPath: attackStaminaRemove
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4491019888161604391, guid: fec9b469a925dee43ba8717605949609,
+        type: 3}
+      propertyPath: defenseStaminaRemove
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fec9b469a925dee43ba8717605949609, type: 3}
 --- !u!4 &3158481079519212006 stripped

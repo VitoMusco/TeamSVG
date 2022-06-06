@@ -62,6 +62,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isLevitating = false;
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isDefending = false;
+    [SerializeField] private float attackStaminaRemove = 10;
+    [SerializeField] private float defenseStaminaRemove = 2;
+    [SerializeField] private float runStaminaRemove = 5;
+    [SerializeField] private float staminaToRemove = 0f;
+    [SerializeField] private float staminaRemovalMultiplier = 1f;
 
     [SerializeField] private bool hasDoubleJumped = false;
     [SerializeField] private float maxTimeAfterAnAction = 2f;
@@ -130,8 +135,8 @@ public class PlayerMovement : MonoBehaviour
         handleHeadBob();
 
         if (!isCrouching && Input.GetKeyDown("left shift"))
-            speed = 6f;   
-        if (Input.GetKeyUp("left shift"))
+            speed = 6f;
+        if (Input.GetKeyUp("left shift") || magicStamina == 0f)
             speed = 3f;
 
         //GESTIONE SALTO E DOPPIO SALTO
@@ -188,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //GESTIONE ATTACCO
-        if (Input.GetMouseButtonDown(0) && canShoot)
+        if (Input.GetMouseButtonDown(0) && canShoot && !isDefending && magicStamina > 0f)
         {
             //ATTACCA
             if (canShoot) {
@@ -202,12 +207,12 @@ public class PlayerMovement : MonoBehaviour
             isAttacking = false;
 
         //GESTIONE DIFESA
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetMouseButtonDown(1) && !isAttacking && magicStamina > 0f) {
             shieldRenderer.enabled = true;
             decalRenderer.enabled = true;
             isDefending = true;
         }
-        if (Input.GetMouseButtonUp(1)) {
+        if (Input.GetMouseButtonUp(1) || magicStamina == 0f) {
             shieldRenderer.enabled = false;
             decalRenderer.enabled = false;
             isDefending = false;
@@ -225,8 +230,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void handleFallDamage() {
-        if (isGrounded && velocity.y < -30) {     
-            print("mi sono fatto male");
+        if (isGrounded && velocity.y < -30) {
+            health = 0;
+            checkHealth();
         }
     }
 
@@ -372,12 +378,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void takeDamage(float amount)
+    public void takeDamage(float damageAmount)
     {
         if (isAlive)
         {
-            print("Ho preso " + amount + " danni");
-            health -= amount;
+            if (!isDefending) {
+                print("Ho preso " + damageAmount + " danni");
+                health -= damageAmount;
+            }
+            else
+                staminaToRemove += damageAmount * staminaRemovalMultiplier;
             checkHealth();
         }
         else
@@ -389,14 +399,13 @@ public class PlayerMovement : MonoBehaviour
 
      IEnumerator handleStamina() {
         float staminaToAdd = 5f;
-        float staminaToRemove = 0f;
         float staminaRemovalTime = 0.25f;
         float staminaAddTime = 0.25f;
         float stopTime = 0f;
         float attackTime = 0f;
         float defenseTime = 0f;
         float runTime = 0f;
-
+        
         while (isAlive) {           
             if (timeAfterAnAction < maxTimeAfterAnAction)
                 timeAfterAnAction += Time.deltaTime;
@@ -410,17 +419,17 @@ public class PlayerMovement : MonoBehaviour
                 stopTime += Time.deltaTime;
 
             if (isAttacking && attackTime > staminaRemovalTime) {
-                staminaToRemove = 5;
+                staminaToRemove = attackStaminaRemove;
                 attackTime = 0f;
             }
                 
             if (isDefending && defenseTime > staminaRemovalTime) {
-                staminaToRemove = 1;
+                staminaToRemove = defenseStaminaRemove;
                 defenseTime = 0f;
             }
                 
             if (isRunning && runTime > staminaRemovalTime) {
-                staminaToRemove = 5;
+                staminaToRemove = runStaminaRemove;
                 runTime = 0f;
             }
             if (staminaToRemove > 0f)
