@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform shootSource;
     public MeshRenderer shieldRenderer;
     public MeshRenderer decalRenderer;
-    public GameObject ParticleShoot;
+    public ParticleSystem particleShoot;
 
     private LineRenderer shootBeam;
     private CharacterController controller;
@@ -77,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
         shootBeam = GetComponentInChildren<LineRenderer>();
         shootBeam.enabled = false;
         shootBeam.widthMultiplier = 0f;
+        particleShoot.Stop();
         controller = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
         defaultYpos = playerCamera.transform.localPosition.y;
@@ -298,7 +299,8 @@ public class PlayerMovement : MonoBehaviour
         else {
             shootBeam.SetPosition(1, playerCamera.transform.position + playerCamera.transform.forward * 100f);
         }
-        Instantiate(ParticleShoot, shootSource.transform, true);
+        particleShoot.transform.position = shootSource.transform.position;
+        particleShoot.Play();
         StartCoroutine(expandShootBeam());
         StartCoroutine(shrinkShootBeam());
         //Invoke(nameof(removeBeam), 1f);
