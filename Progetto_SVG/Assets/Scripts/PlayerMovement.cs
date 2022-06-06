@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake() {
         shootBeam = GetComponentInChildren<LineRenderer>();
         shootBeam.enabled = false;
+        shootBeam.widthMultiplier = 0f;
         controller = GetComponent<CharacterController>();
         playerCamera = GetComponentInChildren<Camera>();
         defaultYpos = playerCamera.transform.localPosition.y;
@@ -276,10 +277,32 @@ public class PlayerMovement : MonoBehaviour
         else {
             shootBeam.SetPosition(1, playerCamera.transform.position + playerCamera.transform.forward * 100f);
         }
-        Invoke(nameof(removeBeam), 1f);
+        StartCoroutine(expandShootBeam());
+        StartCoroutine(shrinkShootBeam());
+        //Invoke(nameof(removeBeam), 1f);
     }
 
-    void removeBeam() {
+    IEnumerator expandShootBeam() {
+        float timeToExpand = 0.25f;
+        float timeElapsed = 0f;
+        while (timeElapsed < timeToExpand) {
+            timeElapsed += Time.deltaTime;
+            shootBeam.widthMultiplier = Mathf.Lerp(shootBeam.widthMultiplier, 2f, timeElapsed / timeToExpand);
+            yield return null;
+        }
+        shootBeam.widthMultiplier = 1f;
+    }
+
+    IEnumerator shrinkShootBeam() {
+        float timeToShrink = 0.25f;
+        float timeElapsed = 0f;
+        while (timeElapsed < timeToShrink)
+        {
+            timeElapsed += Time.deltaTime;
+            shootBeam.widthMultiplier = Mathf.Lerp(shootBeam.widthMultiplier, 0f, timeElapsed / timeToShrink);
+            yield return null;
+        }
+        shootBeam.widthMultiplier = 0f;
         shootBeam.enabled = false;
     }
 
