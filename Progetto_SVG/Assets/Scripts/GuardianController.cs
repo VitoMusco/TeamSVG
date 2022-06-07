@@ -9,6 +9,7 @@ public class GuardianController : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public Transform playerPrediction;
+    public Transform playerSeeker;
     public LayerMask whatIsGround, whatIsPlayer;
     public Transform shootSource;
     public LineRenderer shootBeam;
@@ -64,24 +65,36 @@ public class GuardianController : MonoBehaviour
     {
         if (isAlive)
         {
-            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-            if (Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit, 42f))
-            {
-                Debug.DrawRay(shootSource.transform.position, shootSource.transform.forward * hit.distance, Color.green);
-                print(hit.collider.tag);
-                if (hit.collider.tag == "Player")
-                    playerInLaserAttackRange = Physics.CheckSphere(transform.position, laserAttackRange, whatIsPlayer);
-            }
-            else playerInLaserAttackRange = false;
-            playerInSlamAttackRange = Physics.CheckSphere(transform.position, slamAttackRange, whatIsPlayer);
-
+            handlePlayerSeeker();
             handleBehaviour();
             handleAnimations();
         }       
     }
 
+    void handlePlayerSeeker() {
+        playerSeeker.transform.LookAt(player.transform.position);
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        if (Physics.Raycast(playerSeeker.transform.position, playerSeeker.transform.forward, out hit, 42f)) {
+            if (hit.collider.tag == "Player")
+                playerInLaserAttackRange = Physics.CheckSphere(transform.position, laserAttackRange, whatIsPlayer);
+            else playerInLaserAttackRange = false;
+        }
+        playerInSlamAttackRange = Physics.CheckSphere(transform.position, slamAttackRange, whatIsPlayer);
+    }
+
     void handleBehaviour() {
-        if (!hasShot && !alreadyAttacked) {
+        if (!hasSlammed && !alreadyAttacked)
+        {
+            if (playerInSightRange && !playerInSlamAttackRange && !isSlamming && !isShooting) chase();
+            if (playerInSlamAttackRange && playerInSightRange)
+            {
+                if (!isShooting)
+                {
+                    StartCoroutine(slam());
+                }
+            }
+        }
+        if (!hasShot && hasSlammed && !alreadyAttacked) {
             if (playerInSightRange && !playerInLaserAttackRange && !isSlamming && !isShooting ) chase();
             if (playerInLaserAttackRange && playerInSightRange) {
                 if (!isSlamming) {
@@ -89,14 +102,7 @@ public class GuardianController : MonoBehaviour
                 }
             }
         }
-        if (!hasSlammed && hasShot && !alreadyAttacked) {
-            if (playerInSightRange && !playerInSlamAttackRange && !isSlamming && !isShooting) chase();
-            if (playerInSlamAttackRange && playerInSightRange) {
-                if (!isShooting) {
-                    StartCoroutine(slam());
-                }
-            }
-        }
+        
         if (hasShot && hasSlammed) {
             hasShot = false;
             hasSlammed = false;
