@@ -387,6 +387,7 @@ public class PlayerMovement : MonoBehaviour
             if (!isDefending) {
                 print("Ho preso " + damageAmount + " danni");
                 health -= damageAmount;
+                timeAfterAnAction = 0f;
             }
             else
                 staminaToRemove += damageAmount * staminaRemovalMultiplier;
