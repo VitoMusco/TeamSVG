@@ -5,6 +5,7 @@ using UnityEngine;
 public class CampDenialBlockBehaviour : MonoBehaviour
 {
     private PlayerMovement player;
+    public ParticleSystem particles;
 
     [SerializeField] private bool playerInCollider = false;
     [SerializeField] private bool isExpanded = false;
@@ -36,13 +37,22 @@ public class CampDenialBlockBehaviour : MonoBehaviour
         {
             isDealingDamage = true;
             player = collision.GetComponent<PlayerMovement>();
+            particles.Play();
             StartCoroutine(dealDamage());
         }
+        
+    }
+
+    void Awake() {
+        particles.Stop();
     }
 
     void Update()
     {
         handleTimer();
+        if (!isDealingDamage) {
+            particles.Stop();
+        }
     }
 
     void handleTimer() {
