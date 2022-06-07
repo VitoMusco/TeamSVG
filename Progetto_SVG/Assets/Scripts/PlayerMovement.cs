@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public MeshRenderer shieldRenderer;
     public MeshRenderer decalRenderer;
     public ParticleSystem particleShoot;
+    public LayerMask rayCastLayer;
 
     private LineRenderer shootBeam;
     private CharacterController controller;
@@ -287,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         shootBeam.enabled = true;
         shootBeam.SetPosition(0, shootSource.transform.position);
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f, rayCastLayer))
         {
             shootBeam.SetPosition(1, hit.point);
             Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * hit.distance, Color.green);

@@ -17,6 +17,7 @@ public class GuardianController : MonoBehaviour
     public ParticleSystem chargeParticles;
     public ParticleSystem slamParticles;
     public GameObject slamCollider;
+    public LayerMask rayCastLayer;
 
     private Animator anim;
     private float health = 600;
@@ -74,7 +75,7 @@ public class GuardianController : MonoBehaviour
     void handlePlayerSeeker() {
         playerSeeker.transform.LookAt(player.transform.position);
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        if (Physics.Raycast(playerSeeker.transform.position, playerSeeker.transform.forward, out hit, 42f)) {
+        if (Physics.Raycast(playerSeeker.transform.position, playerSeeker.transform.forward, out hit, 42f, rayCastLayer)) {
             if (hit.collider.tag == "Player")
                 playerInLaserAttackRange = Physics.CheckSphere(transform.position, laserAttackRange, whatIsPlayer);
             else playerInLaserAttackRange = false;
@@ -197,7 +198,7 @@ public class GuardianController : MonoBehaviour
             timeElapsed += Time.deltaTime;
             timeAfterLastShot += Time.deltaTime;
             shootBeam.SetPosition(0, shootSource.position);
-            if (Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit, 42f))
+            if (Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit, 42f, rayCastLayer))
             {
                 shootBeam.SetPosition(1, hit.point);
                 if (timeAfterLastShot > timeBetweenShots) {
