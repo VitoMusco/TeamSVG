@@ -8,6 +8,8 @@ public class GuardianController : MonoBehaviour
 
     public List<AudioClip> startVoiceLines;
     public List<AudioClip> damageVoiceLines;
+    public List<AudioClip> laserAttackVoiceLines;
+    public List<AudioClip> slamAttackVoiceLines;
     public List<AudioClip> footStepSounds;
     public AudioSource soundSource;
     public AudioSource footStepSource;
@@ -175,7 +177,11 @@ public class GuardianController : MonoBehaviour
         {
             isWalking = false;
             alreadyAttacked = true;
-
+            if (!soundSource.isPlaying)
+            {
+                soundSource.clip = slamAttackVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
+                soundSource.Play();
+            }
             float timeElapsed = 0f;
             anim.SetTrigger("Slam");
             while (timeElapsed < timeToSlam)
@@ -200,7 +206,10 @@ public class GuardianController : MonoBehaviour
         if (!alreadyAttacked) {
             isWalking = false;
             alreadyAttacked = true;
-
+            if (!soundSource.isPlaying) {
+                soundSource.clip = laserAttackVoiceLines[Random.Range(0, laserAttackVoiceLines.Count)];
+                soundSource.Play();
+            }
             anim.SetTrigger("StartShooting");
             if (canAim)
                 StartCoroutine(aim());

@@ -1224,7 +1224,7 @@ PrefabInstance:
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: damageVoiceLines.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
@@ -1296,6 +1296,66 @@ PrefabInstance:
       propertyPath: damageVoiceLines.Array.data[2]
       value: 
       objectReference: {fileID: 8300000, guid: f9f2fd230c7864d46b2ac9f60a9e9af8, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: damageVoiceLines.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0b44053e4df7deb49aae7721c7e77fc5, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: damageVoiceLines.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 73bf0b867afc59543b880e6d0b1b4d11, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: slamAttackVoiceLines.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserAttackVoiceLines.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: slamAttackVoiceLines.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 58f7cf753fc8414479cfa42c0ec8e6db, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: slamAttackVoiceLines.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9463b38993f9b3b4b844dc5707631208, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: slamAttackVoiceLines.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4540f41da0a2e654283a3dbc88e3a8a2, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: slamAttackVoiceLines.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: e32fd99ee14aeed4caebfb8ba24a8aff, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserAttackVoiceLines.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 33c67d59fd1850a4ba2acb19b552da5e, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserAttackVoiceLines.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: f6a476f4571f04042a828916dda4fe11, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserAttackVoiceLines.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: b356542d9d17be94791f0830dd7b7844, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserAttackVoiceLines.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 39c2d800b1a87434e88298bbd7824788, type: 3}
     - target: {fileID: 1927193793535822380, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
