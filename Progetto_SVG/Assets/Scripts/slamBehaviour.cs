@@ -7,6 +7,7 @@ public class slamBehaviour : MonoBehaviour
     [SerializeField] private float timeToExpand = 0f;
     [SerializeField] private float startSize = 0.15f;
     [SerializeField] private float endSize = 2f;
+    [SerializeField] private float slamDamage = 30f;
     private Vector3 desiredScale;
 
     void Start() {
@@ -17,6 +18,12 @@ public class slamBehaviour : MonoBehaviour
     void Update()
     {
         StartCoroutine(expand());
+    }
+
+    void OnTriggerEnter(Collider collider) {
+        if (collider.gameObject.tag == "Player") {
+            collider.gameObject.GetComponent<PlayerMovement>().takeDamage(slamDamage);
+        }
     }
 
     private IEnumerator expand() {

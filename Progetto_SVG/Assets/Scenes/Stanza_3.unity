@@ -1182,6 +1182,11 @@ PrefabInstance:
       objectReference: {fileID: 3158481079519212006}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
+      propertyPath: health
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 3158481079519212006}
@@ -1336,6 +1341,11 @@ PrefabInstance:
       propertyPath: slamAttackVoiceLines.Array.data[3]
       value: 
       objectReference: {fileID: 8300000, guid: e32fd99ee14aeed4caebfb8ba24a8aff, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: slamAttackVoiceLines.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: f2a38be86fbba814298cf21d6d592a28, type: 3}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: laserAttackVoiceLines.Array.data[0]

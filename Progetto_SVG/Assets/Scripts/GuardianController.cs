@@ -28,10 +28,10 @@ public class GuardianController : MonoBehaviour
     public LayerMask rayCastLayer;
 
     private Animator anim;
-    private float health = 600;
     private RaycastHit hit;
 
     [SerializeField] private bool hasPlayedStartVoiceLine = false;
+    [SerializeField] private float health = 600;
     [SerializeField] private float action = 0f;
     [SerializeField] private bool isWalking = false;
     [SerializeField] private bool isAlive = true;
