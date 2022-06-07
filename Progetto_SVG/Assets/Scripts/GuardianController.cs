@@ -6,6 +6,12 @@ using UnityEngine.AI;
 public class GuardianController : MonoBehaviour
 {
 
+    public List<AudioClip> startVoiceLines;
+    public List<AudioClip> damageVoiceLines;
+    public List<AudioClip> footStepSounds;
+    public AudioSource soundSource;
+    public AudioSource footStepSource;
+
     public NavMeshAgent agent;
     public Transform player;
     public Transform playerPrediction;
@@ -23,6 +29,7 @@ public class GuardianController : MonoBehaviour
     private float health = 600;
     private RaycastHit hit;
 
+    [SerializeField] private bool hasPlayedStartVoiceLine = false;
     [SerializeField] private float action = 0f;
     [SerializeField] private bool isWalking = false;
     [SerializeField] private bool isAlive = true;
@@ -36,6 +43,7 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private float timeToAim = 1f;
     [SerializeField] private float timeSpentShooting = 3f;
     [SerializeField] private float timeBetweenShots = 0.1f;
+    [SerializeField] private float timeBetweenFootSteps = 0.71f;
 
     //Attacking
     public float timeAfterShooting, timeAfterSlamming;
@@ -68,6 +76,7 @@ public class GuardianController : MonoBehaviour
         {
             handlePlayerSeeker();
             handleBehaviour();
+            handleFootSteps();
             handleAnimations();
         }       
     }
@@ -86,7 +95,14 @@ public class GuardianController : MonoBehaviour
     void handleBehaviour() {
         if (!hasSlammed && !alreadyAttacked)
         {
-            if (playerInSightRange && !playerInSlamAttackRange && !isSlamming && !isShooting) chase();
+            if (playerInSightRange && !playerInSlamAttackRange && !isSlamming && !isShooting) {
+                chase();
+                if (!hasPlayedStartVoiceLine) {
+                    soundSource.clip = startVoiceLines[Random.Range(0,startVoiceLines.Count)];
+                    soundSource.Play();
+                    hasPlayedStartVoiceLine = true;
+                }
+            };
             if (playerInSlamAttackRange && playerInSightRange)
             {
                 if (!isShooting)
@@ -103,10 +119,23 @@ public class GuardianController : MonoBehaviour
                 }
             }
         }
-        
+
         if (hasShot && hasSlammed) {
             hasShot = false;
             hasSlammed = false;
+        }
+    }
+
+    void handleFootSteps()
+    {
+        if (!isWalking) return;
+
+        timeBetweenFootSteps -= Time.deltaTime;
+        if (timeBetweenFootSteps <= 0f)
+        {
+            footStepSource.clip = footStepSounds[Random.Range(0, footStepSounds.Count)];
+            footStepSource.Play();
+            timeBetweenFootSteps = 0.71f;
         }
     }
 
@@ -258,6 +287,10 @@ public class GuardianController : MonoBehaviour
             print("Ho preso " + amount + " danni");
             health -= amount;
             checkHealth();
+            if (!soundSource.isPlaying) {
+                soundSource.clip = damageVoiceLines[Random.Range(0, damageVoiceLines.Count)];
+                soundSource.Play();
+            }
         }
         else
         {
