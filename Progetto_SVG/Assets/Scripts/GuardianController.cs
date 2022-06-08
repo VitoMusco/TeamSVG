@@ -7,9 +7,15 @@ public class GuardianController : MonoBehaviour
 {
 
     public List<AudioClip> startVoiceLines;
-    public List<AudioClip> damageVoiceLines;
-    public List<AudioClip> laserAttackVoiceLines;
-    public List<AudioClip> slamAttackVoiceLines;
+    public List<AudioClip> damageVoiceLinesA;
+    public List<AudioClip> damageVoiceLinesB;
+    private bool lastDamageListToggle = false;
+    public List<AudioClip> laserAttackVoiceLinesA;
+    public List<AudioClip> laserAttackVoiceLinesB;
+    private bool lastLaserAttackListToggle = false;
+    public List<AudioClip> slamAttackVoiceLinesA;
+    public List<AudioClip> slamAttackVoiceLinesB;
+    private bool lastSlamAttackListToggle = false;
     public List<AudioClip> footStepSounds;
     public AudioSource soundSource;
     public AudioSource footStepSource;
@@ -29,7 +35,6 @@ public class GuardianController : MonoBehaviour
 
     private Animator anim;
     private RaycastHit hit;
-    private AudioClip clipToPlay;
     private string lastLaserClipPlayed;
     private string lastSlamClipPlayed;
     private string lastDamageClipPlayed;
@@ -208,15 +213,7 @@ public class GuardianController : MonoBehaviour
         {
             isWalking = false;
             alreadyAttacked = true;
-            if (!soundSource.isPlaying && timeSinceLastSlamAttackVoiceLines >= timeBetweenSlamAttackVoiceLines)
-            {
-                clipToPlay = slamAttackVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
-                while(string.Equals(clipToPlay.ToString(), lastSlamClipPlayed))
-                    clipToPlay = slamAttackVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
-                soundSource.clip = clipToPlay;
-                lastSlamClipPlayed = clipToPlay.ToString();
-                soundSource.Play();
-            }
+            playSlamVoiceLine();
             float timeElapsed = 0f;
             anim.SetTrigger("Slam");
             while (timeElapsed < timeToSlam)
@@ -241,14 +238,7 @@ public class GuardianController : MonoBehaviour
         if (!alreadyAttacked) {
             isWalking = false;
             alreadyAttacked = true;
-            if (!soundSource.isPlaying && timeSinceLastLaserAttackVoiceLines >= timeBetweenLaserAttackVoiceLines) {
-                clipToPlay = laserAttackVoiceLines[Random.Range(0, laserAttackVoiceLines.Count)];
-                while (string.Equals(clipToPlay.ToString(), lastLaserClipPlayed))
-                    clipToPlay = laserAttackVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
-                soundSource.clip = clipToPlay;
-                lastLaserClipPlayed = clipToPlay.ToString();
-                soundSource.Play();
-            }
+            playLaserVoiceLine();
             anim.SetTrigger("StartShooting");
             if (canAim)
                 StartCoroutine(aim());
@@ -318,6 +308,98 @@ public class GuardianController : MonoBehaviour
         transform.rotation = whereToLook;
     }
 
+    void playSlamVoiceLine() {
+        if (!soundSource.isPlaying && timeSinceLastSlamAttackVoiceLines >= timeBetweenSlamAttackVoiceLines)
+        {
+            if (slamAttackVoiceLinesA.Count > 1 && !lastSlamAttackListToggle)
+            {
+                soundSource.clip = slamAttackVoiceLinesA[Random.Range(0, slamAttackVoiceLinesA.Count)];
+                slamAttackVoiceLinesB.Add(soundSource.clip);
+                slamAttackVoiceLinesA.Remove(soundSource.clip);
+            }
+            else if (slamAttackVoiceLinesA.Count == 1 && !lastSlamAttackListToggle)
+            {
+                soundSource.clip = slamAttackVoiceLinesA[0];
+                lastSlamAttackListToggle = true;
+            }
+            else if (slamAttackVoiceLinesB.Count > 1 && lastSlamAttackListToggle)
+            {
+                soundSource.clip = slamAttackVoiceLinesB[Random.Range(0, slamAttackVoiceLinesB.Count)];
+                slamAttackVoiceLinesA.Add(soundSource.clip);
+                slamAttackVoiceLinesB.Remove(soundSource.clip);
+            }
+            else if (slamAttackVoiceLinesB.Count == 1 && lastSlamAttackListToggle)
+            {
+                soundSource.clip = slamAttackVoiceLinesB[0];
+                lastSlamAttackListToggle = false;
+            }
+            soundSource.Play();
+            timeSinceLastSlamAttackVoiceLines = 0f;
+        }
+    }
+
+    void playLaserVoiceLine()
+    {
+        if (!soundSource.isPlaying && timeSinceLastLaserAttackVoiceLines >= timeBetweenLaserAttackVoiceLines)
+        {
+            if (laserAttackVoiceLinesA.Count > 1 && !lastLaserAttackListToggle)
+            {
+                soundSource.clip = laserAttackVoiceLinesA[Random.Range(0, laserAttackVoiceLinesA.Count)];
+                laserAttackVoiceLinesB.Add(soundSource.clip);
+                laserAttackVoiceLinesA.Remove(soundSource.clip);
+            }
+            else if (laserAttackVoiceLinesA.Count == 1 && !lastLaserAttackListToggle)
+            {
+                soundSource.clip = laserAttackVoiceLinesA[0];
+                lastLaserAttackListToggle = true;
+            }
+            else if (laserAttackVoiceLinesB.Count > 1 && lastLaserAttackListToggle)
+            {
+                soundSource.clip = laserAttackVoiceLinesB[Random.Range(0, laserAttackVoiceLinesB.Count)];
+                laserAttackVoiceLinesA.Add(soundSource.clip);
+                laserAttackVoiceLinesB.Remove(soundSource.clip);
+            }
+            else if (laserAttackVoiceLinesB.Count == 1 && lastLaserAttackListToggle)
+            {
+                soundSource.clip = laserAttackVoiceLinesB[0];
+                lastLaserAttackListToggle = false;
+            }
+            soundSource.Play();
+            timeSinceLastLaserAttackVoiceLines = 0f;
+        }
+    }
+
+    void playDamageVoiceLine()
+    {
+        if (!soundSource.isPlaying && timeSinceLastDamageVoiceLines >= timeBetweenDamageVoiceLines && !isShooting && !isSlamming)
+        {
+            if (damageVoiceLinesA.Count > 1 && !lastDamageListToggle)
+            {
+                soundSource.clip = damageVoiceLinesA[Random.Range(0, damageVoiceLinesA.Count)];
+                damageVoiceLinesB.Add(soundSource.clip);
+                damageVoiceLinesA.Remove(soundSource.clip);
+            }
+            else if (damageVoiceLinesA.Count == 1 && !lastDamageListToggle)
+            {
+                soundSource.clip = damageVoiceLinesA[0];
+                lastDamageListToggle = true;
+            }
+            else if (damageVoiceLinesB.Count > 1 && lastDamageListToggle)
+            {
+                soundSource.clip = damageVoiceLinesB[Random.Range(0, damageVoiceLinesB.Count)];
+                damageVoiceLinesA.Add(soundSource.clip);
+                damageVoiceLinesB.Remove(soundSource.clip);
+            }
+            else if (damageVoiceLinesB.Count == 1 && lastDamageListToggle)
+            {
+                soundSource.clip = damageVoiceLinesB[0];
+                lastDamageListToggle = false;
+            }
+            soundSource.Play();
+            timeSinceLastDamageVoiceLines = 0f;
+        }
+    }
+
     public void checkHealth()
     {
         if (health <= 0)
@@ -335,15 +417,7 @@ public class GuardianController : MonoBehaviour
             print("Ho preso " + amount + " danni");
             health -= amount;
             checkHealth();
-            if (!soundSource.isPlaying && timeSinceLastDamageVoiceLines >= timeBetweenDamageVoiceLines) {
-                clipToPlay = damageVoiceLines[Random.Range(0, damageVoiceLines.Count)];
-                while (string.Equals(clipToPlay.ToString(), lastDamageClipPlayed))
-                    clipToPlay = damageVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
-                soundSource.clip = clipToPlay;
-                lastDamageClipPlayed = clipToPlay.ToString();
-                soundSource.Play();
-                timeSinceLastDamageVoiceLines = 0f;
-            }
+            playDamageVoiceLine();
         }
         else
         {

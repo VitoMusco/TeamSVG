@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool developerMode = false;
     public Transform predictedMovement;
     public Transform shootSource;
     public MeshRenderer shieldRenderer;
@@ -74,6 +75,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxTimeAfterAnAction = 2f;
 
     void Awake() {
+        if (developerMode) {
+            health = 1000000;
+            magicStamina = 1000000;
+        }
         shieldRenderer.enabled = false;
         decalRenderer.enabled = false;
         shootBeam = GetComponentInChildren<LineRenderer>();
