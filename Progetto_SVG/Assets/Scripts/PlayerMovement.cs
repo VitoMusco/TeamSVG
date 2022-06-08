@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float health = 100f;
     [SerializeField] private float magicStamina = 100f;
+    [SerializeField] private float maxMagicStamina = 100f;
     [SerializeField] private float timeAfterAnAction = 0f;
     [SerializeField] private float timeToShoot = 0.4f;
     [SerializeField] private bool isGrounded;
@@ -428,7 +429,7 @@ public class PlayerMovement : MonoBehaviour
             }
                 
             if (isDefending && defenseTime > staminaAddTime) {
-                if(magicStamina + defenseStaminaAdd <= 100f)
+                if(magicStamina + defenseStaminaAdd <= maxMagicStamina)
                     magicStamina += defenseStaminaAdd;
                 defenseTime = 0f;
             }
@@ -439,9 +440,9 @@ public class PlayerMovement : MonoBehaviour
             }
             if (staminaToRemove > 0f)
                 timeAfterAnAction = 0f;
-            if (timeAfterAnAction >= maxTimeAfterAnAction && stopTime > staminaAddTime && magicStamina < 100) {
-                if (magicStamina + staminaToAdd > 100f)
-                    magicStamina = 100f;
+            if (timeAfterAnAction >= maxTimeAfterAnAction && stopTime > staminaAddTime && magicStamina < maxMagicStamina) {
+                if (magicStamina + staminaToAdd > maxMagicStamina)
+                    magicStamina = maxMagicStamina;
                 else
                     magicStamina += staminaToAdd;
                 stopTime = 0f;

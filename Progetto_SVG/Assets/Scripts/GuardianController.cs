@@ -204,7 +204,7 @@ public class GuardianController : MonoBehaviour
         {
             isWalking = false;
             alreadyAttacked = true;
-            if (!soundSource.isPlaying)
+            if (!soundSource.isPlaying && timeSinceLastSlamAttackVoiceLines >= timeBetweenSlamAttackVoiceLines)
             {
                 soundSource.clip = slamAttackVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
                 soundSource.Play();
@@ -233,7 +233,7 @@ public class GuardianController : MonoBehaviour
         if (!alreadyAttacked) {
             isWalking = false;
             alreadyAttacked = true;
-            if (!soundSource.isPlaying) {
+            if (!soundSource.isPlaying && timeSinceLastLaserAttackVoiceLines >= timeBetweenLaserAttackVoiceLines) {
                 soundSource.clip = laserAttackVoiceLines[Random.Range(0, laserAttackVoiceLines.Count)];
                 soundSource.Play();
             }

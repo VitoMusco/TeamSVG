@@ -10,6 +10,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
 
     [SerializeField] private bool playerInCollider = false;
     [SerializeField] private bool isExpanded = false;
+    [SerializeField] private bool isExpanding = false;
     [SerializeField] private bool isDealingDamage = false;
     [SerializeField] private float timeToExpand = 3f;
     [SerializeField] private float timeToShrink = 3f;
@@ -31,7 +32,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
         print("pino2");
         if (collision.gameObject.tag == "Player") {
             playerInCollider = false;
-            if(!isExpanded)
+            if(!isExpanded && !isExpanding)
                 vfxRenderer.enabled = false;
         }
                    
@@ -68,7 +69,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
             else
                 timer += Time.deltaTime;
         }
-        else {
+        else if(!playerInCollider){
             if (timer - Time.deltaTime <= 0f)
                 timer = 0f;
             else
@@ -82,17 +83,20 @@ public class CampDenialBlockBehaviour : MonoBehaviour
 
     IEnumerator dealDamage() {
         float timeElapsed = 0f;
-        while (playerInCollider) {
+        while (isDealingDamage) {
             timeElapsed += Time.deltaTime;
-            if (timeElapsed >= tickTime) {
-                player.takeDamage(damagePerTick);
-                timeElapsed = 0f;
+            if (playerInCollider) {
+                if (timeElapsed >= tickTime) {
+                    player.takeDamage(damagePerTick);
+                    timeElapsed = 0f;
+                }
             }
             yield return null;
         }
     }
 
     IEnumerator expand() {
+        isExpanding = true;
         float timeElapsed = 0f;
         Vector3 startScale = transform.localScale;
         Vector3 desiredScale = new Vector3(2f, 1f, 2f);
@@ -101,12 +105,14 @@ public class CampDenialBlockBehaviour : MonoBehaviour
             transform.localScale = Vector3.Lerp(startScale, desiredScale, timeElapsed / timeToExpand);
             yield return null;
         }
-        transform.localScale = desiredScale;
+        transform.localScale = desiredScale;       
         isExpanded = true;
+        isExpanding = false;
     }
     
     IEnumerator shrink() {
         float timeElapsed = 0f;
+        isDealingDamage = false;
         Vector3 startScale = transform.localScale;
         Vector3 desiredScale = new Vector3(1f, 1f, 1f);
         while (timeElapsed < timeToShrink) {
@@ -116,7 +122,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
         }
         transform.localScale = desiredScale;
         isExpanded = false;
-        isDealingDamage = false;
-        vfxRenderer.enabled = false;
+        if(!playerInCollider)
+            vfxRenderer.enabled = false;
     }
 }
