@@ -46,6 +46,12 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private float timeSpentShooting = 3f;
     [SerializeField] private float timeBetweenShots = 0.1f;
     [SerializeField] private float timeBetweenFootSteps = 0.71f;
+    [SerializeField] private float timeBetweenDamageVoiceLines = 10f;
+    [SerializeField] private float timeSinceLastDamageVoiceLines = 10f;
+    [SerializeField] private float timeBetweenLaserAttackVoiceLines = 10f;
+    [SerializeField] private float timeSinceLastLaserAttackVoiceLines = 10f;
+    [SerializeField] private float timeBetweenSlamAttackVoiceLines = 10f;
+    [SerializeField] private float timeSinceLastSlamAttackVoiceLines = 10f;
 
     //Attacking
     public float timeAfterShooting, timeAfterSlamming;
@@ -80,7 +86,28 @@ public class GuardianController : MonoBehaviour
             handleBehaviour();
             handleFootSteps();
             handleAnimations();
+            handleVoiceLines();
         }       
+    }
+
+    void handleVoiceLines() {
+        if (timeSinceLastDamageVoiceLines < timeBetweenDamageVoiceLines) {
+            if (timeSinceLastDamageVoiceLines + Time.deltaTime > timeBetweenDamageVoiceLines)
+                timeSinceLastDamageVoiceLines = timeBetweenDamageVoiceLines;
+            else timeSinceLastDamageVoiceLines += Time.deltaTime;
+        }
+        if (timeSinceLastLaserAttackVoiceLines < timeBetweenLaserAttackVoiceLines)
+        {
+            if (timeSinceLastLaserAttackVoiceLines + Time.deltaTime > timeBetweenLaserAttackVoiceLines)
+                timeSinceLastLaserAttackVoiceLines = timeBetweenLaserAttackVoiceLines;
+            else timeSinceLastLaserAttackVoiceLines += Time.deltaTime;
+        }
+        if (timeSinceLastSlamAttackVoiceLines < timeBetweenSlamAttackVoiceLines)
+        {
+            if (timeSinceLastSlamAttackVoiceLines + Time.deltaTime > timeBetweenSlamAttackVoiceLines)
+                timeSinceLastSlamAttackVoiceLines = timeBetweenSlamAttackVoiceLines;
+            else timeSinceLastSlamAttackVoiceLines += Time.deltaTime;
+        }
     }
 
     void handlePlayerSeeker() {
@@ -296,9 +323,10 @@ public class GuardianController : MonoBehaviour
             print("Ho preso " + amount + " danni");
             health -= amount;
             checkHealth();
-            if (!soundSource.isPlaying) {
+            if (!soundSource.isPlaying && timeSinceLastDamageVoiceLines >= timeBetweenDamageVoiceLines) {
                 soundSource.clip = damageVoiceLines[Random.Range(0, damageVoiceLines.Count)];
                 soundSource.Play();
+                timeSinceLastDamageVoiceLines = 0f;
             }
         }
         else
