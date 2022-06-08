@@ -224,7 +224,7 @@ public class GuardianController : MonoBehaviour
             playSlamVoiceLine();
             float timeElapsed = 0f;
             anim.SetTrigger("Slam");
-            while (timeElapsed < timeToSlam)
+            while (timeElapsed < timeToSlam && isAlive)
             {
                 isSlamming = true;
                 timeElapsed += Time.deltaTime;
@@ -252,7 +252,7 @@ public class GuardianController : MonoBehaviour
                 StartCoroutine(aim());
             canAim = false;
             chargeParticles.Play();
-            while (timeElapsed < timeToShoot)
+            while (timeElapsed < timeToShoot && isAlive)
             {
                 isShooting = true;
                 timeElapsed += Time.deltaTime;
@@ -269,7 +269,7 @@ public class GuardianController : MonoBehaviour
         float timeAfterLastShot = 0f;
         shootBeam.enabled = true;
         laserParticles.Play();
-        while (timeElapsed < timeSpentShooting) {
+        while (timeElapsed < timeSpentShooting && isAlive) {
             timeElapsed += Time.deltaTime;
             timeAfterLastShot += Time.deltaTime;
             shootBeam.SetPosition(0, shootSource.position);
@@ -411,6 +411,7 @@ public class GuardianController : MonoBehaviour
     IEnumerator die() {
         float timeElapsed = 0f;
         float slider = 0f;
+        soundSource.Stop();
         deathParticles.Play();
         collisions.enabled = false;
         while (timeElapsed < timeToDie) { 
