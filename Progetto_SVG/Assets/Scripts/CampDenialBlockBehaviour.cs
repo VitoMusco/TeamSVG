@@ -30,8 +30,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
     {
         print("pino2");
         if (collision.gameObject.tag == "Player")
-            playerInCollider = false;
-            vfxRenderer.enabled = false;
+            playerInCollider = false;          
     }
 
     void OnTriggerStay(Collider collision) {
@@ -114,5 +113,6 @@ public class CampDenialBlockBehaviour : MonoBehaviour
         transform.localScale = desiredScale;
         isExpanded = false;
         isDealingDamage = false;
+        vfxRenderer.enabled = false;
     }
 }
