@@ -6,6 +6,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
 {
     private PlayerMovement player;
     public ParticleSystem particles;
+    public MeshRenderer vfxRenderer;
 
     [SerializeField] private bool playerInCollider = false;
     [SerializeField] private bool isExpanded = false;
@@ -21,15 +22,19 @@ public class CampDenialBlockBehaviour : MonoBehaviour
         print("pino");
         if (collision.gameObject.tag == "Player") {
             playerInCollider = true;
+            vfxRenderer.enabled = true;
         } 
     }
 
     void OnTriggerExit(Collider collision)
     {
         print("pino2");
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player") {
             playerInCollider = false;
-            //StartCoroutine(expand());
+            if(!isExpanded)
+                vfxRenderer.enabled = false;
+        }
+                   
     }
 
     void OnTriggerStay(Collider collision) {
@@ -44,6 +49,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
     }
 
     void Awake() {
+        vfxRenderer.enabled = false;
         particles.Stop();
     }
 
@@ -111,5 +117,6 @@ public class CampDenialBlockBehaviour : MonoBehaviour
         transform.localScale = desiredScale;
         isExpanded = false;
         isDealingDamage = false;
+        vfxRenderer.enabled = false;
     }
 }
