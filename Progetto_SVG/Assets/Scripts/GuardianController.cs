@@ -19,6 +19,7 @@ public class GuardianController : MonoBehaviour
     public List<AudioClip> footStepSounds;
     public AudioSource soundSource;
     public AudioSource footStepSource;
+    public SkinnedMeshRenderer meshRenderer;
 
     public NavMeshAgent agent;
     public Transform player;
@@ -30,14 +31,17 @@ public class GuardianController : MonoBehaviour
     public ParticleSystem laserParticles; 
     public ParticleSystem chargeParticles;
     public ParticleSystem slamParticles;
+    public ParticleSystem deathParticles;
     public GameObject slamCollider;
     public LayerMask rayCastLayer;
 
+    private Material[] materials;
     private Animator anim;
     private RaycastHit hit;
     private string lastLaserClipPlayed;
     private string lastSlamClipPlayed;
     private string lastDamageClipPlayed;
+    private BoxCollider collisions;
 
     [SerializeField] private bool hasPlayedStartVoiceLine = false;
     [SerializeField] private float health = 600;
@@ -61,6 +65,7 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private float timeSinceLastLaserAttackVoiceLines = 10f;
     [SerializeField] private float timeBetweenSlamAttackVoiceLines = 10f;
     [SerializeField] private float timeSinceLastSlamAttackVoiceLines = 10f;
+    [SerializeField] private float timeToDie = 10f;
 
     //Attacking
     public float timeAfterShooting, timeAfterSlamming;
@@ -77,6 +82,8 @@ public class GuardianController : MonoBehaviour
     }
 
     void Awake() {
+        collisions = GetComponent<BoxCollider>();
+        materials = meshRenderer.materials;
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         shootBeam = GetComponentInChildren<LineRenderer>();
@@ -84,6 +91,7 @@ public class GuardianController : MonoBehaviour
         laserParticles.Stop();
         chargeParticles.Stop();
         slamParticles.Stop();
+        deathParticles.Stop();
     }
 
     // Update is called once per frame
@@ -400,12 +408,32 @@ public class GuardianController : MonoBehaviour
         }
     }
 
+    IEnumerator die() {
+        float timeElapsed = 0f;
+        float slider = 0f;
+        deathParticles.Play();
+        collisions.enabled = false;
+        while (timeElapsed < timeToDie) { 
+            timeElapsed += Time.deltaTime;
+            if (materials.Length > 0) {
+                slider = timeElapsed/timeToDie;
+                for (int i = 0; i < materials.Length; i++)
+                {
+                    materials[i].SetFloat("_DissolveAmount", slider);
+                }
+            }
+            yield return null;
+        }
+        Destroy(gameObject);
+    }
+
     public void checkHealth()
     {
-        if (health <= 0)
+        if (health <= 0) {
             isAlive = false;
-        else
-        {
+            StartCoroutine(die());
+        } 
+        else {
             print("Salute rimanente: " + health);
         }
     }
@@ -418,11 +446,6 @@ public class GuardianController : MonoBehaviour
             health -= amount;
             checkHealth();
             playDamageVoiceLine();
-        }
-        else
-        {
-            print("sono morto!");
-            Update();
         }
     }
 
