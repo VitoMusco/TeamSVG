@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particles: {fileID: 4220352135913179259}
+  vfxRenderer: {fileID: 542827163044038805}
   playerInCollider: 0
   isExpanded: 0
   isDealingDamage: 0
@@ -9778,6 +9779,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b914fb1052ec3dc43b0ff0aa6d0a4424, type: 3}
+--- !u!23 &542827163044038805 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: b914fb1052ec3dc43b0ff0aa6d0a4424,
+    type: 3}
+  m_PrefabInstance: {fileID: 1173495343133676561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1712404360437412858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b914fb1052ec3dc43b0ff0aa6d0a4424,
