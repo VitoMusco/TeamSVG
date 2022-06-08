@@ -29,8 +29,12 @@ public class CampDenialBlockBehaviour : MonoBehaviour
     void OnTriggerExit(Collider collision)
     {
         print("pino2");
-        if (collision.gameObject.tag == "Player")
-            playerInCollider = false;          
+        if (collision.gameObject.tag == "Player") {
+            playerInCollider = false;
+            if(isExpanded)
+                vfxRenderer.enabled = false;
+        }
+                   
     }
 
     void OnTriggerStay(Collider collision) {
