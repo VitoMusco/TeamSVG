@@ -89,7 +89,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
     IEnumerator expand() {
         float timeElapsed = 0f;
         Vector3 startScale = transform.localScale;
-        Vector3 desiredScale = new Vector3(2.5f, 1f, 2.5f);
+        Vector3 desiredScale = new Vector3(2f, 1f, 2f);
         while (timeElapsed < timeToExpand) {
             timeElapsed += Time.deltaTime;
             transform.localScale = Vector3.Lerp(startScale, desiredScale, timeElapsed / timeToExpand);
