@@ -665,7 +665,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1254032870 stripped
 GameObject:
@@ -1195,6 +1195,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guardian
       objectReference: {fileID: 0}
+    - target: {fileID: 1621204996559399176, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1927193792957779284, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
@@ -1244,12 +1249,12 @@ PrefabInstance:
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: startVoiceLines.Array.size
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: damageVoiceLines.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
@@ -1313,6 +1318,16 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 90ebd4f30b94e0041925175bfda2ec38, type: 3}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
+      propertyPath: startVoiceLines.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: 87dfbb47f5358f342a11616c3765a1ab, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: startVoiceLines.Array.data[9]
+      value: 
+      objectReference: {fileID: 8300000, guid: 65e223bd2014a9b4fb45e9f12175c5f2, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
       propertyPath: damageVoiceLines.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: cfafb7b56576bb142851359003fe70ab, type: 3}
@@ -1343,13 +1358,18 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: dba29f37d1023ec4ba928bc413d1415c, type: 3}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
+      propertyPath: damageVoiceLines.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: 52bfe7e9024cf7043ae6d124c274bb48, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
       propertyPath: slamAttackVoiceLines.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: laserAttackVoiceLines.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
@@ -1375,7 +1395,12 @@ PrefabInstance:
         type: 3}
       propertyPath: slamAttackVoiceLines.Array.data[4]
       value: 
-      objectReference: {fileID: 8300000, guid: f2a38be86fbba814298cf21d6d592a28, type: 3}
+      objectReference: {fileID: 8300000, guid: cf62344b04d6a3e43bd2a9efb44ae8be, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: slamAttackVoiceLines.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 74dbc8146e6d8b04aa2c0fb0458e72de, type: 3}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: laserAttackVoiceLines.Array.data[0]
@@ -1396,6 +1421,11 @@ PrefabInstance:
       propertyPath: laserAttackVoiceLines.Array.data[3]
       value: 
       objectReference: {fileID: 8300000, guid: 39c2d800b1a87434e88298bbd7824788, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserAttackVoiceLines.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5dd61ecf99cdad247b4c32ddfab6faae, type: 3}
     - target: {fileID: 1927193793535822380, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
@@ -1494,7 +1524,7 @@ PrefabInstance:
     - target: {fileID: 4220352135082972868, guid: 43cd5106a29766a479e3b3507107c7ff,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4220352135082972868, guid: 43cd5106a29766a479e3b3507107c7ff,
         type: 3}

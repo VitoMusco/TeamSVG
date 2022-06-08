@@ -29,6 +29,10 @@ public class GuardianController : MonoBehaviour
 
     private Animator anim;
     private RaycastHit hit;
+    private AudioClip clipToPlay;
+    private string lastLaserClipPlayed;
+    private string lastSlamClipPlayed;
+    private string lastDamageClipPlayed;
 
     [SerializeField] private bool hasPlayedStartVoiceLine = false;
     [SerializeField] private float health = 600;
@@ -206,7 +210,11 @@ public class GuardianController : MonoBehaviour
             alreadyAttacked = true;
             if (!soundSource.isPlaying && timeSinceLastSlamAttackVoiceLines >= timeBetweenSlamAttackVoiceLines)
             {
-                soundSource.clip = slamAttackVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
+                clipToPlay = slamAttackVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
+                while(string.Equals(clipToPlay.ToString(), lastSlamClipPlayed))
+                    clipToPlay = slamAttackVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
+                soundSource.clip = clipToPlay;
+                lastSlamClipPlayed = clipToPlay.ToString();
                 soundSource.Play();
             }
             float timeElapsed = 0f;
@@ -234,7 +242,11 @@ public class GuardianController : MonoBehaviour
             isWalking = false;
             alreadyAttacked = true;
             if (!soundSource.isPlaying && timeSinceLastLaserAttackVoiceLines >= timeBetweenLaserAttackVoiceLines) {
-                soundSource.clip = laserAttackVoiceLines[Random.Range(0, laserAttackVoiceLines.Count)];
+                clipToPlay = laserAttackVoiceLines[Random.Range(0, laserAttackVoiceLines.Count)];
+                while (string.Equals(clipToPlay.ToString(), lastLaserClipPlayed))
+                    clipToPlay = laserAttackVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
+                soundSource.clip = clipToPlay;
+                lastLaserClipPlayed = clipToPlay.ToString();
                 soundSource.Play();
             }
             anim.SetTrigger("StartShooting");
@@ -324,7 +336,11 @@ public class GuardianController : MonoBehaviour
             health -= amount;
             checkHealth();
             if (!soundSource.isPlaying && timeSinceLastDamageVoiceLines >= timeBetweenDamageVoiceLines) {
-                soundSource.clip = damageVoiceLines[Random.Range(0, damageVoiceLines.Count)];
+                clipToPlay = damageVoiceLines[Random.Range(0, damageVoiceLines.Count)];
+                while (string.Equals(clipToPlay.ToString(), lastDamageClipPlayed))
+                    clipToPlay = damageVoiceLines[Random.Range(0, slamAttackVoiceLines.Count)];
+                soundSource.clip = clipToPlay;
+                lastDamageClipPlayed = clipToPlay.ToString();
                 soundSource.Play();
                 timeSinceLastDamageVoiceLines = 0f;
             }
