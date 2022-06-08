@@ -31,7 +31,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
         print("pino2");
         if (collision.gameObject.tag == "Player") {
             playerInCollider = false;
-            if(isExpanded)
+            if(!isExpanded)
                 vfxRenderer.enabled = false;
         }
                    
