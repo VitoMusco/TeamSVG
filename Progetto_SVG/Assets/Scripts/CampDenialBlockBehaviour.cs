@@ -14,7 +14,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
     [SerializeField] private bool isDealingDamage = false;
     [SerializeField] private float timeToExpand = 3f;
     [SerializeField] private float timeToShrink = 3f;
-    [SerializeField] private float timeBeforeActivation = 2f;
+    [SerializeField] private float timeBeforeActivation = 1f;
     [SerializeField] private float timer = 0f;
     [SerializeField] private float damagePerTick = 0f;
     [SerializeField] private float tickTime = 0.5f;
