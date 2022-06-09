@@ -7,14 +7,10 @@ public class Parkour : MonoBehaviour
 
     
     public Transform playerTransform;
-    private Vector3 startPosition;
-    private Quaternion startRotation;
+    public Transform startPosition;
     // Start is called before the first frame update
     void Start()
     {
-        
-        startPosition = playerTransform.position;
-        startRotation = playerTransform.rotation;
     }
 
     // Update is called once per frame
@@ -22,7 +18,7 @@ public class Parkour : MonoBehaviour
     {
         if(playerTransform.position.y <= -4)
         {
-            playerTransform.position= startPosition;
+            playerTransform .position= startPosition.position;
         }
     }
 }
