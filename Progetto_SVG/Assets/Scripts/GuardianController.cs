@@ -21,6 +21,7 @@ public class GuardianController : MonoBehaviour
     public AudioSource footStepSource;
     public SkinnedMeshRenderer meshRenderer;
 
+    public CameraLook playerCamera;
     public NavMeshAgent agent;
     public Transform player;
     public Transform playerPrediction;
@@ -232,6 +233,7 @@ public class GuardianController : MonoBehaviour
             }
             Instantiate(slamCollider, transform.position + new Vector3(0f, 1f, 0f), transform.rotation);
             slamParticles.Play();
+            StartCoroutine(playerCamera.shakeCamera(2f, .5f, .25f, 0.017f));
             anim.ResetTrigger("Slam");
             isSlamming = false;
             hasSlammed = true;

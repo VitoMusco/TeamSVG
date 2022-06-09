@@ -268,7 +268,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4469523810817118562}
   - component: {fileID: 4469523810817118558}
-  - component: {fileID: 4469523810817118559}
   - component: {fileID: 4469523810817118560}
   - component: {fileID: 4469523810817118561}
   m_Layer: 6
@@ -338,14 +337,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &4469523810817118559
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4469523810817118563}
-  m_Enabled: 1
 --- !u!114 &4469523810817118560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 200
+  shake: 0
   playerBody: {fileID: 4469523810957908108}
 --- !u!1 &4469523810957908111
 GameObject:
@@ -405,6 +397,7 @@ GameObject:
   - component: {fileID: 4469523810957908108}
   - component: {fileID: 4469523810957908109}
   - component: {fileID: 4469523810957908110}
+  - component: {fileID: 6507230468643638546}
   m_Layer: 6
   m_Name: PlayerController
   m_TagString: Player
@@ -461,11 +454,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839d27ec78eab7d41bcc4a8f7ff31d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  developerMode: 0
   predictedMovement: {fileID: 1572844747972509238}
   shootSource: {fileID: 1572844748092834766}
   shieldRenderer: {fileID: 7865904178497843819}
   decalRenderer: {fileID: 5698220935007435087}
   particleShoot: {fileID: 6110493563428019743}
+  rayCastLayer:
+    serializedVersion: 2
+    m_Bits: 0
   predictedVelocityMultiplier: 3
   speed: 3
   gravity: -9.81
@@ -479,6 +476,7 @@ MonoBehaviour:
   canLevitate: 1
   health: 100
   magicStamina: 100
+  maxMagicStamina: 100
   timeAfterAnAction: 0
   timeToShoot: 0.4
   isGrounded: 0
@@ -498,6 +496,14 @@ MonoBehaviour:
   staminaRemovalMultiplier: 1
   hasDoubleJumped: 0
   maxTimeAfterAnAction: 2
+--- !u!81 &6507230468643638546
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469523810957908111}
+  m_Enabled: 1
 --- !u!1 &4469523811047459597
 GameObject:
   m_ObjectHideFlags: 0
