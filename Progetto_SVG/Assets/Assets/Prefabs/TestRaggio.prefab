@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5888561275431086681}
   - component: {fileID: 5654806308265636895}
   - component: {fileID: 2650185673191438290}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TestRaggio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,3 +71,4 @@ MonoBehaviour:
   timeToExpand: 2
   startSize: 0.15
   endSize: 2
+  slamDamage: 30

@@ -20,6 +20,8 @@ public class GuardianController : MonoBehaviour
     public List<AudioClip> footStepSounds;
     public AudioSource soundSource;
     public AudioSource attackSoundSource;
+    public AudioClip laserSound;
+    public AudioClip slamSound;
     public AudioSource footStepSource;
     public SkinnedMeshRenderer meshRenderer;
 
@@ -65,10 +67,8 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private float timeBetweenFootSteps = 0.71f;
     [SerializeField] private float timeBetweenDamageVoiceLines = 10f;
     [SerializeField] private float timeSinceLastDamageVoiceLines = 10f;
-    [SerializeField] private float timeBetweenLaserAttackVoiceLines = 10f;
-    [SerializeField] private float timeSinceLastLaserAttackVoiceLines = 10f;
-    [SerializeField] private float timeBetweenSlamAttackVoiceLines = 10f;
-    [SerializeField] private float timeSinceLastSlamAttackVoiceLines = 10f;
+    [SerializeField] private float timeBetweenAttackVoiceLines = 10f;
+    [SerializeField] private float timeSinceLastAttackVoiceLine = 10f;
     [SerializeField] private float timeToDie = 10f;
 
     //Attacking
@@ -117,17 +117,11 @@ public class GuardianController : MonoBehaviour
                 timeSinceLastDamageVoiceLines = timeBetweenDamageVoiceLines;
             else timeSinceLastDamageVoiceLines += Time.deltaTime;
         }
-        if (timeSinceLastLaserAttackVoiceLines < timeBetweenLaserAttackVoiceLines)
+        if (timeSinceLastAttackVoiceLine < timeBetweenAttackVoiceLines)
         {
-            if (timeSinceLastLaserAttackVoiceLines + Time.deltaTime > timeBetweenLaserAttackVoiceLines)
-                timeSinceLastLaserAttackVoiceLines = timeBetweenLaserAttackVoiceLines;
-            else timeSinceLastLaserAttackVoiceLines += Time.deltaTime;
-        }
-        if (timeSinceLastSlamAttackVoiceLines < timeBetweenSlamAttackVoiceLines)
-        {
-            if (timeSinceLastSlamAttackVoiceLines + Time.deltaTime > timeBetweenSlamAttackVoiceLines)
-                timeSinceLastSlamAttackVoiceLines = timeBetweenSlamAttackVoiceLines;
-            else timeSinceLastSlamAttackVoiceLines += Time.deltaTime;
+            if (timeSinceLastAttackVoiceLine + Time.deltaTime > timeBetweenAttackVoiceLines)
+                timeSinceLastAttackVoiceLine = timeBetweenAttackVoiceLines;
+            else timeSinceLastAttackVoiceLine += Time.deltaTime;
         }
     }
 
@@ -237,6 +231,8 @@ public class GuardianController : MonoBehaviour
             }
             Instantiate(slamCollider, transform.position + new Vector3(0f, 1f, 0f), transform.rotation);
             slamParticles.Play();
+            attackSoundSource.clip = slamSound;
+            attackSoundSource.Play();
             StartCoroutine(playerCamera.shakeCamera(2f, .5f, 1f, .25f, 0.017f));
             anim.ResetTrigger("Slam");
             isSlamming = false;
@@ -275,6 +271,7 @@ public class GuardianController : MonoBehaviour
         float timeAfterLastShot = 0f;
         shootBeam.enabled = true;
         laserParticles.Play();
+        attackSoundSource.clip = laserSound;
         attackSoundSource.Play();
         while (timeElapsed < timeSpentShooting && isAlive) {
             timeElapsed += Time.deltaTime;
@@ -330,7 +327,7 @@ public class GuardianController : MonoBehaviour
     }
 
     void playSlamVoiceLine() {
-        if (!soundSource.isPlaying && timeSinceLastSlamAttackVoiceLines >= timeBetweenSlamAttackVoiceLines)
+        if (!soundSource.isPlaying && timeSinceLastAttackVoiceLine >= timeBetweenAttackVoiceLines)
         {
             if (slamAttackVoiceLinesA.Count > 1 && !lastSlamAttackListToggle)
             {
@@ -355,13 +352,13 @@ public class GuardianController : MonoBehaviour
                 lastSlamAttackListToggle = false;
             }
             speak();
-            timeSinceLastSlamAttackVoiceLines = 0f;
+            timeSinceLastAttackVoiceLine = 0f;
         }
     }
 
     void playLaserVoiceLine()
     {
-        if (!soundSource.isPlaying && timeSinceLastLaserAttackVoiceLines >= timeBetweenLaserAttackVoiceLines)
+        if (!soundSource.isPlaying && timeSinceLastAttackVoiceLine >= timeBetweenAttackVoiceLines)
         {
             if (laserAttackVoiceLinesA.Count > 1 && !lastLaserAttackListToggle)
             {
@@ -386,7 +383,7 @@ public class GuardianController : MonoBehaviour
                 lastLaserAttackListToggle = false;
             }
             speak();
-            timeSinceLastLaserAttackVoiceLines = 0f;
+            timeSinceLastAttackVoiceLine = 0f;
         }
     }
 

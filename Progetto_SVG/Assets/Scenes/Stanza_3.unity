@@ -2254,9 +2254,19 @@ PrefabInstance:
       objectReference: {fileID: 3158481079519212006}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
+      propertyPath: slamSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8affda2310d32b14b87f5acb3d62500f, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
       propertyPath: timeToDie
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 198857dc32e3f0943aa8d93b1037af02, type: 3}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: soundSource
@@ -2325,6 +2335,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
+      propertyPath: timeBetweenAttackVoiceLines
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: timeBetweenDamageVoiceLines
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
       propertyPath: damageVoiceLinesA.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -2348,6 +2368,11 @@ PrefabInstance:
       propertyPath: footStepSounds.Array.data[3]
       value: 
       objectReference: {fileID: 8300000, guid: b559bd5f33f9de540b2f07cd8f4fa265, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: timeSinceLastAttackVoiceLine
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: startVoiceLines.Array.data[0]
@@ -2470,6 +2495,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
+      propertyPath: timeBetweenSlamAttackVoiceLines
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
       propertyPath: laserAttackVoiceLines.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -2477,6 +2507,11 @@ PrefabInstance:
         type: 3}
       propertyPath: slamAttackVoiceLinesA.Array.size
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: timeBetweenLaserAttackVoiceLines
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
