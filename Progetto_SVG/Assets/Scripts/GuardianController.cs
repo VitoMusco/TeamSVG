@@ -19,6 +19,7 @@ public class GuardianController : MonoBehaviour
     private bool lastSlamAttackListToggle = false;
     public List<AudioClip> footStepSounds;
     public AudioSource soundSource;
+    public AudioSource attackSoundSource;
     public AudioSource footStepSource;
     public SkinnedMeshRenderer meshRenderer;
 
@@ -50,6 +51,7 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private float action = 0f;
     [SerializeField] private bool isWalking = false;
     [SerializeField] private bool isAlive = true;
+    [SerializeField] private bool isActivated = false;
     [SerializeField] private float timeToSlam;
     [SerializeField] private float timeToShoot;
     [SerializeField] private bool hasShot = false;
@@ -99,7 +101,7 @@ public class GuardianController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isAlive)
+        if (isAlive && isActivated)
         {
             handlePlayerSeeker();
             handleBehaviour();
@@ -273,10 +275,15 @@ public class GuardianController : MonoBehaviour
         float timeAfterLastShot = 0f;
         shootBeam.enabled = true;
         laserParticles.Play();
+        attackSoundSource.Play();
         while (timeElapsed < timeSpentShooting && isAlive) {
             timeElapsed += Time.deltaTime;
             timeAfterLastShot += Time.deltaTime;
             shootBeam.SetPosition(0, shootSource.position);
+
+            if(timeElapsed > timeSpentShooting - timeSpentShooting / 4)
+                attackSoundSource.volume = Mathf.Lerp(1f, 0f, timeElapsed / timeSpentShooting);
+
             if (Physics.Raycast(shootSource.transform.position, shootSource.transform.forward, out hit, 42f, rayCastLayer))
             {
                 shootBeam.SetPosition(1, hit.point);
@@ -293,6 +300,8 @@ public class GuardianController : MonoBehaviour
             yield return null;
         }
         shootBeam.enabled = false;
+        attackSoundSource.Stop();
+        attackSoundSource.volume = 1f;
         laserParticles.Stop();
         isShooting = false;
         anim.ResetTrigger("StartShooting");
@@ -435,6 +444,10 @@ public class GuardianController : MonoBehaviour
         }
         eventHandler.setGuardianKilled();
         Destroy(gameObject);
+    }
+
+    public void activateGuardian() {
+        isActivated = true;
     }
 
     public void checkHealth()

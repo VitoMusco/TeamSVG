@@ -22,7 +22,7 @@ public class DmgObjectScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = transform.forward * Time.deltaTime * speed;
+        //transform.position = transform.forward * Time.deltaTime * speed;
         timeLived += Time.deltaTime;
         if (timeLived > lifetime) Destroy(gameObject);
     }

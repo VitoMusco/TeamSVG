@@ -148,6 +148,48 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyUp("left shift") || magicStamina == 0f)
             speed = 3f;
 
+        //GESTIONE CROUCH  
+        if (Input.GetKeyDown("left ctrl") && !isCrouching && canCrouch)
+        {
+            StartCoroutine(handleCrouch());
+            isCrouching = true;
+        }
+        if (Input.GetKeyUp("left ctrl"))
+        {
+            wantsToUncrouch = true;
+        }
+        if (Input.GetKeyDown("left ctrl") && isCrouching && wantsToUncrouch)
+            wantsToUncrouch = false;
+        if (isCrouching && wantsToUncrouch && canCrouch)
+        {
+            if (!Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
+            {
+                StartCoroutine(handleCrouch());
+                isCrouching = false;
+                wantsToUncrouch = false;
+            }
+        }
+
+        //GESTIONE LEVITAZIONE
+        if (isCrouching && canLevitate)
+        {
+            if (!isGrounded)
+            {
+                velocity.y += -2f * Time.deltaTime;
+                isLevitating = true;
+            }
+            else isLevitating = false;
+        }
+        else
+        {
+            isLevitating = false;
+            handleFallDamage();
+            if (!isGrounded)
+                velocity.y += gravity * gravityMultiplier * Time.deltaTime;
+            if (velocity.y > gravity && isGrounded)
+                velocity.y = gravity;
+        }
+
         //GESTIONE SALTO E DOPPIO SALTO
         if (Input.GetButtonDown("Jump") && isGrounded) {
             jump();
@@ -161,42 +203,6 @@ public class PlayerMovement : MonoBehaviour
         }
         if (hasDoubleJumped && isGrounded) {
             hasDoubleJumped = false;
-        }
-
-        //GESTIONE CROUCH  
-        if (Input.GetKeyDown("left ctrl") && !isCrouching && canCrouch) {
-            StartCoroutine(handleCrouch());
-            isCrouching = true;
-        }
-        if (Input.GetKeyUp("left ctrl")) {
-            wantsToUncrouch = true;
-        }
-        if (Input.GetKeyDown("left ctrl") && isCrouching && wantsToUncrouch)
-            wantsToUncrouch = false;
-        if (isCrouching && wantsToUncrouch && canCrouch) {
-            if (!Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) {
-                StartCoroutine(handleCrouch());
-                isCrouching = false;
-                wantsToUncrouch = false;
-            }
-        }
-        
-
-        //GESTIONE LEVITAZIONE
-        if (isCrouching && canLevitate) {
-            if (!isGrounded) {
-                velocity.y += -2f * Time.deltaTime;
-                isLevitating = true;
-            }
-            else isLevitating = false;
-        }
-        else {
-            isLevitating = false;
-            handleFallDamage();
-            if(!isGrounded)
-                velocity.y += gravity * gravityMultiplier * Time.deltaTime;
-            else if(velocity.y < gravity)
-                    velocity.y = gravity;
         }
 
         controller.Move(velocity * Time.deltaTime);

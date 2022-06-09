@@ -5,6 +5,9 @@ using UnityEngine;
 public class EventHandler : MonoBehaviour
 {
     public Transform gate;
+    public GuardianController guardian;
+    public MeshRenderer portal;
+    public ParticleSystem portalParticles;
 
     [SerializeField] private BoxCollider gateCrossDetector;
     [SerializeField] private bool hasCrossedGate = false;
@@ -17,6 +20,7 @@ public class EventHandler : MonoBehaviour
 
     void OnTriggerEnter(Collider collidedObject) {
         if (collidedObject.gameObject.tag == "Player" && !hasCrossedGate) {
+            guardian.activateGuardian();
             StartCoroutine(operateGate());
         }
     }
@@ -43,6 +47,8 @@ public class EventHandler : MonoBehaviour
 
     public void setGuardianKilled() {
         guardianHasBeenKilled = true;
+        portal.enabled = true;
+        portalParticles.Play();
         StartCoroutine(operateGate());
     }
 
