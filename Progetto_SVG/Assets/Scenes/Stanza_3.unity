@@ -131,6 +131,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1572844748039989610}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &83454008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 83454009}
+  m_Layer: 6
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &83454009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83454008}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3158481079519212006}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &187303381 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 3888118243247809349, guid: 18f57944fb673794086ddb181afb5a49,
@@ -242,7 +273,7 @@ GameObject:
   - component: {fileID: 410626524}
   - component: {fileID: 410626526}
   - component: {fileID: 410626525}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +442,7 @@ GameObject:
   - component: {fileID: 768819360}
   - component: {fileID: 768819362}
   - component: {fileID: 768819361}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -620,7 +651,7 @@ GameObject:
   - component: {fileID: 977727813}
   - component: {fileID: 977727815}
   - component: {fileID: 977727814}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -672,7 +703,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1045944382}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWallsGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -716,7 +747,7 @@ GameObject:
   - component: {fileID: 1050067058}
   - component: {fileID: 1050067060}
   - component: {fileID: 1050067059}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,7 +801,7 @@ GameObject:
   - component: {fileID: 1100030009}
   - component: {fileID: 1100030011}
   - component: {fileID: 1100030010}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1207,7 +1238,7 @@ GameObject:
   - component: {fileID: 1225585697}
   - component: {fileID: 1225585699}
   - component: {fileID: 1225585698}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1261,7 +1292,7 @@ GameObject:
   - component: {fileID: 1226459919}
   - component: {fileID: 1226459921}
   - component: {fileID: 1226459920}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1438,7 +1469,7 @@ GameObject:
   - component: {fileID: 1344393992}
   - component: {fileID: 1344393994}
   - component: {fileID: 1344393993}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1629,7 +1660,7 @@ GameObject:
   - component: {fileID: 1421745682}
   - component: {fileID: 1421745684}
   - component: {fileID: 1421745683}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1708,7 +1739,7 @@ GameObject:
   - component: {fileID: 1711009934}
   - component: {fileID: 1711009936}
   - component: {fileID: 1711009935}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2021,7 +2052,7 @@ GameObject:
   - component: {fileID: 2124580104}
   - component: {fileID: 2124580106}
   - component: {fileID: 2124580105}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: InvisibleWall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2086,6 +2117,11 @@ PrefabInstance:
       propertyPath: shake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4469523810957908108, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: health
@@ -2098,6 +2134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 83454009}
+    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
       propertyPath: magicStamina
       value: 150
       objectReference: {fileID: 0}
@@ -2105,6 +2146,11 @@ PrefabInstance:
         type: 3}
       propertyPath: developerMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 513
       objectReference: {fileID: 0}
     - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
@@ -2124,7 +2170,7 @@ PrefabInstance:
     - target: {fileID: 9171679018322751019, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.433
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 9171679018322751019, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
