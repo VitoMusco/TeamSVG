@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isLevitating = false;
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isDefending = false;
+    [SerializeField] private float attackDamage = 20f;
     [SerializeField] private float attackStaminaRemove = 10;
     [SerializeField] private float defenseStaminaAdd = 2;
     [SerializeField] private float runStaminaRemove = 5;
@@ -299,7 +300,7 @@ public class PlayerMovement : MonoBehaviour
             shootBeam.SetPosition(1, hit.point);
             Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * hit.distance, Color.green);
             if (hit.collider.tag == "Guardian")
-                hit.collider.GetComponent<GuardianController>().takeDamage(10f);
+                hit.collider.GetComponent<GuardianController>().takeDamage(attackDamage);
         }
         else {
             shootBeam.SetPosition(1, playerCamera.transform.position + playerCamera.transform.forward * 100f);
