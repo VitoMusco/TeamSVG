@@ -22,7 +22,7 @@ public class ObjectGenerator : MonoBehaviour
         if(timeToSpawn >= spawnTime)
         {
             
-            Instantiate(dmgObject, transform.position, Quaternion.identity);
+            Instantiate(dmgObject, transform.position, transform.rotation);
            
             timeToSpawn = 0;
 

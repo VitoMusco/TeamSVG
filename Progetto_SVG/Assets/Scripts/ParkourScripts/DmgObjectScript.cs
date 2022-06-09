@@ -4,34 +4,27 @@ using UnityEngine;
 
 public class DmgObjectScript : MonoBehaviour
 {
-
-    public Transform playerTransform;
-    public Transform playerStartPosition;
-    float speed = 1f;
-    float lifetime = 5;
+    float speed = 25;
+    float lifetime = 2;
     private float timeLived;
+    
     
 
 
 
     void Start()
     {
-        timeLived = 0;
+        timeLived = 0;   
     }
 
     // Update is called once per frame
     void Update()
     {
-        //transform.position = transform.forward * Time.deltaTime * speed;
+        if(transform.rotation.x != 0) transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + speed * Time.deltaTime * transform.rotation.x);
+        if(transform.rotation.z != 0) transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * transform.rotation.z * -1, transform.position.y , transform.position.z);
+
         timeLived += Time.deltaTime;
         if (timeLived > lifetime) Destroy(gameObject);
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "player")
-        {
-            playerTransform = playerStartPosition;
-        }
     }
 }

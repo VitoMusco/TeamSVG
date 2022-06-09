@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Transform groundCheck;
-    public LayerMask groundMask;
-
     public bool developerMode = false;
     public Transform predictedMovement;
     public Transform shootSource;
@@ -106,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //CONTROLLA SE SI E' A TERRA
-    void checkIfGrounded() => isGrounded = Physics.CheckSphere(groundCheck.position, 0.401f, groundMask);
+    void checkIfGrounded() => isGrounded = controller.isGrounded;
 
     void checkIfMoving(float x, float z) {
         if (Mathf.Abs(x) > 0.1 || Mathf.Abs(z) > 0.1)
@@ -274,10 +271,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 currentCenter = controller.center;
         Vector3 targetCenter = isCrouching ? new Vector3(0f, 0f, 0f) : new Vector3(0f, 0.25f, 0f);
-
-        Vector3 currentGroundCheck = groundCheck.localPosition;
-        Vector3 targetGroundCheck = isCrouching ? new Vector3(0f, -0.7f, 0f) : new Vector3(0f, -0.1f, 0f);
-
+        
         canCrouch = false;
 
         if (isRunning)
@@ -288,7 +282,6 @@ public class PlayerMovement : MonoBehaviour
         while (timeElapsed < timeToCrouch) {
             controller.height = Mathf.Lerp(currentHeight, targetHeight, timeElapsed / timeToCrouch);
             controller.center = Vector3.Lerp(currentCenter, targetCenter, timeElapsed / timeToCrouch);
-            groundCheck.localPosition = Vector3.Lerp(currentGroundCheck, targetGroundCheck, timeElapsed / timeToCrouch);
             timeElapsed += Time.deltaTime;
 
             if (applyGravity)
@@ -301,7 +294,6 @@ public class PlayerMovement : MonoBehaviour
 
         controller.height = targetHeight;
         controller.center = targetCenter;
-        groundCheck.localPosition = targetGroundCheck;
         canCrouch = true;
     }
 
@@ -477,11 +469,4 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundCheck.position, 0.401f);
-    }
-
 }

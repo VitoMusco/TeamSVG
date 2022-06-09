@@ -8,7 +8,7 @@ public class ObjectParkourMovement : MonoBehaviour
     [SerializeField] bool Xaxis = true;
     [SerializeField] float maxDistance;
     [SerializeField] float minDistance;
-    [SerializeField] float velocity;
+    [SerializeField] float speed;
     private bool toMax = true;
     // Start is called before the first frame update
     void Start()
@@ -23,12 +23,12 @@ public class ObjectParkourMovement : MonoBehaviour
         {
             if (toMax)
             {
-                transform.position = new Vector3(transform.position.x + velocity * Time.deltaTime, transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
                 if (transform.position.x > maxDistance) toMax = false;
             }
             else
             {
-                transform.position = new Vector3(transform.position.x - velocity * Time.deltaTime, transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, transform.position.z);
                 if (transform.position.x < minDistance) toMax = true;
             }
         }
@@ -36,12 +36,12 @@ public class ObjectParkourMovement : MonoBehaviour
         {
             if (toMax)
             {
-                transform.position = new Vector3(transform.position.x , transform.position.y + velocity * Time.deltaTime, transform.position.z);
+                transform.position = new Vector3(transform.position.x , transform.position.y + speed * Time.deltaTime, transform.position.z);
                 if (transform.position.y > maxDistance) toMax = false;
             }
             else
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y - velocity * Time.deltaTime, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y - speed * Time.deltaTime, transform.position.z);
                 if (transform.position.y < minDistance) toMax = true;
             }
         }
