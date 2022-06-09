@@ -29,15 +29,15 @@ public class CameraLook : MonoBehaviour
         playerBody.Rotate(Vector3.up * mouseX);
     }
 
-    public IEnumerator shakeCamera(float shakingTime, float multiplier, float shakeRange, float rotationRange) {
+    public IEnumerator shakeCamera(float shakingTime, float shakeMultiplier, float rotationMultiplier, float shakeRange, float rotationRange) {
         float timeElapsed = 0;
         float timeToGenerateNewPosition = 0.1f;
         float timeSinceLastPosition = 0f;
         Vector3 startPosition = transform.localPosition;
         Quaternion startRotation = transform.localRotation;
         float startRotationY = transform.localRotation.y;
-        Vector3 positionToReach = new Vector3(startPosition.x + Random.Range(-shakeRange, shakeRange) * multiplier, startPosition.y + Random.Range(-shakeRange, shakeRange) * multiplier, startPosition.z);
-        float rotationToReach = Random.Range(-rotationRange, rotationRange);
+        Vector3 positionToReach = new Vector3(startPosition.x + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.y + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.z);
+        float rotationToReach = Random.Range(-rotationRange, rotationRange) * rotationMultiplier;
         while (timeElapsed < shakingTime) {
             timeElapsed += Time.deltaTime;
             if (timeSinceLastPosition < timeToGenerateNewPosition) {
@@ -46,8 +46,8 @@ public class CameraLook : MonoBehaviour
                 transform.localRotation = Quaternion.Lerp(transform.localRotation, new Quaternion(transform.localRotation.x, transform.localRotation.y, startRotationY + rotationToReach, transform.localRotation.w), timeSinceLastPosition / timeToGenerateNewPosition);
             }
             if (timeSinceLastPosition >= timeToGenerateNewPosition) {
-                positionToReach = new Vector3(startPosition.x + Random.Range(-shakeRange, shakeRange) * multiplier, startPosition.y + Random.Range(-shakeRange, shakeRange) * multiplier, startPosition.z);
-                rotationToReach = Random.Range(-rotationRange, rotationRange);
+                positionToReach = new Vector3(startPosition.x + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.y + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.z);
+                rotationToReach = Random.Range(-rotationRange, rotationRange) * rotationMultiplier;
                 timeSinceLastPosition = 0f;
             }
 

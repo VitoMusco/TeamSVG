@@ -182,6 +182,7 @@ public class GuardianController : MonoBehaviour
         {
             footStepSource.clip = footStepSounds[Random.Range(0, footStepSounds.Count)];
             footStepSource.Play();
+            StartCoroutine(playerCamera.shakeCamera(.2f, .25f, .25f, .25f, 0.017f));
             timeBetweenFootSteps = 0.71f;
         }
     }
@@ -233,7 +234,7 @@ public class GuardianController : MonoBehaviour
             }
             Instantiate(slamCollider, transform.position + new Vector3(0f, 1f, 0f), transform.rotation);
             slamParticles.Play();
-            StartCoroutine(playerCamera.shakeCamera(2f, .5f, .25f, 0.017f));
+            StartCoroutine(playerCamera.shakeCamera(2f, .5f, 1f, .25f, 0.017f));
             anim.ResetTrigger("Slam");
             isSlamming = false;
             hasSlammed = true;
