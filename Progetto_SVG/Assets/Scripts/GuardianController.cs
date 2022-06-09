@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class GuardianController : MonoBehaviour
 {
+    public EventHandler eventHandler;
 
     public List<AudioClip> startVoiceLines;
     public List<AudioClip> damageVoiceLinesA;
@@ -146,7 +147,7 @@ public class GuardianController : MonoBehaviour
                 chase();
                 if (!hasPlayedStartVoiceLine) {
                     soundSource.clip = startVoiceLines[Random.Range(0,startVoiceLines.Count)];
-                    soundSource.Play();
+                    speak();
                     hasPlayedStartVoiceLine = true;
                 }
             };
@@ -344,7 +345,7 @@ public class GuardianController : MonoBehaviour
                 soundSource.clip = slamAttackVoiceLinesB[0];
                 lastSlamAttackListToggle = false;
             }
-            soundSource.Play();
+            speak();
             timeSinceLastSlamAttackVoiceLines = 0f;
         }
     }
@@ -375,7 +376,7 @@ public class GuardianController : MonoBehaviour
                 soundSource.clip = laserAttackVoiceLinesB[0];
                 lastLaserAttackListToggle = false;
             }
-            soundSource.Play();
+            speak();
             timeSinceLastLaserAttackVoiceLines = 0f;
         }
     }
@@ -406,9 +407,13 @@ public class GuardianController : MonoBehaviour
                 soundSource.clip = damageVoiceLinesB[0];
                 lastDamageListToggle = false;
             }
-            soundSource.Play();
+            speak();
             timeSinceLastDamageVoiceLines = 0f;
         }
+    }
+
+    void speak() {
+        soundSource.Play();
     }
 
     IEnumerator die() {
@@ -428,6 +433,7 @@ public class GuardianController : MonoBehaviour
             }
             yield return null;
         }
+        eventHandler.setGuardianKilled();
         Destroy(gameObject);
     }
 
