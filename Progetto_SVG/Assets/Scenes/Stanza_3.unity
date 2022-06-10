@@ -2209,16 +2209,6 @@ PrefabInstance:
       propertyPath: groundMask.m_Bits
       value: 513
       objectReference: {fileID: 0}
-    - target: {fileID: 4710901774517139584, guid: ec57bb63d806e6a4295270ea77a032ff,
-        type: 3}
-      propertyPath: Pan2D
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710901774517139584, guid: ec57bb63d806e6a4295270ea77a032ff,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9171679018322751019, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: m_RootOrder

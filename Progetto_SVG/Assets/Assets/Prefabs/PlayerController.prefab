@@ -281,8 +281,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 4f34929eb66cd4c439431b0740f07aca, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -293,7 +293,7 @@ AudioSource:
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
-  Pan2D: 1
+  Pan2D: 0.45
   rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -709,7 +709,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 191
   attackSoundSource: {fileID: 4710901774517139584}
-  attackSound: {fileID: 8300000, guid: 4f34929eb66cd4c439431b0740f07aca, type: 3}
+  shieldSoundSource: {fileID: 0}
   predictedVelocityMultiplier: 1.5
   speed: 3
   gravity: -9.81

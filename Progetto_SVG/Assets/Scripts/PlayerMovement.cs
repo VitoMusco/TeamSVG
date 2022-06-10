@@ -13,8 +13,6 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask rayCastLayer;
     public AudioSource attackSoundSource;
     public AudioSource shieldSoundSource;
-    public AudioClip attackSound;
-    public AudioClip shieldSound;
 
     private LineRenderer shootBeam;
     private CharacterController controller;
@@ -309,7 +307,6 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         shootBeam.enabled = true;
         shootBeam.SetPosition(0, shootSource.transform.position);
-        attackSoundSource.clip = attackSound;
         attackSoundSource.Play();
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f, rayCastLayer))
         {
