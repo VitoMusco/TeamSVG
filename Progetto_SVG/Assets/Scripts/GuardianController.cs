@@ -20,7 +20,7 @@ public class GuardianController : MonoBehaviour
     public List<AudioClip> footStepSounds;
     public AudioSource soundSource;
     public AudioSource attackSoundSource;
-    public List<AudioClip> laserSound;
+    public AudioClip laserSound;
     public AudioClip laserChargeSound;
     public AudioClip slamSound;
     public AudioSource footStepSource;
@@ -275,7 +275,7 @@ public class GuardianController : MonoBehaviour
         float timeAfterLastShot = 0f;
         shootBeam.enabled = true;
         laserParticles.Play();
-        attackSoundSource.clip = laserSound[Random.Range(0,laserSound.Count)];
+        attackSoundSource.clip = laserSound;
         attackSoundSource.Play();
         while (timeElapsed < timeSpentShooting && isAlive) {
             timeElapsed += Time.deltaTime;
