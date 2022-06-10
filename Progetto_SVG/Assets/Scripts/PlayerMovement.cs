@@ -230,8 +230,10 @@ public class PlayerMovement : MonoBehaviour
             shieldRenderer.enabled = true;
             decalRenderer.enabled = true;
             isDefending = true;
+            shieldSoundSource.Play();
         }
         if (Input.GetMouseButtonUp(1) || magicStamina == 0f) {
+            shieldSoundSource.Stop();
             shieldRenderer.enabled = false;
             decalRenderer.enabled = false;
             isDefending = false;
