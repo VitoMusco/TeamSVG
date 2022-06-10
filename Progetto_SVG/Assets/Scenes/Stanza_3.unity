@@ -2132,6 +2132,11 @@ PrefabInstance:
       propertyPath: rayCastLayer.m_Bits
       value: 191
       objectReference: {fileID: 0}
+    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: predictedVelocityMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9171679018322751019, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: m_RootOrder
@@ -2293,6 +2298,21 @@ PrefabInstance:
       propertyPath: rayCastLayer.m_Bits
       value: 255
       objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserSound.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserSound.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 198857dc32e3f0943aa8d93b1037af02, type: 3}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserSound.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 06de09cb330666a40be0860f4ebaa575, type: 3}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: footStepSounds.Array.size
