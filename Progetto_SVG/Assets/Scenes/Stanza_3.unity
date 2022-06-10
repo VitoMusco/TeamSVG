@@ -2114,6 +2114,11 @@ PrefabInstance:
       objectReference: {fileID: 83454009}
     - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
+      propertyPath: attackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
       propertyPath: magicStamina
       value: 150
       objectReference: {fileID: 0}
@@ -2225,7 +2230,7 @@ PrefabInstance:
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
@@ -2283,6 +2288,11 @@ PrefabInstance:
       propertyPath: footStepSource
       value: 
       objectReference: {fileID: 1254032878}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
+      propertyPath: laserChargeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f545aca2b504b214f8b8526c6d96c89d, type: 3}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: playerPrediction

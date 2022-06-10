@@ -21,6 +21,7 @@ public class GuardianController : MonoBehaviour
     public AudioSource soundSource;
     public AudioSource attackSoundSource;
     public List<AudioClip> laserSound;
+    public AudioClip laserChargeSound;
     public AudioClip slamSound;
     public AudioSource footStepSource;
     public SkinnedMeshRenderer meshRenderer;
@@ -253,9 +254,12 @@ public class GuardianController : MonoBehaviour
             if (canAim)
                 StartCoroutine(aim());
             canAim = false;
+            attackSoundSource.clip = laserChargeSound;
             chargeParticles.Play();
             while (timeElapsed < timeToShoot && isAlive)
             {
+                if(timeElapsed >= 1.8f && !attackSoundSource.isPlaying)
+                    attackSoundSource.Play();
                 isShooting = true;
                 timeElapsed += Time.deltaTime;
                 yield return null;
