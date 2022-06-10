@@ -21,8 +21,9 @@ public class ObjectGenerator : MonoBehaviour
         timeToSpawn += Time.deltaTime;
         if(timeToSpawn >= spawnTime)
         {
-            
-            Instantiate(dmgObject, transform.position, transform.rotation);
+
+            dmgObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            dmgObject.SetActive(true);
            
             timeToSpawn = 0;
 

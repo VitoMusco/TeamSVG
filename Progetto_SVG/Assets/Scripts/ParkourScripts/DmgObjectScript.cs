@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DmgObjectScript : MonoBehaviour
 {
-    float speed = 25;
-    float lifetime = 2;
+    [SerializeField] float speed;
+    [SerializeField] float lifetime;
     private float timeLived;
+    public GameObject player;
+    public GameObject spawner;
+    
     
     
 
@@ -14,7 +18,8 @@ public class DmgObjectScript : MonoBehaviour
 
     void Start()
     {
-        timeLived = 0;   
+        timeLived = 0;
+        
     }
 
     // Update is called once per frame
@@ -24,7 +29,22 @@ public class DmgObjectScript : MonoBehaviour
         if(transform.rotation.z != 0) transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * transform.rotation.z * -1, transform.position.y , transform.position.z);
 
         timeLived += Time.deltaTime;
-        if (timeLived > lifetime) Destroy(gameObject);
+        if (timeLived > lifetime)
+        {
+            timeLived = 0;
+            gameObject.SetActive(false);
+        }
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.tag);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("entrato nell'if");
+            player.transform.position = new Vector3(spawner.transform.position.x, spawner.transform.position.y, spawner.transform.position.z);
+
+        }
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 public class Parkour : MonoBehaviour
 {
 
-    
-    public Transform playerTransform;
-    public Transform startPosition;
+
+    public GameObject player;
+    public GameObject spawner;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +16,15 @@ public class Parkour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerTransform.position.y <= -4)
+        if(player.transform.position.y <= -4)
         {
-            playerTransform .position= startPosition.position;
+            respawn();
         }
+
+    }
+
+    public void respawn()
+    {
+        player.transform.position = new Vector3(spawner.transform.position.x, spawner.transform.position.y, spawner.transform.position.z);
     }
 }

@@ -74,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool hasDoubleJumped = false;
     [SerializeField] private float maxTimeAfterAnAction = 2f;
+    private Transform startPosition;
+    public GameObject spawner;
 
     void Awake() {
         if (developerMode) {
@@ -90,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
         playerCamera = GetComponentInChildren<Camera>();
         defaultYpos = playerCamera.transform.localPosition.y;
         anim = GetComponentInChildren<Animator>();
+        startPosition = gameObject.transform;
         StartCoroutine(handleStamina());
     }
     // Update is called once per frame
@@ -101,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
             handleAnimations(); 
         }     
     }
+    
 
     //CONTROLLA SE SI E' A TERRA
     void checkIfGrounded() => isGrounded = controller.isGrounded;

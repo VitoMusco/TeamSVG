@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8948996021263672027
+--- !u!1 &168551684788039372
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8948996021263672020}
-  - component: {fileID: 8948996021263672016}
-  - component: {fileID: 8948996021263672023}
-  - component: {fileID: 8948996021263672022}
-  - component: {fileID: 3082018247888483876}
-  - component: {fileID: -2918718560432429494}
+  - component: {fileID: 4272987891415107432}
+  - component: {fileID: 4272987891415107443}
+  - component: {fileID: 4272987891415107436}
+  - component: {fileID: 4272987891415107437}
+  - component: {fileID: 4272987891415107438}
+  - component: {fileID: 4272987891415107439}
   m_Layer: 0
   m_Name: DmgObject
   m_TagString: Spike
@@ -21,28 +21,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8948996021263672020
+--- !u!4 &4272987891415107432
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8948996021263672027}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_GameObject: {fileID: 168551684788039372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 1, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!114 &8948996021263672016
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4272987891415107443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8948996021263672027}
+  m_GameObject: {fileID: 168551684788039372}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
@@ -492,18 +492,18 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1206
+  m_VersionIndex: 1218
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!23 &8948996021263672023
+--- !u!23 &4272987891415107436
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8948996021263672027}
+  m_GameObject: {fileID: 168551684788039372}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -539,37 +539,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &8948996021263672022
+--- !u!33 &4272987891415107437
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8948996021263672027}
+  m_GameObject: {fileID: 168551684788039372}
   m_Mesh: {fileID: 0}
---- !u!114 &3082018247888483876
+--- !u!114 &4272987891415107438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8948996021263672027}
+  m_GameObject: {fileID: 168551684788039372}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ef053c86d840bc42b0ebf42355bc043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &-2918718560432429494
+  speed: 25
+  lifetime: 2
+  playerTransform: {fileID: 0}
+  spawnTransform: {fileID: 0}
+--- !u!136 &4272987891415107439
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8948996021263672027}
+  m_GameObject: {fileID: 168551684788039372}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 5
+  m_Height: 6.5
   m_Direction: 1
-  m_Center: {x: 0.52, y: 2.25, z: 0.5}
+  m_Center: {x: 0.5000006, y: 1.66, z: 0.5}
