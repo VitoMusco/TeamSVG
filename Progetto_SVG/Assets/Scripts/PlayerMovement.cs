@@ -11,11 +11,13 @@ public class PlayerMovement : MonoBehaviour
     public MeshRenderer decalRenderer;
     public ParticleSystem particleShoot;
     public LayerMask rayCastLayer;
+    public AudioClip attackSound;
 
     private LineRenderer shootBeam;
     private CharacterController controller;
     private Camera playerCamera;
     private Animator anim;
+    private AudioSource soundSource;
 
     [SerializeField] private float predictedVelocityMultiplier = 3f;
     [SerializeField] private float speed = 3f;
@@ -93,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
         defaultYpos = playerCamera.transform.localPosition.y;
         anim = GetComponentInChildren<Animator>();
         startPosition = gameObject.transform;
+        soundSource = GetComponent<AudioSource>();
         StartCoroutine(handleStamina());
     }
     // Update is called once per frame
@@ -305,6 +308,8 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         shootBeam.enabled = true;
         shootBeam.SetPosition(0, shootSource.transform.position);
+        soundSource.clip = attackSound;
+        soundSource.Play();
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f, rayCastLayer))
         {
             shootBeam.SetPosition(1, hit.point);
