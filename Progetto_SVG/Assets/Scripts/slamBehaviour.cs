@@ -8,11 +8,16 @@ public class slamBehaviour : MonoBehaviour
     [SerializeField] private float startSize = 0.15f;
     [SerializeField] private float endSize = 2f;
     [SerializeField] private float slamDamage = 30f;
-    private Vector3 desiredScale;
+    [SerializeField] private Vector3 desiredScale;
+    [SerializeField] private AudioSource soundSource;
 
     void Start() {
         transform.localScale = new Vector3(startSize, 1f, startSize);
         desiredScale = new Vector3(endSize, 1f, endSize);
+    }
+
+    void Awake() {
+        soundSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -32,6 +37,8 @@ public class slamBehaviour : MonoBehaviour
         while (timeElapsed < timeToExpand) {
             timeElapsed += Time.deltaTime;
             transform.localScale = Vector3.Lerp(startScale, desiredScale, timeElapsed / timeToExpand);
+            if(timeElapsed >= timeToExpand - timeToExpand / 4)
+                soundSource.volume = Mathf.Lerp(1f, 0f, timeElapsed / timeToExpand);
             yield return null;
         }
         transform.localScale = desiredScale;
