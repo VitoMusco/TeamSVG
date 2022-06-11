@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public bool developerMode = false;
     public Transform predictedMovement;
     public Transform shootSource;
+    public Transform playerSpawnPosition;
     public MeshRenderer shieldRenderer;
     public MeshRenderer decalRenderer;
     public ParticleSystem particleShoot;
@@ -122,6 +123,11 @@ public class PlayerMovement : MonoBehaviour
         }     
     }
 
+    void LateUpdate() {
+        if(isAlive)
+            controller.Move(velocity * Time.deltaTime);
+    }
+
     //CONTROLLA SE SI E' A TERRA
     void checkIfGrounded() => isGrounded = controller.isGrounded;
 
@@ -224,8 +230,6 @@ public class PlayerMovement : MonoBehaviour
         if (hasDoubleJumped && isGrounded) {
             hasDoubleJumped = false;
         }
-
-        controller.Move(velocity * Time.deltaTime);
 
         //GESTIONE ATTACCO
         if (Input.GetMouseButtonDown(0) && canShoot && !isDefending && magicStamina > 0f)
@@ -440,7 +444,7 @@ public class PlayerMovement : MonoBehaviour
                 print("Ho preso " + damageAmount + " danni");
                 health -= damageAmount;
                 healthBar.fillAmount = health / maxHealth;
-                healthBarEnd.transform.localPosition = new Vector2(healthBarEndStartPosition - (270 - (270 / maxHealth) * health), healthBarEnd.transform.localPosition.y);
+                healthBarEnd.transform.localPosition = new Vector2(healthBarEndStartPosition - (280 - (280 / maxHealth) * health), healthBarEnd.transform.localPosition.y);
                 timeAfterAnAction = 0f;
             }
             else
@@ -449,6 +453,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            transform.localPosition = playerSpawnPosition.localPosition;
+            transform.localRotation = playerSpawnPosition.localRotation;
+            health = maxHealth;
+            magicStamina = maxMagicStamina;
+            //isAlive = true;
             print("sono morto!");
             Update();
         }
