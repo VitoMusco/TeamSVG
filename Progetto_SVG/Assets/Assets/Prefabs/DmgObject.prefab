@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &168551684788039372
+--- !u!1 &4422065143104601972
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4272987891415107432}
-  - component: {fileID: 4272987891415107443}
-  - component: {fileID: 4272987891415107436}
-  - component: {fileID: 4272987891415107437}
-  - component: {fileID: 4272987891415107438}
-  - component: {fileID: 4272987891415107439}
+  - component: {fileID: 307432066211944144}
+  - component: {fileID: 307432066211944139}
+  - component: {fileID: 307432066211944148}
+  - component: {fileID: 307432066211944149}
+  - component: {fileID: 307432066211944150}
+  - component: {fileID: 307432066211944151}
   m_Layer: 0
   m_Name: DmgObject
   m_TagString: Spike
@@ -21,13 +21,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4272987891415107432
+--- !u!4 &307432066211944144
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168551684788039372}
+  m_GameObject: {fileID: 4422065143104601972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.3, z: 1}
@@ -36,13 +36,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4272987891415107443
+--- !u!114 &307432066211944139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168551684788039372}
+  m_GameObject: {fileID: 4422065143104601972}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
@@ -492,18 +492,18 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1218
+  m_VersionIndex: 1233
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!23 &4272987891415107436
+--- !u!23 &307432066211944148
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168551684788039372}
+  m_GameObject: {fileID: 4422065143104601972}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -539,41 +539,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &4272987891415107437
+--- !u!33 &307432066211944149
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168551684788039372}
+  m_GameObject: {fileID: 4422065143104601972}
   m_Mesh: {fileID: 0}
---- !u!114 &4272987891415107438
+--- !u!114 &307432066211944150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168551684788039372}
+  m_GameObject: {fileID: 4422065143104601972}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ef053c86d840bc42b0ebf42355bc043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
-  lifetime: 2
-  player: {fileID: 0}
-  spawner: {fileID: 0}
---- !u!136 &4272987891415107439
+  speed: 20
+  lifetime: 1
+--- !u!136 &307432066211944151
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168551684788039372}
+  m_GameObject: {fileID: 4422065143104601972}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 6.5
+  m_Radius: 0.7
+  m_Height: 7.5
   m_Direction: 1
   m_Center: {x: 0.5000006, y: 1.66, z: 0.5}

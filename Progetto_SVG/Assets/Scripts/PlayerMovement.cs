@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool hasDoubleJumped = false;
     [SerializeField] private float maxTimeAfterAnAction = 2f;
+    [SerializeField] private float minAltitudeWorld;
 
     void Awake() {
         if (developerMode) {
@@ -115,24 +116,31 @@ public class PlayerMovement : MonoBehaviour
     }
     // Update is called once per frame
     void Update() {
-        if (isAlive) {
+        underWorld();
+        if (isAlive)
+        {
             checkIfGrounded();
             handleInputs();
             handleFootSteps();
             handleMovementPrediction();
-            handleAnimations(); 
-        }     
-    }
-
-    void LateUpdate() {
-        if (!isAlive && !hasRespawned) {
-            isAlive = true;
-            hasRespawned = true;
+            handleAnimations();
+            
         }
-        else if (isAlive)
-            controller.Move(velocity * Time.deltaTime);
-
+        
     }
+    private void LateUpdate()
+    {
+        if (isAlive) controller.Move(velocity * Time.deltaTime);
+        else respawn();
+    }
+
+
+    private void underWorld()
+    {
+        if (transform.position.y <= minAltitudeWorld) isAlive = false;
+    }
+
+    
 
     //CONTROLLA SE SI E' A TERRA
     void checkIfGrounded() => isGrounded = controller.isGrounded;
@@ -441,6 +449,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else {
             print("Salute rimanente: " + health);
+            healthBar.fillAmount = health / maxHealth;
+            healthBarEnd.transform.localPosition = new Vector2(healthBarEndStartPosition - (280 - (280 / maxHealth) * health), healthBarEnd.transform.localPosition.y);
+            timeAfterAnAction = 0f;
         }
     }
 
@@ -451,27 +462,32 @@ public class PlayerMovement : MonoBehaviour
             if (!isDefending) {
                 print("Ho preso " + damageAmount + " danni");
                 health -= damageAmount;
-                healthBar.fillAmount = health / maxHealth;
-                healthBarEnd.transform.localPosition = new Vector2(healthBarEndStartPosition - (280 - (280 / maxHealth) * health), healthBarEnd.transform.localPosition.y);
-                timeAfterAnAction = 0f;
+                
             }
             else
                 staminaToRemove += damageAmount * staminaRemovalMultiplier;
             checkHealth();
         }
+        else
+        {
+            print("sono morto!");
+            Update();
+        }
     }
 
-    void die() {
+    private void respawn()
+    {
         transform.localPosition = playerSpawnPosition.localPosition;
         transform.localRotation = playerSpawnPosition.localRotation;
         health = maxHealth;
         magicStamina = maxMagicStamina;
+        isAlive = true;
         velocity = new Vector3();
-        //isAlive = true;
-        print("sono morto!");
+        checkHealth();
     }
 
-    IEnumerator handleStamina() {
+     IEnumerator handleStamina() {
+>>>>>>> Stashed changes
         float staminaToAdd = 5f;
         float staminaRemovalTime = 0.25f;
         float staminaAddTime = 0.25f;

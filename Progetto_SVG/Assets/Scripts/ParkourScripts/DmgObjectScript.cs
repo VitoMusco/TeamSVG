@@ -25,14 +25,17 @@ public class DmgObjectScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.rotation.x != 0) transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + speed * Time.deltaTime * transform.rotation.x);
-        if(transform.rotation.z != 0) transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * transform.rotation.z * -1, transform.position.y , transform.position.z);
+        if (lifetime != 0 && speed != 0)
+        { 
+            if (transform.rotation.x != 0) transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + speed * Time.deltaTime * transform.rotation.x);
+            if (transform.rotation.z != 0) transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * transform.rotation.z * -1, transform.position.y, transform.position.z);
 
-        timeLived += Time.deltaTime;
-        if (timeLived > lifetime)
-        {
+            timeLived += Time.deltaTime;
+            if (timeLived > lifetime)
+            {
             timeLived = 0;
             gameObject.SetActive(false);
+            }
         }
 
     }
@@ -43,7 +46,7 @@ public class DmgObjectScript : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("entrato nell'if");
-            //other.gameObject.GetComponent<PlayerMovement>().respawn();
+            other.gameObject.GetComponent<PlayerMovement>().takeDamage(100);
             
         }
     }
