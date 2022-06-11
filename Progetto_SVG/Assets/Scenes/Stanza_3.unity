@@ -2107,6 +2107,26 @@ PrefabInstance:
       propertyPath: groundMask.m_Bits
       value: 513
       objectReference: {fileID: 0}
+    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: footStepSounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: footStepSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d8d0ccf9d7d88c4da421d1f61a25342, type: 3}
+    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: footStepSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: deecb5cc14b0eb34a9520d54d157b1ec, type: 3}
+    - target: {fileID: 4631180161698990906, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 6245734902548612397, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: Pan2D

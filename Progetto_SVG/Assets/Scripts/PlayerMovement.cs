@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask rayCastLayer;
     public AudioSource attackSoundSource;
     public AudioSource shieldSoundSource;
+    public AudioSource footStepSource;
+    public List<AudioClip> footStepSounds;
 
     private LineRenderer shootBeam;
     private CharacterController controller;
@@ -21,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float predictedVelocityMultiplier = 3f;
     [SerializeField] private float speed = 3f;
+    [SerializeField] private float timeAfterFootSteps = 0f;
+    [SerializeField] private float timeBetweenFootSteps;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float gravityMultiplier = 2f;
     [SerializeField] private float jumpHeight = 3f;
@@ -99,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
         if (isAlive) {
             checkIfGrounded();
             handleInputs();
+            handleFootSteps();
             handleMovementPrediction();
             handleAnimations(); 
         }     
@@ -233,6 +238,21 @@ public class PlayerMovement : MonoBehaviour
             shieldRenderer.enabled = false;
             decalRenderer.enabled = false;
             isDefending = false;
+        }
+    }
+
+    void handleFootSteps()
+    {
+        if (!isWalking && !isRunning) return;
+
+        timeBetweenFootSteps = isWalking ? 0.5f : 0.3f;
+        timeAfterFootSteps += Time.deltaTime;
+        if (timeAfterFootSteps >= timeBetweenFootSteps)
+        {
+            footStepSource.clip = footStepSounds[Random.Range(0, footStepSounds.Count)];
+            footStepSource.Play();
+            //StartCoroutine(playerCamera.shakeCamera(.2f, .25f, .25f, .25f, 0.017f));
+            timeAfterFootSteps = 0f;
         }
     }
 
