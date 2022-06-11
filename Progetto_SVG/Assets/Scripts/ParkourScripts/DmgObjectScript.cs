@@ -8,9 +8,8 @@ public class DmgObjectScript : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float lifetime;
     private float timeLived;
-    //public GameObject player;
-    //public GameObject spawner;
-    public GameObject worldController;
+   
+    
 
 
 
@@ -44,7 +43,7 @@ public class DmgObjectScript : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("entrato nell'if");
-            player.GetComponent<PlayerMovement>().respawn();
+            other.gameObject.GetComponent<PlayerMovement>().respawn();
             
         }
     }
