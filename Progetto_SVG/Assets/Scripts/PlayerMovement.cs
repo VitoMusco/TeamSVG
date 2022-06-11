@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool hasDoubleJumped = false;
     [SerializeField] private float maxTimeAfterAnAction = 2f;
-    public GameObject spawner;
 
     void Awake() {
         if (developerMode) {
@@ -104,12 +103,6 @@ public class PlayerMovement : MonoBehaviour
             handleAnimations(); 
         }     
     }
-
-    public void respawn()
-    {
-        transform.position = new Vector3(spawner.transform.position.x, spawner.transform.position.y, spawner.transform.position.z);
-    }
-    
 
     //CONTROLLA SE SI E' A TERRA
     void checkIfGrounded() => isGrounded = controller.isGrounded;

@@ -709,7 +709,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 191
   attackSoundSource: {fileID: 4710901774517139584}
-  shieldSoundSource: {fileID: 0}
+  shieldSoundSource: {fileID: 6245734902548612397}
   predictedVelocityMultiplier: 1.5
   speed: 3
   gravity: -9.81
@@ -6480,6 +6480,12 @@ PrefabInstance:
 --- !u!23 &5698220935007435087 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 353153525775417246, guid: 4797aa8593a30f3429748f0b76318cb4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5472580521652045521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &6245734902548612397 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2116634857464497148, guid: 4797aa8593a30f3429748f0b76318cb4,
     type: 3}
   m_PrefabInstance: {fileID: 5472580521652045521}
   m_PrefabAsset: {fileID: 0}

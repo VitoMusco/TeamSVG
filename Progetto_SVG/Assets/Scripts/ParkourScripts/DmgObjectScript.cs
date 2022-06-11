@@ -43,7 +43,7 @@ public class DmgObjectScript : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("entrato nell'if");
-            other.gameObject.GetComponent<PlayerMovement>().respawn();
+            //other.gameObject.GetComponent<PlayerMovement>().respawn();
             
         }
     }

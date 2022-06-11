@@ -24,6 +24,6 @@ public class Parkour : MonoBehaviour
     
     public void respawn()
     {
-        player.GetComponent<PlayerMovement>().respawn();
+        //player.GetComponent<PlayerMovement>().respawn();
     }
 }
