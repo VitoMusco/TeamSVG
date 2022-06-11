@@ -44,9 +44,8 @@ public class DmgObjectScript : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("entrato nell'if");
-            //player.GetComponent<PlayerMovement>().respawn();
-            //player.transform.position = new Vector3(0, 0, 0);
-            worldController.GetComponent<Parkour>().respawn();
+            player.GetComponent<PlayerMovement>().respawn();
+            
         }
     }
 }
