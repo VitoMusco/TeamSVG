@@ -123,16 +123,13 @@ public class PlayerMovement : MonoBehaviour
             handleInputs();
             handleFootSteps();
             handleMovementPrediction();
-            handleAnimations();
-            
-        }
-        if (isAlive && hasRespawned) controller.Move(velocity * Time.deltaTime);
-        else
-        {
-            respawn();
-            hasRespawned = true;
-        }
+            handleAnimations(); 
+        }     
+    }
 
+    void LateUpdate() {
+        if(isAlive)
+            controller.Move(velocity * Time.deltaTime);
     }
     private void LateUpdate()
     {
@@ -448,11 +445,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void checkHealth()
     {
-        if (health <= 0) {
+        if (health <= 0)
             isAlive = false;
-            hasRespawned = false;
-            Debug.Log("Sono morto");
-        }
         else {
             print("Salute rimanente: " + health);
             healthBar.fillAmount = health / maxHealth;
@@ -474,19 +468,16 @@ public class PlayerMovement : MonoBehaviour
                 staminaToRemove += damageAmount * staminaRemovalMultiplier;
             
         }
-        checkHealth();
-    }
-
-    private void respawn()
-    {
-        transform.localPosition = playerSpawnPosition.localPosition;
-        transform.localRotation = playerSpawnPosition.localRotation;
-        health = maxHealth;
-        magicStamina = maxMagicStamina;
-        velocity = new Vector3(0, 0, 0);
-        checkHealth();
-        isAlive = true;
-        
+        else
+        {
+            transform.localPosition = playerSpawnPosition.localPosition;
+            transform.localRotation = playerSpawnPosition.localRotation;
+            health = maxHealth;
+            magicStamina = maxMagicStamina;
+            //isAlive = true;
+            print("sono morto!");
+            Update();
+        }
     }
 
      IEnumerator handleStamina() {
