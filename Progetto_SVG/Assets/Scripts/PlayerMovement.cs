@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     public bool developerMode = false;
-    public bool hasRespawned = false;
+    public bool hasRespawned = true;
     public Transform predictedMovement;
     public Transform shootSource;
     public Transform playerSpawnPosition;
@@ -126,12 +126,17 @@ public class PlayerMovement : MonoBehaviour
             handleAnimations();
             
         }
-        
+        if (isAlive && hasRespawned) controller.Move(velocity * Time.deltaTime);
+        else
+        {
+            respawn();
+            hasRespawned = true;
+        }
+
     }
     private void LateUpdate()
     {
-        if (isAlive) controller.Move(velocity * Time.deltaTime);
-        else respawn();
+        
     }
 
 
@@ -445,7 +450,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (health <= 0) {
             isAlive = false;
-            die();
+            hasRespawned = false;
+            Debug.Log("Sono morto");
         }
         else {
             print("Salute rimanente: " + health);
@@ -466,13 +472,9 @@ public class PlayerMovement : MonoBehaviour
             }
             else
                 staminaToRemove += damageAmount * staminaRemovalMultiplier;
-            checkHealth();
+            
         }
-        else
-        {
-            print("sono morto!");
-            Update();
-        }
+        checkHealth();
     }
 
     private void respawn()
@@ -481,13 +483,13 @@ public class PlayerMovement : MonoBehaviour
         transform.localRotation = playerSpawnPosition.localRotation;
         health = maxHealth;
         magicStamina = maxMagicStamina;
-        isAlive = true;
-        velocity = new Vector3();
+        velocity = new Vector3(0, 0, 0);
         checkHealth();
+        isAlive = true;
+        
     }
 
      IEnumerator handleStamina() {
->>>>>>> Stashed changes
         float staminaToAdd = 5f;
         float staminaRemovalTime = 0.25f;
         float staminaAddTime = 0.25f;
