@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +16,15 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource shieldSoundSource;
     public AudioSource footStepSource;
     public List<AudioClip> footStepSounds;
+
+    public Image healthBar;
+    public Image healthBarEnd;
+    public Image staminaBar;
+    public Image staminaBarEnd;
+    public float healthBarEndPos = 0f;
+    public float healthBarEndStartPosition;
+    public float staminaBarEndPos = 0f;
+    public float staminaBarEndStartPosition;
 
     private LineRenderer shootBeam;
     private CharacterController controller;
@@ -57,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isAlive = true;
 
     [SerializeField] private float health = 100f;
+    [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float magicStamina = 100f;
     [SerializeField] private float maxMagicStamina = 100f;
     [SerializeField] private float timeAfterAnAction = 0f;
@@ -86,6 +97,8 @@ public class PlayerMovement : MonoBehaviour
             health = 1000000;
             magicStamina = 1000000;
         }
+        staminaBarEndStartPosition = staminaBarEnd.transform.localPosition.x;
+        healthBarEndStartPosition = healthBarEnd.transform.localPosition.x;
         shieldRenderer.enabled = false;
         decalRenderer.enabled = false;
         shootBeam = GetComponentInChildren<LineRenderer>();
@@ -426,6 +439,8 @@ public class PlayerMovement : MonoBehaviour
             if (!isDefending) {
                 print("Ho preso " + damageAmount + " danni");
                 health -= damageAmount;
+                healthBar.fillAmount = health / maxHealth;
+                healthBarEnd.transform.localPosition = new Vector2(healthBarEndStartPosition - (270 - (270 / maxHealth) * health), healthBarEnd.transform.localPosition.y);
                 timeAfterAnAction = 0f;
             }
             else
@@ -490,6 +505,8 @@ public class PlayerMovement : MonoBehaviour
                 else
                     magicStamina -= staminaToRemove;
             }
+            staminaBar.fillAmount = magicStamina / maxMagicStamina;
+            staminaBarEnd.transform.localPosition = new Vector2(staminaBarEndStartPosition - (250 - (250/maxMagicStamina) * magicStamina), staminaBarEnd.transform.localPosition.y);
             staminaToRemove = 0f;
             yield return null;
         }
