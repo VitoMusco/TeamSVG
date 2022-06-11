@@ -76,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool hasDoubleJumped = false;
     [SerializeField] private float maxTimeAfterAnAction = 2f;
-    private Transform startPosition;
     public GameObject spawner;
 
     void Awake() {
@@ -94,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
         playerCamera = GetComponentInChildren<Camera>();
         defaultYpos = playerCamera.transform.localPosition.y;
         anim = GetComponentInChildren<Animator>();
-        startPosition = gameObject.transform;
         StartCoroutine(handleStamina());
     }
     // Update is called once per frame
@@ -105,6 +103,11 @@ public class PlayerMovement : MonoBehaviour
             handleMovementPrediction();
             handleAnimations(); 
         }     
+    }
+
+    public void respawn()
+    {
+        transform.position = new Vector3(spawner.transform.position.x, spawner.transform.position.y, spawner.transform.position.z);
     }
     
 

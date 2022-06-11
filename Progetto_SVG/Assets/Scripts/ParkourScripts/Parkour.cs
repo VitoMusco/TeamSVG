@@ -7,7 +7,6 @@ public class Parkour : MonoBehaviour
 
 
     public GameObject player;
-    public GameObject spawner;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +21,9 @@ public class Parkour : MonoBehaviour
         }
 
     }
-
+    
     public void respawn()
     {
-        player.transform.position = new Vector3(spawner.transform.position.x, spawner.transform.position.y, spawner.transform.position.z);
+        player.GetComponent<PlayerMovement>().respawn();
     }
 }
