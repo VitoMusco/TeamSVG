@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     public bool developerMode = false;
+    public bool hasRespawned = false;
     public Transform predictedMovement;
     public Transform shootSource;
     public Transform playerSpawnPosition;
@@ -124,8 +125,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void LateUpdate() {
-        if(isAlive)
+        if (!isAlive && !hasRespawned) {
+            isAlive = true;
+            hasRespawned = true;
+        }
+        else if (isAlive)
             controller.Move(velocity * Time.deltaTime);
+
     }
 
     //CONTROLLA SE SI E' A TERRA
@@ -429,8 +435,10 @@ public class PlayerMovement : MonoBehaviour
     }
     void checkHealth()
     {
-        if (health <= 0)
+        if (health <= 0) {
             isAlive = false;
+            die();
+        }
         else {
             print("Salute rimanente: " + health);
         }
@@ -451,19 +459,19 @@ public class PlayerMovement : MonoBehaviour
                 staminaToRemove += damageAmount * staminaRemovalMultiplier;
             checkHealth();
         }
-        else
-        {
-            transform.localPosition = playerSpawnPosition.localPosition;
-            transform.localRotation = playerSpawnPosition.localRotation;
-            health = maxHealth;
-            magicStamina = maxMagicStamina;
-            //isAlive = true;
-            print("sono morto!");
-            Update();
-        }
     }
 
-     IEnumerator handleStamina() {
+    void die() {
+        transform.localPosition = playerSpawnPosition.localPosition;
+        transform.localRotation = playerSpawnPosition.localRotation;
+        health = maxHealth;
+        magicStamina = maxMagicStamina;
+        velocity = new Vector3();
+        //isAlive = true;
+        print("sono morto!");
+    }
+
+    IEnumerator handleStamina() {
         float staminaToAdd = 5f;
         float staminaRemovalTime = 0.25f;
         float staminaAddTime = 0.25f;
