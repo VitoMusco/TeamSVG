@@ -828,7 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839d27ec78eab7d41bcc4a8f7ff31d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  developerMode: 1
+  developerMode: 0
   predictedMovement: {fileID: 1572844747972509238}
   shootSource: {fileID: 1572844748092834766}
   shieldRenderer: {fileID: 7865904178497843819}
@@ -840,7 +840,9 @@ MonoBehaviour:
   attackSoundSource: {fileID: 4710901774517139584}
   shieldSoundSource: {fileID: 6245734902548612397}
   footStepSource: {fileID: 4631180161698990906}
-  footStepSounds: []
+  footStepSounds:
+  - {fileID: 8300000, guid: 5d8d0ccf9d7d88c4da421d1f61a25342, type: 3}
+  - {fileID: 8300000, guid: deecb5cc14b0eb34a9520d54d157b1ec, type: 3}
   predictedVelocityMultiplier: 1.5
   speed: 3
   timeAfterFootSteps: 0

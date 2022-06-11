@@ -23,6 +23,7 @@ public class GuardianController : MonoBehaviour
     public AudioClip laserSound;
     public AudioClip laserChargeSound;
     public AudioClip slamSound;
+    public AudioClip deathSound;
     public AudioSource footStepSource;
     public SkinnedMeshRenderer meshRenderer;
 
@@ -429,11 +430,17 @@ public class GuardianController : MonoBehaviour
     IEnumerator die() {
         float timeElapsed = 0f;
         float slider = 0f;
+        chargeParticles.Stop();
+        attackSoundSource.Stop();
         soundSource.Stop();
+        soundSource.clip = deathSound;
+        soundSource.Play();
         deathParticles.Play();
         collisions.enabled = false;
         while (timeElapsed < timeToDie) { 
             timeElapsed += Time.deltaTime;
+            if (timeElapsed >= timeToDie - timeToDie / 4)
+                soundSource.volume = Mathf.Lerp(1f, 0f, timeElapsed / timeToDie);
             if (materials.Length > 0) {
                 slider = timeElapsed/timeToDie;
                 for (int i = 0; i < materials.Length; i++)
