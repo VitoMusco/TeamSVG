@@ -167,8 +167,7 @@ public class PlayerMovement : MonoBehaviour
             velocity = velocity * speed;
         }
         else {
-            velocity = lockRight * lockX + lockForward * lockZ;
-            velocity = velocity * lockSpeed;
+            velocity = Vector3.Lerp(velocity, (lockRight * lockX + lockForward * lockZ) * lockSpeed, 0.25f);
         }
 
         velocity.y = verticalVelocity;

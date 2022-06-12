@@ -2103,6 +2103,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
+      propertyPath: developerMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
       propertyPath: maxMagicStamina
       value: 150
       objectReference: {fileID: 0}

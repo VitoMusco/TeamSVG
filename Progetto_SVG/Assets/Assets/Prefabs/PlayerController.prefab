@@ -910,6 +910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   developerMode: 0
+  hasRespawned: 0
   predictedMovement: {fileID: 1572844747972509238}
   shootSource: {fileID: 1572844748092834766}
   playerSpawnPosition: {fileID: 2325401189755165937}
