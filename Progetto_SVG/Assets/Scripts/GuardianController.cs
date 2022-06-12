@@ -52,6 +52,7 @@ public class GuardianController : MonoBehaviour
 
     [SerializeField] private bool hasPlayedStartVoiceLine = false;
     [SerializeField] private float health = 600;
+    [SerializeField] private float maxHealth = 600;
     [SerializeField] private float action = 0f;
     [SerializeField] private bool isWalking = false;
     [SerializeField] private bool isAlive = true;
@@ -73,6 +74,8 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private float timeSinceLastAttackVoiceLine = 10f;
     [SerializeField] private float timeToDie = 10f;
 
+    private Vector3 startPosition;
+
     //Attacking
     public float timeAfterShooting, timeAfterSlamming;
     bool alreadyAttacked;
@@ -88,6 +91,7 @@ public class GuardianController : MonoBehaviour
     }
 
     void Awake() {
+        startPosition = transform.position;
         collisions = GetComponent<BoxCollider>();
         materials = meshRenderer.materials;
         agent = GetComponent<NavMeshAgent>();
@@ -456,6 +460,13 @@ public class GuardianController : MonoBehaviour
 
     public void activateGuardian() {
         isActivated = true;
+    }
+
+    public void resetGuardian()
+    {
+        isActivated = false;
+        transform.position = startPosition;
+        health = maxHealth;
     }
 
     public void checkHealth()

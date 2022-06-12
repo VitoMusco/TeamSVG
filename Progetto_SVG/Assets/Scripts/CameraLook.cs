@@ -6,8 +6,14 @@ public class CameraLook : MonoBehaviour
 {
 
     public float mouseSensitivity = 100f;
+    public float swaySmooth = 1f;
+    public float swayMultiplier = 1f;
     public bool shake = false;
     public Transform playerBody;
+    public Transform playerArms;
+    Quaternion swayRotationX;
+    Quaternion swayRotationY;
+    Quaternion targetRotation;
 
     float yRotation = 0f;
     // Start is called before the first frame update
@@ -19,8 +25,18 @@ public class CameraLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        swayRotationX = Quaternion.AngleAxis(-mouseY * swayMultiplier * swaySmooth, Vector3.right);
+        swayRotationY = Quaternion.AngleAxis(mouseX * swayMultiplier * swaySmooth, Vector3.up);
+
+        targetRotation = swayRotationX * swayRotationY;
+
+        playerArms.localRotation = Quaternion.Slerp(playerArms.localRotation, targetRotation, swaySmooth * Time.deltaTime);
+
+        mouseX = mouseX * mouseSensitivity * Time.deltaTime;
+        mouseY = mouseY * mouseSensitivity * Time.deltaTime;
 
         yRotation -= mouseY;
         yRotation = Mathf.Clamp(yRotation, -90f, 90f);

@@ -838,8 +838,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 200
+  swaySmooth: 2.5
+  swayMultiplier: 1
   shake: 0
   playerBody: {fileID: 4469523810957908108}
+  playerArms: {fileID: 4146769916292405000}
 --- !u!1 &4469523810957908111
 GameObject:
   m_ObjectHideFlags: 0

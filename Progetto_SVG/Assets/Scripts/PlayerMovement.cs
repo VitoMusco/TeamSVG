@@ -125,13 +125,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void LateUpdate() {
-        if (!isAlive && !hasRespawned) {
-            isAlive = true;
-            hasRespawned = true;
-        }
-        else if (isAlive)
+        if(isAlive)
             controller.Move(velocity * Time.deltaTime);
-
     }
 
     //CONTROLLA SE SI E' A TERRA
@@ -460,14 +455,36 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public bool checkIfAlive() {
+        return isAlive;
+    }
+
     void die() {
+        isAlive = false;
+        print("sono morto!");
+        velocity = new Vector3();
+        StartCoroutine(respawn());
+    }
+    
+    IEnumerator respawn() {
+        float timeToRespawn = 2f;
+        float timeElapsed = 0f;
         transform.localPosition = playerSpawnPosition.localPosition;
         transform.localRotation = playerSpawnPosition.localRotation;
+
+        while (timeElapsed < timeToRespawn) {
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
         health = maxHealth;
         magicStamina = maxMagicStamina;
-        velocity = new Vector3();
-        //isAlive = true;
-        print("sono morto!");
+        healthBar.fillAmount = 1f;
+        healthBarEnd.transform.localPosition = new Vector2(healthBarEndStartPosition, healthBarEnd.transform.localPosition.y);
+        staminaBar.fillAmount = 1f;
+        staminaBarEnd.transform.localPosition = new Vector2(staminaBarEndStartPosition, staminaBarEnd.transform.localPosition.y);
+        isAlive = true;
+        StartCoroutine(handleStamina());
     }
 
     IEnumerator handleStamina() {

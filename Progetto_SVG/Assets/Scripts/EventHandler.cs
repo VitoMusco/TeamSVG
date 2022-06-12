@@ -6,6 +6,7 @@ public class EventHandler : MonoBehaviour
 {
     public Transform gate;
     public GuardianController guardian;
+    public PlayerMovement player;
     public MeshRenderer portal;
     public ParticleSystem portalParticles;
 
@@ -16,6 +17,16 @@ public class EventHandler : MonoBehaviour
 
     void Awake() {
         gateCrossDetector = GetComponent<BoxCollider>();
+    }
+
+    void Update() {
+        if (!player.checkIfAlive()) {
+            //resettaGuardiano
+            print("DEVO ABBASSARE IL CANCELLO!");
+            gate.position = new Vector3(gate.position.x, -2.6f, gate.position.z);
+            hasCrossedGate = false;
+            guardian.resetGuardian();
+        }
     }
 
     void OnTriggerEnter(Collider collidedObject) {
