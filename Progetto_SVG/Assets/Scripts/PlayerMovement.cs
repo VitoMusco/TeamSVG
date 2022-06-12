@@ -43,11 +43,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float action = 0;
     [SerializeField] private float verticalVelocity;
 
-    [SerializeField] Vector3 velocity;
-    [SerializeField] private bool wantsToUncrouch = false;
-    [SerializeField] private bool canDoubleJump;
-    [SerializeField] private bool canLevitate = false;
-
     private float x;
     private float z;
     private float lockX;
@@ -90,6 +85,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runStaminaRemove = 5;
     [SerializeField] private float staminaToRemove = 0f;
     [SerializeField] private float staminaRemovalMultiplier = 1f;
+    [SerializeField] private bool wantsToUncrouch = false;
+    [SerializeField] private bool canDoubleJump;
+    [SerializeField] private bool canLevitate = false;
+    [SerializeField] Vector3 velocity;
 
     [SerializeField] private bool hasDoubleJumped = false;
     [SerializeField] private float maxTimeAfterAnAction = 2f;
@@ -125,12 +124,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void LateUpdate() {
-        if(isAlive)
-            controller.Move(velocity * Time.deltaTime);
+        if (isAlive)
+            movePlayer();
     }
 
     //CONTROLLA SE SI E' A TERRA
     void checkIfGrounded() => isGrounded = controller.isGrounded;
+
+    void movePlayer() {
+        controller.Move(velocity * Time.deltaTime);
+    }
 
     void checkIfMoving(float x, float z) {
         if (Mathf.Abs(x) > 0.1 || Mathf.Abs(z) > 0.1)
@@ -251,11 +254,15 @@ public class PlayerMovement : MonoBehaviour
             shieldSoundSource.Play();
         }
         if (Input.GetMouseButtonUp(1) || magicStamina == 0f) {
-            shieldSoundSource.Stop();
-            shieldRenderer.enabled = false;
-            decalRenderer.enabled = false;
-            isDefending = false;
+            stopDefending();
         }
+    }
+
+    void stopDefending() {
+        shieldSoundSource.Stop();
+        shieldRenderer.enabled = false;
+        decalRenderer.enabled = false;
+        isDefending = false;
     }
 
     void handleFootSteps()
@@ -427,10 +434,20 @@ public class PlayerMovement : MonoBehaviour
         }
         anim.SetBool("DoubleJumping", false);
     }
+
+    void handleHealthBar() {
+        healthBar.fillAmount = health / maxHealth;
+        healthBarEnd.transform.localPosition = new Vector2(healthBarEndStartPosition - (280 - (280 / maxHealth) * health), healthBarEnd.transform.localPosition.y);
+    }
+
+    void handleStaminaBar() {
+        staminaBar.fillAmount = magicStamina / maxMagicStamina;
+        staminaBarEnd.transform.localPosition = new Vector2(staminaBarEndStartPosition - (250 - (250 / maxMagicStamina) * magicStamina), staminaBarEnd.transform.localPosition.y);
+    }
+
     void checkHealth()
     {
         if (health <= 0) {
-            isAlive = false;
             die();
         }
         else {
@@ -445,8 +462,7 @@ public class PlayerMovement : MonoBehaviour
             if (!isDefending) {
                 print("Ho preso " + damageAmount + " danni");
                 health -= damageAmount;
-                healthBar.fillAmount = health / maxHealth;
-                healthBarEnd.transform.localPosition = new Vector2(healthBarEndStartPosition - (280 - (280 / maxHealth) * health), healthBarEnd.transform.localPosition.y);
+                handleHealthBar();
                 timeAfterAnAction = 0f;
             }
             else
@@ -455,13 +471,26 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void kill() {
+        die();
+    }
+
     public bool checkIfAlive() {
         return isAlive;
     }
 
     void die() {
+        health = 0f;
+        magicStamina = 0f;
+        lockRight = new Vector3();
+        lockForward = new Vector3();
+        lockX = 0f;
+        lockZ = 0f;
+        handleHealthBar();
+        handleStaminaBar();
+        if (isDefending) stopDefending();
+        isGrounded = true;
         isAlive = false;
-        print("sono morto!");
         velocity = new Vector3();
         StartCoroutine(respawn());
     }
@@ -538,8 +567,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                     magicStamina -= staminaToRemove;
             }
-            staminaBar.fillAmount = magicStamina / maxMagicStamina;
-            staminaBarEnd.transform.localPosition = new Vector2(staminaBarEndStartPosition - (250 - (250/maxMagicStamina) * magicStamina), staminaBarEnd.transform.localPosition.y);
+            handleStaminaBar();
             staminaToRemove = 0f;
             yield return null;
         }
