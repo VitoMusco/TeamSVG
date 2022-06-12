@@ -465,6 +465,7 @@ public class GuardianController : MonoBehaviour
     public void resetGuardian()
     {
         isActivated = false;
+        hasPlayedStartVoiceLine = false;
         transform.position = startPosition;
         health = maxHealth;
     }
