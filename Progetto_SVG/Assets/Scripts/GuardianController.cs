@@ -75,6 +75,7 @@ public class GuardianController : MonoBehaviour
     [SerializeField] private float timeToDie = 10f;
 
     private Vector3 startPosition;
+    private Quaternion startRotation;
 
     //Attacking
     public float timeAfterShooting, timeAfterSlamming;
@@ -92,6 +93,7 @@ public class GuardianController : MonoBehaviour
 
     void Awake() {
         startPosition = transform.position;
+        startRotation = transform.rotation;
         collisions = GetComponent<BoxCollider>();
         materials = meshRenderer.materials;
         agent = GetComponent<NavMeshAgent>();
@@ -467,6 +469,7 @@ public class GuardianController : MonoBehaviour
         isActivated = false;
         hasPlayedStartVoiceLine = false;
         transform.position = startPosition;
+        transform.rotation = startRotation;
         health = maxHealth;
     }
 
