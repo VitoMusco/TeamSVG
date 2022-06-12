@@ -499,6 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gate: {fileID: 1672882718}
   guardian: {fileID: 1254032881}
+  player: {fileID: 3158481079519212008}
   portal: {fileID: 1711813854550487957}
   portalParticles: {fileID: 1810671567}
   gateCrossDetector: {fileID: 0}
@@ -1618,12 +1619,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &1399455076 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4146769916292405000, guid: ec57bb63d806e6a4295270ea77a032ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 1572844748039989610}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1421745681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,36 +2082,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4469523810817118561, guid: ec57bb63d806e6a4295270ea77a032ff,
-        type: 3}
-      propertyPath: shake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4469523810817118561, guid: ec57bb63d806e6a4295270ea77a032ff,
-        type: 3}
-      propertyPath: playerArms
-      value: 
-      objectReference: {fileID: 1399455076}
-    - target: {fileID: 4469523810817118561, guid: ec57bb63d806e6a4295270ea77a032ff,
-        type: 3}
-      propertyPath: swaySmooth
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4469523810957908108, guid: ec57bb63d806e6a4295270ea77a032ff,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.15
-      objectReference: {fileID: 0}
     - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 83454009}
-    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
-        type: 3}
-      propertyPath: developerMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: groundMask.m_Bits
@@ -2485,6 +2455,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1572844748039989610}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3158481079519212008 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 1572844748039989610}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 839d27ec78eab7d41bcc4a8f7ff31d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4220352136140474076
 PrefabInstance:
   m_ObjectHideFlags: 0
