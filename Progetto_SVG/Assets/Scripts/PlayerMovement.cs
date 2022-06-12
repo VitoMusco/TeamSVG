@@ -92,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool hasDoubleJumped = false;
     [SerializeField] private float maxTimeAfterAnAction = 2f;
+    [SerializeField] float timeToRespawn = 2f;
 
     void Awake() {
         if (developerMode) {
@@ -496,10 +497,11 @@ public class PlayerMovement : MonoBehaviour
     }
     
     IEnumerator respawn() {
-        float timeToRespawn = 2f;
+        
         float timeElapsed = 0f;
-        transform.localPosition = playerSpawnPosition.localPosition;
         transform.localRotation = playerSpawnPosition.localRotation;
+        transform.localPosition = playerSpawnPosition.localPosition;
+        
 
         while (timeElapsed < timeToRespawn) {
             timeElapsed += Time.deltaTime;
@@ -572,4 +574,11 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
     }
+
+    public void setLevitation(bool value)
+    {
+        canLevitate = value;
+    }
+
+
 }

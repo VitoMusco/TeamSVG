@@ -9,6 +9,8 @@ public class ObjectParkourMovement : MonoBehaviour
     [SerializeField] float maxDistance;
     [SerializeField] float minDistance;
     [SerializeField] float speed;
+    [SerializeField] bool isDangerous;
+    [SerializeField] bool rotate = false;
     private bool toMax = true;
     // Start is called before the first frame update
     void Start()
@@ -45,11 +47,14 @@ public class ObjectParkourMovement : MonoBehaviour
                 if (transform.position.y < minDistance) toMax = true;
             }
         }
+
+        if (rotate) transform.Rotate(new Vector3(0, 0, transform.localRotation.z + speed * Time.deltaTime * 500));
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player")) collision.gameObject.GetComponent<PlayerMovement>().takeDamage(10);
+        Debug.Log("Entrato nell'if");
+        if (other.gameObject.CompareTag("Player") && isDangerous) other.gameObject.GetComponent<PlayerMovement>().kill();
     }
 
 }

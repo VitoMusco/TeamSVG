@@ -9,13 +9,6 @@ public class DmgObjectScript : MonoBehaviour
     [SerializeField] float lifetime;
     private float timeLived;
    
-    
-
-
-
-
-
-
     void Start()
     {
         timeLived = 0;
@@ -27,8 +20,11 @@ public class DmgObjectScript : MonoBehaviour
     {
         if (lifetime != 0 && speed != 0)
         { 
-            if (transform.rotation.x != 0) transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + speed * Time.deltaTime * transform.rotation.x);
-            if (transform.rotation.z != 0) transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * transform.rotation.z * -1, transform.position.y, transform.position.z);
+            transform.localPosition = new Vector3(0, 0, transform.localPosition.z + speed * Time.deltaTime);
+
+            //rotazione
+            transform.Rotate(new Vector3(0, 0, transform.localRotation.z + speed * Time.deltaTime* 150));
+
 
             timeLived += Time.deltaTime;
             if (timeLived > lifetime)
@@ -46,7 +42,7 @@ public class DmgObjectScript : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("entrato nell'if");
-            other.gameObject.GetComponent<PlayerMovement>().takeDamage(100);
+            other.gameObject.GetComponent<PlayerMovement>().kill();
             
         }
     }
