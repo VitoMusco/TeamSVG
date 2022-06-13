@@ -5,6 +5,22 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //CAMERA
+    private Camera playerCamera;
+
+    public float mouseSensitivity = 100f;
+    public float swaySmooth = 1f;
+    public float swayMultiplier = 1f;
+    public bool shake = false;
+    public Transform playerArms;
+    Quaternion swayRotationX;
+    Quaternion swayRotationY;
+    Quaternion targetRotation;
+
+    float yRotation = 0f;
+
+
+    //PLAYER
     public bool developerMode = false;
     public bool hasRespawned = false;
     public Transform predictedMovement;
@@ -30,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
 
     private LineRenderer shootBeam;
     private CharacterController controller;
-    private Camera playerCamera;
     private Animator anim;
 
     [SerializeField] private float predictedVelocityMultiplier = 3f;
@@ -100,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float timeToRespawn = 2f;
 
     void Awake() {
+        Cursor.lockState = CursorLockMode.Locked;
         if (developerMode) {
             health = 1000000;
             magicStamina = 1000000;
@@ -122,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
     void Update() {
         if (isAlive) {
             if (!isInMenu){
+                handleCameraLook();
                 checkIfGrounded();
                 handleInputs();
             }
@@ -134,6 +151,27 @@ public class PlayerMovement : MonoBehaviour
     void LateUpdate() {
         if (isAlive)
             movePlayer();
+    }
+
+    void handleCameraLook() {
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        swayRotationX = Quaternion.AngleAxis(-mouseY * swayMultiplier * swaySmooth, Vector3.right);
+        swayRotationY = Quaternion.AngleAxis(mouseX * swayMultiplier * swaySmooth, Vector3.up);
+
+        targetRotation = swayRotationX * swayRotationY;
+
+        playerArms.localRotation = Quaternion.Slerp(playerArms.localRotation, targetRotation, swaySmooth * Time.deltaTime);
+
+        mouseX = mouseX * mouseSensitivity * Time.deltaTime;
+        mouseY = mouseY * mouseSensitivity * Time.deltaTime;
+
+        yRotation -= mouseY;
+        yRotation = Mathf.Clamp(yRotation, -90f, 90f);
+
+        playerCamera.transform.localRotation = Quaternion.Euler(yRotation, 0f, 0f);
+        transform.Rotate(Vector3.up * mouseX);
     }
 
     //CONTROLLA SE SI E' A TERRA
@@ -597,5 +635,42 @@ public class PlayerMovement : MonoBehaviour
         canLevitate = value;
     }
 
+    public void setSensitivity(float sensitivity) {
+        mouseSensitivity = sensitivity * 100f;
+    }
 
+    public IEnumerator shakeCamera(float shakingTime, float shakeMultiplier, float rotationMultiplier, float shakeRange, float rotationRange)
+    {
+        float timeElapsed = 0;
+        float timeToGenerateNewPosition = 0.1f;
+        float timeSinceLastPosition = 0f;
+        Vector3 startPosition = playerCamera.transform.localPosition;
+        Quaternion startRotation = playerCamera.transform.localRotation;
+        float startRotationY = playerCamera.transform.localRotation.y;
+        Vector3 positionToReach = new Vector3(startPosition.x + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.y + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.z);
+        float rotationToReach = Random.Range(-rotationRange, rotationRange) * rotationMultiplier;
+        while (timeElapsed < shakingTime)
+        {
+            timeElapsed += Time.deltaTime;
+            if (timeSinceLastPosition < timeToGenerateNewPosition)
+            {
+                timeSinceLastPosition += Time.deltaTime;
+                playerCamera.transform.localPosition = Vector3.Lerp(startPosition, positionToReach, timeSinceLastPosition / timeToGenerateNewPosition);
+                playerCamera.transform.localRotation = Quaternion.Lerp(playerCamera.transform.localRotation, 
+                    new Quaternion(playerCamera.transform.localRotation.x, playerCamera.transform.localRotation.y, 
+                    startRotationY + rotationToReach, playerCamera.transform.localRotation.w), timeSinceLastPosition / timeToGenerateNewPosition);
+            }
+            if (timeSinceLastPosition >= timeToGenerateNewPosition)
+            {
+                positionToReach = new Vector3(startPosition.x + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.y + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.z);
+                rotationToReach = Random.Range(-rotationRange, rotationRange) * rotationMultiplier;
+                timeSinceLastPosition = 0f;
+            }
+
+            yield return null;
+        }
+
+        playerCamera.transform.localPosition = startPosition;
+        playerCamera.transform.localRotation = startRotation;
+    }
 }

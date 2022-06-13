@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class SettingsHandler : MonoBehaviour
 {
-
+    public AudioMixer mixer;
     public RenderPipelineAsset[] qualityLevels;
     public TMP_Dropdown qualitySelector;
     public TMP_Dropdown resolutionSelector;
@@ -73,6 +75,10 @@ public class SettingsHandler : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public void changeVolume(float volume) {
+        mixer.SetFloat("mixerVolume", volume);
+    }
+
     public void changeLevel(int value) {
         QualitySettings.SetQualityLevel(value);
         QualitySettings.renderPipeline = qualityLevels[value];
@@ -86,5 +92,15 @@ public class SettingsHandler : MonoBehaviour
     public void changeFullscreen(bool toggle) {
         fullScreenToggle.isOn = toggle;
         Screen.fullScreen = toggle;
+    }
+
+    public void setSensitivity(float sensitivity) {
+        player.setSensitivity(sensitivity);
+    }
+
+    public void goToMainMenu() {
+        resume();
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene(0);
     }
 }

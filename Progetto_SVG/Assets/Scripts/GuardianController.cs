@@ -27,9 +27,8 @@ public class GuardianController : MonoBehaviour
     public AudioSource footStepSource;
     public SkinnedMeshRenderer meshRenderer;
 
-    public CameraLook playerCamera;
     public NavMeshAgent agent;
-    public Transform player;
+    public GameObject player;
     public Transform playerPrediction;
     public Transform playerSeeker;
     public LayerMask whatIsGround, whatIsPlayer;
@@ -187,13 +186,13 @@ public class GuardianController : MonoBehaviour
         {
             footStepSource.clip = footStepSounds[Random.Range(0, footStepSounds.Count)];
             footStepSource.Play();
-            StartCoroutine(playerCamera.shakeCamera(.2f, .25f, .25f, .25f, 0.017f));
+            StartCoroutine(player.GetComponent<PlayerMovement>().shakeCamera(.2f, .25f, .25f, .25f, 0.017f));
             timeBetweenFootSteps = 0.71f;
         }
     }
 
     private void chase() {
-        agent.SetDestination(player.position);
+        agent.SetDestination(player.transform.position);
         isWalking = true;
     }
     /*
@@ -241,7 +240,7 @@ public class GuardianController : MonoBehaviour
             slamParticles.Play();
             attackSoundSource.clip = slamSound;
             attackSoundSource.Play();
-            StartCoroutine(playerCamera.shakeCamera(2f, .5f, 1f, .25f, 0.017f));
+            StartCoroutine(player.GetComponent<PlayerMovement>().shakeCamera(2f, .5f, 1f, .25f, 0.017f));
             anim.ResetTrigger("Slam");
             isSlamming = false;
             hasSlammed = true;

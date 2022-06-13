@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using  UnityEngine.SceneManagement;//per cambiare scena
+using UnityEngine.SceneManagement;//per cambiare scena
 
 public class Menu : MonoBehaviour
 {
