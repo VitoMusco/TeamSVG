@@ -12,8 +12,8 @@ public class SettingsHandler : MonoBehaviour
     public TMP_Dropdown qualitySelector;
     public TMP_Dropdown resolutionSelector;
     public Toggle fullScreenToggle;
-
     public PlayerMovement player;
+
     private bool isActive = false;
     private Canvas settingsMenu;
     Resolution[] resolutions;
@@ -57,6 +57,7 @@ public class SettingsHandler : MonoBehaviour
 
     void pause() {
         Time.timeScale = 0f;
+        AudioListener.pause = true;
         settingsMenu.enabled = true;
         Cursor.lockState = CursorLockMode.None;
         isActive = true;
@@ -65,6 +66,7 @@ public class SettingsHandler : MonoBehaviour
 
     public void resume() {
         Time.timeScale = 1f;
+        AudioListener.pause = false;
         settingsMenu.enabled = false;
         isActive = false;
         player.exitMenu();

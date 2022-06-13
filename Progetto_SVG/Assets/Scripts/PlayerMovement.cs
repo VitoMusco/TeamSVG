@@ -53,6 +53,10 @@ public class PlayerMovement : MonoBehaviour
     private float lockSpeed;
 
 
+    public float crouchSpeed = 1.5f;
+    public float walkSpeed = 3f;
+    public float runSpeed = 6f;
+
     private float runBobSpeed = 14f;
     private float runBobAmount = 0.08f;
     private float walkBobSpeed = 10f;
@@ -117,8 +121,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update() {
         if (isAlive) {
-            checkIfGrounded();
-            if (!isInMenu) handleInputs();
+            if (!isInMenu){
+                checkIfGrounded();
+                handleInputs();
+            }
             handleFootSteps();
             handleMovementPrediction();
             handleAnimations();
@@ -177,10 +183,11 @@ public class PlayerMovement : MonoBehaviour
         checkIfMoving(velocity.x, velocity.z);
         handleHeadBob();
 
-        if (!isCrouching && Input.GetKeyDown("left shift"))
-            speed = 6f;
-        if (Input.GetKeyUp("left shift") || magicStamina == 0f)
-            speed = 3f;
+        if (isCrouching)
+            speed = crouchSpeed;
+        else if (!isCrouching && Input.GetKey("left shift") && magicStamina > 0f)
+            speed = runSpeed;
+        else speed = walkSpeed;
 
         //GESTIONE CROUCH  
         if (Input.GetKeyDown("left ctrl") && !isCrouching && canCrouch)
@@ -252,13 +259,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //GESTIONE DIFESA
-        if (Input.GetMouseButtonDown(1) && !isAttacking && magicStamina > 0f) {
+        if (Input.GetMouseButton(1) && !isDefending && !isAttacking && magicStamina > 0f) {
             shieldRenderer.enabled = true;
             decalRenderer.enabled = true;
             isDefending = true;
             shieldSoundSource.Play();
         }
-        if (Input.GetMouseButtonUp(1) || magicStamina == 0f) {
+        else if (!Input.GetMouseButton(1) || magicStamina == 0f) {
             stopDefending();
         }
     }
@@ -327,8 +334,6 @@ public class PlayerMovement : MonoBehaviour
         
         canCrouch = false;
 
-        if (isRunning)
-            speed = 3f;
         if (isGrounded)
             applyGravity = true;
 
