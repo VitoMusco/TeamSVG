@@ -8,14 +8,14 @@ public class Menu : MonoBehaviour
     public void NewGame(){
         SceneManager.LoadScene(1);
     }
-     public void ContinueGame(){
-        
+    public void ContinueGame(){
+        SceneManager.LoadScene(2);
     }
-     public void ExitGame(){
+    public void ExitGame(){
         Application.Quit();
         Debug.Log("Esci");
     }
-     public void OptionGame(){
-        
+    public void OptionGame(){
+       
     }
 }
