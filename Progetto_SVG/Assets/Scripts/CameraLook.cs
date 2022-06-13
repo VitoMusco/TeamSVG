@@ -9,7 +9,6 @@ public class CameraLook : MonoBehaviour
     public float swaySmooth = 1f;
     public float swayMultiplier = 1f;
     public bool shake = false;
-    public bool inMenu = false;
     public Transform playerBody;
     public Transform playerArms;
     Quaternion swayRotationX;
@@ -20,46 +19,30 @@ public class CameraLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lockCursor();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!inMenu) {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
 
-            swayRotationX = Quaternion.AngleAxis(-mouseY * swayMultiplier * swaySmooth, Vector3.right);
-            swayRotationY = Quaternion.AngleAxis(mouseX * swayMultiplier * swaySmooth, Vector3.up);
+        swayRotationX = Quaternion.AngleAxis(-mouseY * swayMultiplier * swaySmooth, Vector3.right);
+        swayRotationY = Quaternion.AngleAxis(mouseX * swayMultiplier * swaySmooth, Vector3.up);
 
-            targetRotation = swayRotationX * swayRotationY;
+        targetRotation = swayRotationX * swayRotationY;
 
-            playerArms.localRotation = Quaternion.Slerp(playerArms.localRotation, targetRotation, swaySmooth * Time.deltaTime);
+        playerArms.localRotation = Quaternion.Slerp(playerArms.localRotation, targetRotation, swaySmooth * Time.deltaTime);
 
-            mouseX = mouseX * mouseSensitivity * Time.deltaTime;
-            mouseY = mouseY * mouseSensitivity * Time.deltaTime;
+        mouseX = mouseX * mouseSensitivity * Time.deltaTime;
+        mouseY = mouseY * mouseSensitivity * Time.deltaTime;
 
-            yRotation -= mouseY;
-            yRotation = Mathf.Clamp(yRotation, -90f, 90f);
+        yRotation -= mouseY;
+        yRotation = Mathf.Clamp(yRotation, -90f, 90f);
 
-            transform.localRotation = Quaternion.Euler(yRotation, 0, 0);
-            playerBody.Rotate(Vector3.up * mouseX);
-        }
-    }
-
-    void lockCursor() {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    void unlockCursor() {
-        Cursor.lockState = CursorLockMode.None;
-    }
-
-    public void setInMenu(bool value) {
-        inMenu = value;
-        if (value) unlockCursor();
-        else lockCursor();
+        transform.localRotation = Quaternion.Euler(yRotation, 0, 0);
+        playerBody.Rotate(Vector3.up * mouseX);
     }
 
     public IEnumerator shakeCamera(float shakingTime, float shakeMultiplier, float rotationMultiplier, float shakeRange, float rotationRange) {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Rendering;
 using TMPro;
 
@@ -10,7 +11,11 @@ public class SettingsHandler : MonoBehaviour
     public RenderPipelineAsset[] qualityLevels;
     public TMP_Dropdown qualitySelector;
     public TMP_Dropdown resolutionSelector;
+    public Toggle fullScreenToggle;
 
+    public PlayerMovement player;
+    private bool isActive = false;
+    private Canvas settingsMenu;
     Resolution[] resolutions;
 
     // Start is called before the first frame update
@@ -40,13 +45,44 @@ public class SettingsHandler : MonoBehaviour
         qualitySelector.value = QualitySettings.GetQualityLevel();
     }
 
-    public void ChangeLevel(int value) {
+    void Awake() {
+        settingsMenu = GetComponent<Canvas>();
+        settingsMenu.enabled = false;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown("escape") && !isActive) pause();
+    }
+
+    void pause() {
+        Time.timeScale = 0f;
+        settingsMenu.enabled = true;
+        Cursor.lockState = CursorLockMode.None;
+        isActive = true;
+        player.enterMenu();
+    }
+
+    public void resume() {
+        Time.timeScale = 1f;
+        settingsMenu.enabled = false;
+        isActive = false;
+        player.exitMenu();
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void changeLevel(int value) {
         QualitySettings.SetQualityLevel(value);
         QualitySettings.renderPipeline = qualityLevels[value];
     }
 
-    public void ChangeResolution(int resolutionIndex) {
+    public void changeResolution(int resolutionIndex) {
         Resolution screenResolution = resolutions[resolutionIndex];
-        Screen.SetResolution(screenResolution.width, screenResolution.height, Screen.fullScreen);
+        Screen.SetResolution(screenResolution.width, screenResolution.height, fullScreenToggle.isOn);
+    }
+
+    public void changeFullscreen(bool toggle) {
+        fullScreenToggle.isOn = toggle;
+        Screen.fullScreen = toggle;
     }
 }

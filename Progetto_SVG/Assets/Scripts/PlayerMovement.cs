@@ -18,7 +18,6 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource shieldSoundSource;
     public AudioSource footStepSource;
     public List<AudioClip> footStepSounds;
-    public Canvas settingsMenu;
 
     public Image healthBar;
     public Image healthBarEnd;
@@ -63,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     private float defaultYpos = 0;
     private float timer;
     private bool isAlive = true;
+    private bool isInMenu = false;
 
     [SerializeField] private float health = 100f;
     [SerializeField] private float maxHealth = 100f;
@@ -70,7 +70,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxMagicStamina = 100f;
     [SerializeField] private float timeAfterAnAction = 0f;
     [SerializeField] private float timeToShoot = 0.4f;
-    [SerializeField] private bool inMenu = false;
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isMoving = false;
     [SerializeField] private bool isCrouching = false;
@@ -101,7 +100,6 @@ public class PlayerMovement : MonoBehaviour
             health = 1000000;
             magicStamina = 1000000;
         }
-        settingsMenu.enabled = false;
         staminaBarEndStartPosition = staminaBarEnd.transform.localPosition.x;
         healthBarEndStartPosition = healthBarEnd.transform.localPosition.x;
         shieldRenderer.enabled = false;
@@ -120,13 +118,10 @@ public class PlayerMovement : MonoBehaviour
     void Update() {
         if (isAlive) {
             checkIfGrounded();
-            handleMenuInputs();
-            if (!inMenu) {
-                handleInputs();
-                handleFootSteps();
-                handleMovementPrediction();
-                handleAnimations();
-            }
+            if (!isInMenu) handleInputs();
+            handleFootSteps();
+            handleMovementPrediction();
+            handleAnimations();
         }     
     }
 
@@ -171,20 +166,6 @@ public class PlayerMovement : MonoBehaviour
             isRunning = true;
         else
             isRunning = false;
-    }
-
-    void handleMenuInputs() {
-        if (Input.GetKeyDown("escape"))
-        {
-            inMenu = !inMenu;
-            if (inMenu) {
-                settingsMenu.enabled = true;
-                z = 0f;
-                x = 0f;
-            }
-            else settingsMenu.enabled = false;
-            playerCamera.GetComponent<CameraLook>().setInMenu(inMenu);
-        }
     }
 
     //GESTIONE INPUT
@@ -501,6 +482,14 @@ public class PlayerMovement : MonoBehaviour
 
     public bool checkIfAlive() {
         return isAlive;
+    }
+
+    public void enterMenu() {
+        isInMenu = true;
+    }
+
+    public void exitMenu() {
+        isInMenu = false;
     }
 
     void die() {
