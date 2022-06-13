@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource shieldSoundSource;
     public AudioSource footStepSource;
     public List<AudioClip> footStepSounds;
+    public Canvas settingsMenu;
 
     public Image healthBar;
     public Image healthBarEnd;
@@ -69,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxMagicStamina = 100f;
     [SerializeField] private float timeAfterAnAction = 0f;
     [SerializeField] private float timeToShoot = 0.4f;
+    [SerializeField] private bool inMenu = false;
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isMoving = false;
     [SerializeField] private bool isCrouching = false;
@@ -99,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
             health = 1000000;
             magicStamina = 1000000;
         }
+        settingsMenu.enabled = false;
         staminaBarEndStartPosition = staminaBarEnd.transform.localPosition.x;
         healthBarEndStartPosition = healthBarEnd.transform.localPosition.x;
         shieldRenderer.enabled = false;
@@ -117,10 +120,13 @@ public class PlayerMovement : MonoBehaviour
     void Update() {
         if (isAlive) {
             checkIfGrounded();
-            handleInputs();
-            handleFootSteps();
-            handleMovementPrediction();
-            handleAnimations(); 
+            handleMenuInputs();
+            if (!inMenu) {
+                handleInputs();
+                handleFootSteps();
+                handleMovementPrediction();
+                handleAnimations();
+            }
         }     
     }
 
@@ -133,6 +139,20 @@ public class PlayerMovement : MonoBehaviour
     void checkIfGrounded() => isGrounded = controller.isGrounded;
 
     void movePlayer() {
+        verticalVelocity = velocity.y;
+
+        if (isGrounded)
+        {
+            velocity = transform.right * x + transform.forward * z;
+            velocity = velocity * speed;
+        }
+        else
+        {
+            velocity = Vector3.Lerp(velocity, (lockRight * lockX + lockForward * lockZ) * lockSpeed, 0.25f);
+        }
+
+        velocity.y = verticalVelocity;
+
         controller.Move(velocity * Time.deltaTime);
     }
 
@@ -153,23 +173,26 @@ public class PlayerMovement : MonoBehaviour
             isRunning = false;
     }
 
+    void handleMenuInputs() {
+        if (Input.GetKeyDown("escape"))
+        {
+            inMenu = !inMenu;
+            if (inMenu) {
+                settingsMenu.enabled = true;
+                z = 0f;
+                x = 0f;
+            }
+            else settingsMenu.enabled = false;
+            playerCamera.GetComponent<CameraLook>().setInMenu(inMenu);
+        }
+    }
+
     //GESTIONE INPUT
     void handleInputs() {
         //MOVIMENTO
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
 
-        verticalVelocity = velocity.y;
-
-        if (isGrounded) {
-            velocity = transform.right * x + transform.forward * z;
-            velocity = velocity * speed;
-        }
-        else {
-            velocity = Vector3.Lerp(velocity, (lockRight * lockX + lockForward * lockZ) * lockSpeed, 0.25f);
-        }
-
-        velocity.y = verticalVelocity;
         checkIfMoving(velocity.x, velocity.z);
         handleHeadBob();
 

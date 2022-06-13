@@ -436,6 +436,7 @@ public class GuardianController : MonoBehaviour
     IEnumerator die() {
         float timeElapsed = 0f;
         float slider = 0f;
+        agent.SetDestination(transform.position);
         chargeParticles.Stop();
         attackSoundSource.Stop();
         soundSource.Stop();
@@ -470,6 +471,7 @@ public class GuardianController : MonoBehaviour
         hasPlayedStartVoiceLine = false;
         transform.position = startPosition;
         transform.rotation = startRotation;
+        agent.SetDestination(transform.position);
         health = maxHealth;
     }
 
