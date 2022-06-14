@@ -5,10 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class SettingsHandler : MonoBehaviour
 {
+    public PlayerInput inputs;
+
     public AudioMixer mixer;
     public RenderPipelineAsset[] qualityLevels;
     public TMP_Dropdown qualitySelector;
@@ -48,16 +51,24 @@ public class SettingsHandler : MonoBehaviour
     }
 
     void Awake() {
+        inputs = new PlayerInput();
+        inputs.Menu.Menu.performed += pause;
+        inputs.Menu.Menu.Enable();
+
         settingsMenu = GetComponent<Canvas>();
         settingsMenu.enabled = false;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("escape") && !isActive) pause();
+    void OnDisabled() {
+        inputs.Menu.Menu.Disable();
     }
 
-    void pause() {
+    void Update()
+    {
+        //if (Input.GetKeyDown("escape") && !isActive) pause();
+    }
+
+    void pause(InputAction.CallbackContext obj) {
         Time.timeScale = 0f;
         AudioListener.pause = true;
         settingsMenu.enabled = true;

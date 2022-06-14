@@ -4832,6 +4832,8 @@ GameObject:
   - component: {fileID: 6058766738470376347}
   - component: {fileID: 7186280087257717822}
   - component: {fileID: 4926441991726000372}
+  - component: {fileID: 6874448015376211566}
+  - component: {fileID: 5573919386300836537}
   m_Layer: 0
   m_Name: PortalPlane
   m_TagString: Untagged
@@ -4905,3 +4907,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6874448015376211566
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6872141822996171041}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4, y: 4.15, z: 0}
+  m_Center: {x: 0, y: 0.15, z: 0}
+--- !u!114 &5573919386300836537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6872141822996171041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a103118bf8c30c4b88207e859855427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

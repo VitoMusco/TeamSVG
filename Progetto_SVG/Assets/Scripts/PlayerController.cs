@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -19,6 +20,11 @@ public class PlayerController : MonoBehaviour
 
     float yRotation = 0f;
 
+    //INPUTS
+    public PlayerInput inputs;
+
+    private InputAction move;
+    private InputAction look;
 
     //PLAYER
     public bool developerMode = false;
@@ -115,6 +121,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float timeToRespawn = 2f;
 
     void Awake() {
+        //INPUT//
+        inputs = new PlayerInput();
+
+        move = inputs.PlayerInputs.Move;
+        look = inputs.PlayerInputs.Look;
+
+        move.Enable();
+        look.Enable();
+        inputs.PlayerInputs.Crouch.performed += crouch;
+        inputs.PlayerInputs.Crouch.canceled += unCrouch;
+        inputs.PlayerInputs.Crouch.Enable();
+        inputs.PlayerInputs.Run.performed += run;
+        inputs.PlayerInputs.Run.canceled += stopRunning;
+        inputs.PlayerInputs.Run.Enable();
+        inputs.PlayerInputs.Jump.performed += jump;
+        inputs.PlayerInputs.Jump.Enable();
+        inputs.PlayerInputs.Attack.performed += attack;
+        inputs.PlayerInputs.Attack.Enable();
+        inputs.PlayerInputs.Defend.performed += defend;
+        inputs.PlayerInputs.Defend.canceled += cancelDefense;
+        inputs.PlayerInputs.Defend.Enable();
+        /////////
+
         Cursor.lockState = CursorLockMode.Locked;
         if (developerMode) {
             health = 1000000;
@@ -134,28 +163,44 @@ public class PlayerController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         StartCoroutine(handleStamina());
     }
-    // Update is called once per frame
+
+    void OnDisable() {
+        inputs.PlayerInputs.Crouch.Disable();
+        inputs.PlayerInputs.Run.Disable();
+        inputs.PlayerInputs.Jump.Disable();
+        inputs.PlayerInputs.Attack.Disable();
+        inputs.PlayerInputs.Defend.Disable();
+    }
+
     void Update() {
         if (isAlive) {
             if (!isInMenu){
                 handleCameraLook();
                 checkIfGrounded();
                 handleInputs();
+                handleFootSteps();
+                handleMovementPrediction();
+                handleAnimations();
             }
-            handleFootSteps();
-            handleMovementPrediction();
-            handleAnimations();
+            
         }     
     }
 
     void LateUpdate() {
-        if (isAlive)
+        if (isAlive) {
             movePlayer();
+        }
     }
 
     void handleCameraLook() {
+        /*OLDINPUT
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        */
+
+        Vector2 mouseInputs = look.ReadValue<Vector2>();
+        float mouseX = mouseInputs.x * mouseSensitivity;
+        float mouseY = mouseInputs.y * mouseSensitivity;
 
         swayRotationX = Quaternion.AngleAxis(-mouseY * swayMultiplier * swaySmooth, Vector3.right);
         swayRotationY = Quaternion.AngleAxis(mouseX * swayMultiplier * swaySmooth, Vector3.up);
@@ -202,40 +247,21 @@ public class PlayerController : MonoBehaviour
             isWalking = true;
         else 
             isWalking = false;
-
-        if (isMoving && speed == 6f && !isCrouching && isGrounded)
-            isRunning = true;
-        else
-            isRunning = false;
     }
 
     //GESTIONE INPUT
     void handleInputs() {
         //MOVIMENTO
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
+
+        Vector2 movementInputs = move.ReadValue<Vector2>();
+        x = movementInputs.x;
+        z = movementInputs.y;
 
         checkIfMoving(velocity.x, velocity.z);
         handleHeadBob();
+        
+        speed = isCrouching ? crouchSpeed : (!isCrouching && isRunning && magicStamina > 0f) ? runSpeed : walkSpeed;
 
-        if (isCrouching)
-            speed = crouchSpeed;
-        else if (!isCrouching && Input.GetKey("left shift") && magicStamina > 0f)
-            speed = runSpeed;
-        else speed = walkSpeed;
-
-        //GESTIONE CROUCH  
-        if (Input.GetKeyDown("left ctrl") && !isCrouching && canCrouch)
-        {
-            StartCoroutine(handleCrouch());
-            isCrouching = true;
-        }
-        if (Input.GetKeyUp("left ctrl"))
-        {
-            wantsToUncrouch = true;
-        }
-        if (Input.GetKeyDown("left ctrl") && isCrouching && wantsToUncrouch)
-            wantsToUncrouch = false;
         if (isCrouching && wantsToUncrouch && canCrouch)
         {
             if (!Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
@@ -265,7 +291,7 @@ public class PlayerController : MonoBehaviour
             if (velocity.y > gravity && isGrounded)
                 velocity.y = gravity;
         }
-
+        /*
         //GESTIONE SALTO E DOPPIO SALTO
         if (Input.GetButtonDown("Jump") && isGrounded) {
             jump();
@@ -276,33 +302,84 @@ public class PlayerController : MonoBehaviour
             hasDoubleJumped = true;
             jump();
             canDoubleJump = false;
-        }
+        }*/
         if (hasDoubleJumped && isGrounded) {
             hasDoubleJumped = false;
         }
+        if (isDefending && magicStamina == 0f) {
+            stopDefending();
+        }
+    }
 
-        //GESTIONE ATTACCO
-        if (Input.GetMouseButtonDown(0) && canShoot && !isDefending && magicStamina > 0f)
+    void crouch(InputAction.CallbackContext obj) {
+        if (!isCrouching && canCrouch) {
+            StartCoroutine(handleCrouch());
+            isCrouching = true;
+        }
+    }
+
+    void unCrouch(InputAction.CallbackContext obj)
+    {
+        wantsToUncrouch = true;
+    }
+
+    void jump(InputAction.CallbackContext obj) {
+        if (isGrounded || !isGrounded && !hasDoubleJumped) {
+            if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
+
+            if (!isGrounded && !hasDoubleJumped)
+            {
+                StartCoroutine(handleDoubleJump());
+                hasDoubleJumped = true;
+            }
+
+            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            lockRight = transform.right;
+            lockForward = transform.forward;
+            lockX = x;
+            lockZ = z;
+            lockSpeed = speed;
+            movePlayer();
+        }
+    }
+
+    void run(InputAction.CallbackContext obj) {
+        if(isGrounded)
+            isRunning = true;
+    }
+
+    void stopRunning(InputAction.CallbackContext obj)
+    {
+        isRunning = false;
+    }
+
+    void attack(InputAction.CallbackContext obj)
+    {
+        if (canShoot && !isDefending && magicStamina > 0f)
         {
-            //ATTACCA
-            if (canShoot) {
+            if (canShoot)
+            {
                 isAttacking = true;
                 Invoke(nameof(shoot), timeToShoot);
                 canShoot = false;
                 Invoke(nameof(resetShoot), 1f);
             }
         }
+    }
 
-        //GESTIONE DIFESA
-        if (Input.GetMouseButton(1) && !isDefending && !isAttacking && magicStamina > 0f) {
+    void defend(InputAction.CallbackContext obj)
+    {
+        if (!isDefending && !isAttacking && magicStamina > 0f)
+        {
             shieldRenderer.enabled = true;
             decalRenderer.enabled = true;
             isDefending = true;
             shieldSoundSource.Play();
         }
-        else if (!Input.GetMouseButton(1) || magicStamina == 0f) {
-            stopDefending();
-        }
+    }
+
+    void cancelDefense(InputAction.CallbackContext obj) {
+        stopDefending();
     }
 
     void stopDefending() {
@@ -314,7 +391,7 @@ public class PlayerController : MonoBehaviour
 
     void handleFootSteps()
     {
-        if (!isWalking && !isRunning) return;
+        if (!isWalking && !isRunning || !isGrounded) return;
 
         timeBetweenFootSteps = isWalking ? 0.5f : 0.3f;
         timeAfterFootSteps += Time.deltaTime;
@@ -456,16 +533,6 @@ public class PlayerController : MonoBehaviour
             action = isLevitating ? Mathf.Lerp(action, 1, 0.25f) : Mathf.Lerp(action, 6f, 0.1f);
 
         anim.SetFloat("Blend", action);
-    }
-
-    void jump() {
-        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
-        velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);       
-        lockRight = transform.right;
-        lockForward = transform.forward;
-        lockX = x;
-        lockZ = z;
-        lockSpeed = speed;
     }
 
     IEnumerator handleDoubleJump() {
