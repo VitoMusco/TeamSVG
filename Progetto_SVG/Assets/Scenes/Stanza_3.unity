@@ -495,10 +495,10 @@ MonoBehaviour:
   guardian: {fileID: 1254032881}
   player: {fileID: 3158481079519212008}
   portal: {fileID: 1711813854550487957}
+  portalCollider: {fileID: 1711813854550487959}
   portalParticles: {fileID: 1810671567}
   gateCrossDetector: {fileID: 0}
   hasCrossedGate: 0
-  guardianHasBeenKilled: 0
   timeToMoveGate: 3
 --- !u!4 &923601617
 Transform:
@@ -2147,6 +2147,12 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 6025720928610524001}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1711813854550487959 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 6874448015376211566, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6025720928610524001}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1927193793077284306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2604,6 +2610,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874448015376211566, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 872feba6fcfa0ac46b3bfcc19948b26e, type: 3}

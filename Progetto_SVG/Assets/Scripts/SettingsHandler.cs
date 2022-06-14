@@ -19,7 +19,6 @@ public class SettingsHandler : MonoBehaviour
     public Toggle fullScreenToggle;
     public PlayerController player;
 
-    private bool isActive = false;
     private Canvas settingsMenu;
     Resolution[] resolutions;
 
@@ -48,9 +47,7 @@ public class SettingsHandler : MonoBehaviour
         resolutionSelector.RefreshShownValue();
 
         qualitySelector.value = QualitySettings.GetQualityLevel();
-    }
 
-    void Awake() {
         inputs = new PlayerInput();
         inputs.Menu.Menu.performed += pause;
         inputs.Menu.Menu.Enable();
@@ -59,13 +56,8 @@ public class SettingsHandler : MonoBehaviour
         settingsMenu.enabled = false;
     }
 
-    void OnDisabled() {
+    void OnDestroy() {
         inputs.Menu.Menu.Disable();
-    }
-
-    void Update()
-    {
-        //if (Input.GetKeyDown("escape") && !isActive) pause();
     }
 
     void pause(InputAction.CallbackContext obj) {
@@ -73,7 +65,6 @@ public class SettingsHandler : MonoBehaviour
         AudioListener.pause = true;
         settingsMenu.enabled = true;
         Cursor.lockState = CursorLockMode.None;
-        isActive = true;
         player.enterMenu();
     }
 
@@ -81,7 +72,6 @@ public class SettingsHandler : MonoBehaviour
         Time.timeScale = 1f;
         AudioListener.pause = false;
         settingsMenu.enabled = false;
-        isActive = false;
         player.exitMenu();
         Cursor.lockState = CursorLockMode.Locked;
     }

@@ -8,6 +8,7 @@ public class EventHandler : MonoBehaviour
     public GuardianController guardian;
     public PlayerController player;
     public MeshRenderer portal;
+    public BoxCollider portalCollider;
     public ParticleSystem portalParticles;
 
     [SerializeField] private BoxCollider gateCrossDetector;
@@ -55,6 +56,7 @@ public class EventHandler : MonoBehaviour
 
     public void setGuardianKilled() {
         portal.enabled = true;
+        portalCollider.enabled = true;
         portalParticles.Play();
         StartCoroutine(operateGate());
     }

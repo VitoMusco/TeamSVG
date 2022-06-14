@@ -193,11 +193,6 @@ public class PlayerController : MonoBehaviour
     }
 
     void handleCameraLook() {
-        /*OLDINPUT
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
-        */
-
         Vector2 mouseInputs = look.ReadValue<Vector2>();
         float mouseX = mouseInputs.x * mouseSensitivity;
         float mouseY = mouseInputs.y * mouseSensitivity;
@@ -291,18 +286,7 @@ public class PlayerController : MonoBehaviour
             if (velocity.y > gravity && isGrounded)
                 velocity.y = gravity;
         }
-        /*
-        //GESTIONE SALTO E DOPPIO SALTO
-        if (Input.GetButtonDown("Jump") && isGrounded) {
-            jump();
-            canDoubleJump = true;
-        }
-        else if (Input.GetButtonDown("Jump") && canDoubleJump) {
-            StartCoroutine(handleDoubleJump());
-            hasDoubleJumped = true;
-            jump();
-            canDoubleJump = false;
-        }*/
+
         if (hasDoubleJumped && isGrounded) {
             hasDoubleJumped = false;
         }
@@ -315,6 +299,7 @@ public class PlayerController : MonoBehaviour
         if (!isCrouching && canCrouch) {
             StartCoroutine(handleCrouch());
             isCrouching = true;
+            wantsToUncrouch = false;
         }
     }
 
@@ -344,7 +329,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void run(InputAction.CallbackContext obj) {
-        if(isGrounded)
+        if(isGrounded && !isCrouching)
             isRunning = true;
     }
 
@@ -391,7 +376,7 @@ public class PlayerController : MonoBehaviour
 
     void handleFootSteps()
     {
-        if (!isWalking && !isRunning || !isGrounded) return;
+        if (!isWalking && !isRunning || !isGrounded || isCrouching) return;
 
         timeBetweenFootSteps = isWalking ? 0.5f : 0.3f;
         timeAfterFootSteps += Time.deltaTime;
