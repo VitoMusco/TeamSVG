@@ -27,7 +27,7 @@ public class slamBehaviour : MonoBehaviour
 
     void OnTriggerEnter(Collider collider) {
         if (collider.gameObject.tag == "Player") {
-            collider.gameObject.GetComponent<PlayerMovement>().takeDamage(slamDamage);
+            collider.gameObject.GetComponent<PlayerController>().takeDamage(slamDamage);
         }
     }
 

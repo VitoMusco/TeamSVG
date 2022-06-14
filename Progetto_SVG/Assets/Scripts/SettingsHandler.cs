@@ -14,7 +14,7 @@ public class SettingsHandler : MonoBehaviour
     public TMP_Dropdown qualitySelector;
     public TMP_Dropdown resolutionSelector;
     public Toggle fullScreenToggle;
-    public PlayerMovement player;
+    public PlayerController player;
 
     private bool isActive = false;
     private Canvas settingsMenu;

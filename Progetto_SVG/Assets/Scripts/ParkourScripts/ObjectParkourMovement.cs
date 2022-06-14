@@ -54,7 +54,7 @@ public class ObjectParkourMovement : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Entrato nell'if");
-        if (other.gameObject.CompareTag("Player") && isDangerous) other.gameObject.GetComponent<PlayerMovement>().kill();
+        if (other.gameObject.CompareTag("Player") && isDangerous) other.gameObject.GetComponent<PlayerController>().kill();
     }
 
 }

@@ -6,13 +6,12 @@ public class EventHandler : MonoBehaviour
 {
     public Transform gate;
     public GuardianController guardian;
-    public PlayerMovement player;
+    public PlayerController player;
     public MeshRenderer portal;
     public ParticleSystem portalParticles;
 
     [SerializeField] private BoxCollider gateCrossDetector;
     [SerializeField] private bool hasCrossedGate = false;
-    [SerializeField] private bool guardianHasBeenKilled = false;
     [SerializeField] private float timeToMoveGate = 3f;
 
     void Awake() {
@@ -55,7 +54,6 @@ public class EventHandler : MonoBehaviour
     }
 
     public void setGuardianKilled() {
-        guardianHasBeenKilled = true;
         portal.enabled = true;
         portalParticles.Play();
         StartCoroutine(operateGate());

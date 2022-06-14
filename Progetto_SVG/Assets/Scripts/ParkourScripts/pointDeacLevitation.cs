@@ -18,6 +18,6 @@ public class pointDeacLevitation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player")) other.gameObject.GetComponent<PlayerMovement>().setLevitation(false);
+        if (other.gameObject.CompareTag("Player")) other.gameObject.GetComponent<PlayerController>().setLevitation(false);
     }
 }

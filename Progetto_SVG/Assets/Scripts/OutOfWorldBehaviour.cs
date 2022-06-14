@@ -6,6 +6,6 @@ public class OutOfWorldBehaviour : MonoBehaviour
 {
     void OnTriggerEnter(Collider collidedObj) {
         if (collidedObj.gameObject.tag == "Player")
-            collidedObj.gameObject.GetComponent<PlayerMovement>().kill();
+            collidedObj.gameObject.GetComponent<PlayerController>().kill();
     }
 }

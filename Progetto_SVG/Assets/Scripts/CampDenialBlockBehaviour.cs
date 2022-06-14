@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CampDenialBlockBehaviour : MonoBehaviour
 {
-    private PlayerMovement player;
+    private PlayerController player;
     public ParticleSystem particles;
     public MeshRenderer vfxRenderer;
 
@@ -42,7 +42,7 @@ public class CampDenialBlockBehaviour : MonoBehaviour
         if (playerInCollider && timer >= timeBeforeActivation && isExpanded && !isDealingDamage)
         {
             isDealingDamage = true;
-            player = collision.GetComponent<PlayerMovement>();
+            player = collision.GetComponent<PlayerController>();
             particles.Play();
             StartCoroutine(dealDamage());
         }
