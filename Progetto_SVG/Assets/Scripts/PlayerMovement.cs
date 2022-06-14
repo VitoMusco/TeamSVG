@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     //CAMERA
     private Camera playerCamera;
 
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 1f;
     public float swaySmooth = 1f;
     public float swayMultiplier = 1f;
     public bool shake = false;
@@ -154,8 +154,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void handleCameraLook() {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
         swayRotationX = Quaternion.AngleAxis(-mouseY * swayMultiplier * swaySmooth, Vector3.right);
         swayRotationY = Quaternion.AngleAxis(mouseX * swayMultiplier * swaySmooth, Vector3.up);
@@ -163,9 +163,6 @@ public class PlayerMovement : MonoBehaviour
         targetRotation = swayRotationX * swayRotationY;
 
         playerArms.localRotation = Quaternion.Slerp(playerArms.localRotation, targetRotation, swaySmooth * Time.deltaTime);
-
-        mouseX = mouseX * mouseSensitivity * Time.deltaTime;
-        mouseY = mouseY * mouseSensitivity * Time.deltaTime;
 
         yRotation -= mouseY;
         yRotation = Mathf.Clamp(yRotation, -90f, 90f);
@@ -636,7 +633,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void setSensitivity(float sensitivity) {
-        mouseSensitivity = sensitivity * 100f;
+        mouseSensitivity = sensitivity;
     }
 
     public IEnumerator shakeCamera(float shakingTime, float shakeMultiplier, float rotationMultiplier, float shakeRange, float rotationRange)
