@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isLevitating = false;
     [SerializeField] private bool isAttacking = false;
     [SerializeField] private bool isDefending = false;
+    [SerializeField] private bool wantsToStopDefending = false;
     [SerializeField] private float attackDamage = 20f;
     [SerializeField] private float attackStaminaRemove = 10;
     [SerializeField] private float defenseStaminaAdd = 2;
@@ -144,6 +145,7 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.Defend.Enable();
         /////////
 
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         if (developerMode) {
             health = 1000000;
@@ -290,6 +292,9 @@ public class PlayerController : MonoBehaviour
         if (hasDoubleJumped && isGrounded) {
             hasDoubleJumped = false;
         }
+
+        if (wantsToStopDefending) stopDefending();
+
         if (isDefending && magicStamina == 0f) {
             stopDefending();
         }
@@ -340,6 +345,7 @@ public class PlayerController : MonoBehaviour
 
     void attack(InputAction.CallbackContext obj)
     {
+        if (isInMenu) return;
         if (canShoot && !isDefending && magicStamina > 0f)
         {
             if (canShoot)
@@ -364,7 +370,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void cancelDefense(InputAction.CallbackContext obj) {
-        stopDefending();
+        if (!isInMenu) stopDefending();
+        else wantsToStopDefending = true;
     }
 
     void stopDefending() {
@@ -372,6 +379,7 @@ public class PlayerController : MonoBehaviour
         shieldRenderer.enabled = false;
         decalRenderer.enabled = false;
         isDefending = false;
+        wantsToStopDefending = false;
     }
 
     void handleFootSteps()

@@ -64,6 +64,7 @@ public class SettingsHandler : MonoBehaviour
         Time.timeScale = 0f;
         AudioListener.pause = true;
         settingsMenu.enabled = true;
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         player.enterMenu();
     }
@@ -73,6 +74,7 @@ public class SettingsHandler : MonoBehaviour
         AudioListener.pause = false;
         settingsMenu.enabled = false;
         player.exitMenu();
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -101,6 +103,7 @@ public class SettingsHandler : MonoBehaviour
 
     public void goToMainMenu() {
         resume();
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(0);
     }
