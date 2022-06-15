@@ -104,10 +104,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canShoot = true;
     [SerializeField] private bool isLevitating = false;
     [SerializeField] private bool isAttacking = false;
+    [SerializeField] private bool isShootAttacking = false;
+    [SerializeField] private bool isLaserAttacking = false;
     [SerializeField] private bool isDefending = false;
     [SerializeField] private bool wantsToStopDefending = false;
     [SerializeField] private float attackDamage = 20f;
-    [SerializeField] private float attackStaminaRemove = 10;
+    [SerializeField] private float shootAttackStaminaRemove = 10;
+    [SerializeField] private float laserAttackStaminaRemove = 2;
     [SerializeField] private float defenseStaminaAdd = 2;
     [SerializeField] private float runStaminaRemove = 5;
     [SerializeField] private float staminaToRemove = 0f;
@@ -130,18 +133,21 @@ public class PlayerController : MonoBehaviour
 
         move.Enable();
         look.Enable();
-        inputs.PlayerInputs.Crouch.performed += crouch;
-        inputs.PlayerInputs.Crouch.canceled += unCrouch;
+        inputs.PlayerInputs.Crouch.performed += context => crouch();
+        inputs.PlayerInputs.Crouch.canceled += context => unCrouch();
         inputs.PlayerInputs.Crouch.Enable();
-        inputs.PlayerInputs.Run.performed += run;
-        inputs.PlayerInputs.Run.canceled += stopRunning;
+        inputs.PlayerInputs.Run.performed += context => run();
+        inputs.PlayerInputs.Run.canceled += context => stopRunning();
         inputs.PlayerInputs.Run.Enable();
-        inputs.PlayerInputs.Jump.performed += jump;
+        inputs.PlayerInputs.Jump.performed += context => jump();
         inputs.PlayerInputs.Jump.Enable();
-        inputs.PlayerInputs.Attack.performed += attack;
+        inputs.PlayerInputs.Attack.performed += context => attack();
         inputs.PlayerInputs.Attack.Enable();
-        inputs.PlayerInputs.Defend.performed += defend;
-        inputs.PlayerInputs.Defend.canceled += cancelDefense;
+        inputs.PlayerInputs.LaserAttack.performed += context => laserAttack();
+        inputs.PlayerInputs.LaserAttack.canceled += context => endLaserAttack();
+        inputs.PlayerInputs.LaserAttack.Enable();
+        inputs.PlayerInputs.Defend.performed += context => defend();
+        inputs.PlayerInputs.Defend.canceled += context => cancelDefense();
         inputs.PlayerInputs.Defend.Enable();
         /////////
 
@@ -166,7 +172,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(handleStamina());
     }
 
-    void OnDisable() {
+    void OnDestroy() {
         inputs.PlayerInputs.Crouch.Disable();
         inputs.PlayerInputs.Run.Disable();
         inputs.PlayerInputs.Jump.Disable();
@@ -295,12 +301,16 @@ public class PlayerController : MonoBehaviour
 
         if (wantsToStopDefending) stopDefending();
 
-        if (isDefending && magicStamina == 0f) {
+        if (isDefending && magicStamina <= 0f) {
             stopDefending();
+        }
+
+        if (isLaserAttacking && magicStamina <= 0f) {
+            endLaserAttack();
         }
     }
 
-    void crouch(InputAction.CallbackContext obj) {
+    void crouch() {
         if (!isCrouching && canCrouch) {
             StartCoroutine(handleCrouch());
             isCrouching = true;
@@ -308,12 +318,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void unCrouch(InputAction.CallbackContext obj)
+    void unCrouch()
     {
         wantsToUncrouch = true;
     }
 
-    void jump(InputAction.CallbackContext obj) {
+    void jump() {
         if (isGrounded || !isGrounded && !hasDoubleJumped) {
             if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
 
@@ -333,17 +343,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void run(InputAction.CallbackContext obj) {
-        if(isGrounded && !isCrouching)
+    void run() {
+        if(isGrounded && !isCrouching && isMoving)
             isRunning = true;
     }
 
-    void stopRunning(InputAction.CallbackContext obj)
+    void stopRunning()
     {
         isRunning = false;
     }
 
-    void attack(InputAction.CallbackContext obj)
+    void attack()
     {
         if (isInMenu) return;
         if (canShoot && !isDefending && magicStamina > 0f)
@@ -351,6 +361,7 @@ public class PlayerController : MonoBehaviour
             if (canShoot)
             {
                 isAttacking = true;
+                isShootAttacking = true;
                 Invoke(nameof(shoot), timeToShoot);
                 canShoot = false;
                 Invoke(nameof(resetShoot), 1f);
@@ -358,7 +369,56 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void defend(InputAction.CallbackContext obj)
+    void laserAttack() {
+        if (isInMenu) return;
+        if (canShoot && !isDefending && magicStamina > 0f) {
+            //PROGRAMMARE L'ATTACCO
+            shootBeam.enabled = true;
+            particleShoot.Play();
+            if (!isLaserAttacking) StartCoroutine(expandShootBeam());
+            attackSoundSource.Play();
+            /////
+            isLaserAttacking = true;
+            isAttacking = true;
+            StartCoroutine(updateLaserAttack());
+        }
+    }
+
+    IEnumerator updateLaserAttack() {
+        RaycastHit hit;
+        float timeElapsed = 0f;
+        float timeBetweenTicks = 0.25f;
+        while (isLaserAttacking) {
+            timeElapsed += Time.deltaTime;
+            shootBeam.SetPosition(0, shootSource.transform.position);
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f, rayCastLayer))
+            {
+                shootBeam.SetPosition(1, hit.point);
+                Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * hit.distance, Color.green);
+                if (hit.collider.tag == "Guardian")
+                    if (timeElapsed >= timeBetweenTicks) {
+                        hit.collider.GetComponent<GuardianController>().takeDamage(attackDamage);
+                        timeElapsed = 0f;
+                    }
+            }
+            else {
+                shootBeam.SetPosition(1, playerCamera.transform.position + playerCamera.transform.forward * 100f);
+            }
+            particleShoot.transform.position = shootSource.transform.position;
+            yield return null;
+        }
+    }
+
+    void endLaserAttack() {
+        if (!isLaserAttacking) return;
+        isLaserAttacking = false;
+        isAttacking = false;
+        canShoot = false;
+        StartCoroutine(shrinkShootBeam());
+        Invoke(nameof(resetShoot), 1f);
+    }
+
+    void defend()
     {
         if (!isDefending && !isAttacking && magicStamina > 0f)
         {
@@ -369,7 +429,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void cancelDefense(InputAction.CallbackContext obj) {
+    void cancelDefense() {
         if (!isInMenu) stopDefending();
         else wantsToStopDefending = true;
     }
@@ -480,6 +540,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(expandShootBeam());
         StartCoroutine(shrinkShootBeam());
         isAttacking = false;
+        isShootAttacking = false;
         //Invoke(nameof(removeBeam), 1f);
     }
 
@@ -504,12 +565,14 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         shootBeam.widthMultiplier = 0f;
+        particleShoot.Stop();
         shootBeam.enabled = false;
     }
 
     void handleAnimations() {
         if (isAttacking) {
-            anim.SetInteger("Attacking", Random.Range(1, 3));
+            if(isLaserAttacking) anim.SetInteger("Attacking", 2);
+            else anim.SetInteger("Attacking", 1);
         }
         else
             anim.SetInteger("Attacking", 0);
@@ -651,11 +714,15 @@ public class PlayerController : MonoBehaviour
             if(stopTime < maxTimeAfterAnAction)
                 stopTime += Time.deltaTime;
 
-            if (isAttacking && attackTime > staminaRemovalTime) {
-                staminaToRemove = attackStaminaRemove;
+            if (isAttacking && isShootAttacking && attackTime > staminaRemovalTime) {
+                staminaToRemove = shootAttackStaminaRemove;
                 attackTime = 0f;
             }
-                
+            if (isAttacking && isLaserAttacking && attackTime > staminaRemovalTime) {
+                staminaToRemove = laserAttackStaminaRemove;
+                attackTime = 0f;
+            }
+
             if (isDefending && defenseTime > staminaAddTime) {
                 if(magicStamina + defenseStaminaAdd <= maxMagicStamina)
                     magicStamina += defenseStaminaAdd;

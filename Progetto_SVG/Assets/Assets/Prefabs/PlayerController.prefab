@@ -2780,9 +2780,13 @@ MonoBehaviour:
   canShoot: 1
   isLevitating: 0
   isAttacking: 0
+  isShootAttacking: 0
+  isLaserAttacking: 0
   isDefending: 0
+  wantsToStopDefending: 0
   attackDamage: 10
-  attackStaminaRemove: 10
+  shootAttackStaminaRemove: 10
+  laserAttackStaminaRemove: 2
   defenseStaminaAdd: 2
   runStaminaRemove: 5
   staminaToRemove: 0
@@ -3997,14 +4001,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6110493563428019740}
   serializedVersion: 8
-  lengthInSec: 0.25
+  lengthInSec: 5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0

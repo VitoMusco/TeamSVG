@@ -55,6 +55,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""LaserAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""9bf40fcb-2c54-4d0a-ac92-5a033e019858"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""28deb6e2-3070-46c9-ab90-7e20c0b54618"",
@@ -205,7 +214,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""45714ee3-7903-4570-a2bb-42b1a13a2057"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -217,7 +226,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""feecff7b-3aad-4492-bdc7-fba03a5c4d82"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Attack"",
@@ -289,6 +298,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""324a2f3c-df6c-4754-9370-524b2502d213"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LaserAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac454779-3c0c-4209-be96-106833b6e9bc"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LaserAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -339,6 +370,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_PlayerInputs_Move = m_PlayerInputs.FindAction("Move", throwIfNotFound: true);
         m_PlayerInputs_Jump = m_PlayerInputs.FindAction("Jump", throwIfNotFound: true);
         m_PlayerInputs_Look = m_PlayerInputs.FindAction("Look", throwIfNotFound: true);
+        m_PlayerInputs_LaserAttack = m_PlayerInputs.FindAction("LaserAttack", throwIfNotFound: true);
         m_PlayerInputs_Attack = m_PlayerInputs.FindAction("Attack", throwIfNotFound: true);
         m_PlayerInputs_Defend = m_PlayerInputs.FindAction("Defend", throwIfNotFound: true);
         m_PlayerInputs_Run = m_PlayerInputs.FindAction("Run", throwIfNotFound: true);
@@ -408,6 +440,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInputs_Move;
     private readonly InputAction m_PlayerInputs_Jump;
     private readonly InputAction m_PlayerInputs_Look;
+    private readonly InputAction m_PlayerInputs_LaserAttack;
     private readonly InputAction m_PlayerInputs_Attack;
     private readonly InputAction m_PlayerInputs_Defend;
     private readonly InputAction m_PlayerInputs_Run;
@@ -419,6 +452,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerInputs_Move;
         public InputAction @Jump => m_Wrapper.m_PlayerInputs_Jump;
         public InputAction @Look => m_Wrapper.m_PlayerInputs_Look;
+        public InputAction @LaserAttack => m_Wrapper.m_PlayerInputs_LaserAttack;
         public InputAction @Attack => m_Wrapper.m_PlayerInputs_Attack;
         public InputAction @Defend => m_Wrapper.m_PlayerInputs_Defend;
         public InputAction @Run => m_Wrapper.m_PlayerInputs_Run;
@@ -441,6 +475,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnLook;
+                @LaserAttack.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnLaserAttack;
+                @LaserAttack.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnLaserAttack;
+                @LaserAttack.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnLaserAttack;
                 @Attack.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnAttack;
@@ -466,6 +503,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @LaserAttack.started += instance.OnLaserAttack;
+                @LaserAttack.performed += instance.OnLaserAttack;
+                @LaserAttack.canceled += instance.OnLaserAttack;
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
@@ -520,6 +560,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnLaserAttack(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnDefend(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);

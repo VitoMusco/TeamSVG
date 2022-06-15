@@ -35,7 +35,10 @@ ModelImporter:
     second: Armature|Attack1
   - first:
       74: -729247239487951332
-    second: Armature|Attack2
+    second: Armature|Attack2_Start
+  - first:
+      74: -4304533897407346516
+    second: Armature|Attack2_End
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -327,10 +330,39 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Armature|Attack2
+      name: Armature|Attack2_Start
       takeName: Armature|Attack2
       internalID: 0
       firstFrame: 0
+      lastFrame: 9
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Attack2_End
+      takeName: Armature|Attack2
+      internalID: 0
+      firstFrame: 10
       lastFrame: 23
       wrapMode: 0
       orientationOffsetY: 0
