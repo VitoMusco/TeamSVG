@@ -9,6 +9,7 @@ public class PortalBehavior : MonoBehaviour
 
     void OnTriggerEnter(Collider collidedObj) {
         if (collidedObj.gameObject.tag == "Player") {
+            collidedObj.gameObject.GetComponent<PlayerController>().stopDoingAnything();
             SceneManager.LoadScene(sceneToLoad);
         }
     }

@@ -177,6 +177,7 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.Run.Disable();
         inputs.PlayerInputs.Jump.Disable();
         inputs.PlayerInputs.Attack.Disable();
+        inputs.PlayerInputs.LaserAttack.Disable();
         inputs.PlayerInputs.Defend.Disable();
     }
 
@@ -308,6 +309,12 @@ public class PlayerController : MonoBehaviour
         if (isLaserAttacking && magicStamina <= 0f) {
             endLaserAttack();
         }
+    }
+
+    public void stopDoingAnything() {
+        stopDefending();
+        stopRunning();
+        endLaserAttack();
     }
 
     void crouch() {
@@ -665,6 +672,7 @@ public class PlayerController : MonoBehaviour
         handleHealthBar();
         handleStaminaBar();
         if (isDefending) stopDefending();
+        if (isLaserAttacking) endLaserAttack();
         isGrounded = true;
         isAlive = false;
         velocity = new Vector3();
