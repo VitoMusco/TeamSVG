@@ -98,6 +98,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""47593073-1211-4c1d-b7a7-82765b793dc9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -318,6 +327,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LaserAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""adba92d0-185c-41e4-9340-14fa40e577a0"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6125edf2-cabb-41d5-98cc-da90c96bae91"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -583,6 +614,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_PlayerInputs_Defend = m_PlayerInputs.FindAction("Defend", throwIfNotFound: true);
         m_PlayerInputs_Run = m_PlayerInputs.FindAction("Run", throwIfNotFound: true);
         m_PlayerInputs_Crouch = m_PlayerInputs.FindAction("Crouch", throwIfNotFound: true);
+        m_PlayerInputs_Interact = m_PlayerInputs.FindAction("Interact", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Menu = m_Menu.FindAction("Menu", throwIfNotFound: true);
@@ -659,6 +691,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInputs_Defend;
     private readonly InputAction m_PlayerInputs_Run;
     private readonly InputAction m_PlayerInputs_Crouch;
+    private readonly InputAction m_PlayerInputs_Interact;
     public struct PlayerInputsActions
     {
         private @PlayerInput m_Wrapper;
@@ -671,6 +704,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Defend => m_Wrapper.m_PlayerInputs_Defend;
         public InputAction @Run => m_Wrapper.m_PlayerInputs_Run;
         public InputAction @Crouch => m_Wrapper.m_PlayerInputs_Crouch;
+        public InputAction @Interact => m_Wrapper.m_PlayerInputs_Interact;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -704,6 +738,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnCrouch;
+                @Interact.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_PlayerInputsActionsCallbackInterface = instance;
             if (instance != null)
@@ -732,6 +769,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -827,6 +867,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnDefend(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

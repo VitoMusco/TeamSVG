@@ -149,6 +149,8 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.Defend.performed += context => defend();
         inputs.PlayerInputs.Defend.canceled += context => cancelDefense();
         inputs.PlayerInputs.Defend.Enable();
+        inputs.PlayerInputs.Interact.performed += context => interact();
+        inputs.PlayerInputs.Interact.Enable();
         /////////
 
         Cursor.visible = false;
@@ -179,6 +181,7 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.Attack.Disable();
         inputs.PlayerInputs.LaserAttack.Disable();
         inputs.PlayerInputs.Defend.Disable();
+        inputs.PlayerInputs.Interact.Disable();
     }
 
     void Update() {
@@ -389,6 +392,13 @@ public class PlayerController : MonoBehaviour
             isAttacking = true;
             StartCoroutine(updateLaserAttack());
         }
+    }
+
+    void interact() {
+        RaycastHit hit;
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f, rayCastLayer))
+            if (hit.collider.tag == "Button")
+                hit.collider.GetComponent<ButtonBehaviour>().pressButton();
     }
 
     IEnumerator updateLaserAttack() {

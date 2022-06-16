@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Guardian
   - CampDenial
+  - Spike
+  - Button
   layers:
   - Default
   - TransparentFX
