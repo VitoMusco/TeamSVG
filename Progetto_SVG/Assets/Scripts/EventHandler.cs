@@ -13,6 +13,7 @@ public class EventHandler : MonoBehaviour
 
     [SerializeField] private BoxCollider gateCrossDetector;
     [SerializeField] private bool hasCrossedGate = false;
+    [SerializeField] private bool guardianHasBeenKilled = false;
     [SerializeField] private float timeToMoveGate = 3f;
 
     void Awake() {
@@ -20,7 +21,7 @@ public class EventHandler : MonoBehaviour
     }
 
     void Update() {
-        if (!player.checkIfAlive()) {
+        if (!player.checkIfAlive() && !guardianHasBeenKilled) {
             gate.position = new Vector3(gate.position.x, -2.6f, gate.position.z);
             hasCrossedGate = false;
             guardian.resetGuardian();
@@ -55,6 +56,7 @@ public class EventHandler : MonoBehaviour
     }
 
     public void setGuardianKilled() {
+        guardianHasBeenKilled = true;
         portal.enabled = true;
         portalCollider.enabled = true;
         portalParticles.Play();

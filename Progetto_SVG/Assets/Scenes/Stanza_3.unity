@@ -869,6 +869,7 @@ MonoBehaviour:
   portalParticles: {fileID: 1810671567}
   gateCrossDetector: {fileID: 0}
   hasCrossedGate: 0
+  guardianHasBeenKilled: 0
   timeToMoveGate: 3
 --- !u!4 &923601617
 Transform:

@@ -20,7 +20,6 @@ public class CampDenialBlockBehaviour : MonoBehaviour
     [SerializeField] private float tickTime = 0.5f;
 
     void OnTriggerEnter(Collider collision) {
-        print("pino");
         if (collision.gameObject.tag == "Player") {
             playerInCollider = true;
             vfxRenderer.enabled = true;
@@ -29,7 +28,6 @@ public class CampDenialBlockBehaviour : MonoBehaviour
 
     void OnTriggerExit(Collider collision)
     {
-        print("pino2");
         if (collision.gameObject.tag == "Player") {
             playerInCollider = false;
             if(!isExpanded && !isExpanding)

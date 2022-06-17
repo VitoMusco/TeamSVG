@@ -29,6 +29,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _CrackNormals:
+        m_Texture: {fileID: 2800000, guid: 520c7b92a83f9434cb53be43f608d10e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CrackTexture:
+        m_Texture: {fileID: 2800000, guid: ae984eb1aa836754f9d33fe579f40d2c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GuardianEdgeTexture:
+        m_Texture: {fileID: 2800000, guid: 9982a60706379da46a92b4c2dc4a4719, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Normals:
         m_Texture: {fileID: 2800000, guid: 8496357da37be384aa6be36bd8b38884, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -52,11 +64,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _AmbientOcclusionStrength: 0
+    - _CrackStrength: 10
     - _DissolveAmount: 0
     - _DissolveWidth: 0.02
     - _DisssolveScale: 30
     - _Metallic: 0
-    - _NormalsStrength: 0.5
+    - _NormalsStrength: 10
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0
