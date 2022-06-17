@@ -7,7 +7,8 @@ public class QuizBoxBehaviour : MonoBehaviour
     public Transform plane;
     public Vector3 startPosition;
     public Vector3 endPosition;
-    public int imageNum = 1;
+    public int currentPosition = 1;
+    public int solutionPosition = 1;
 
 
     // Start is called before the first frame update
@@ -19,26 +20,30 @@ public class QuizBoxBehaviour : MonoBehaviour
     }
 
     public void moveUp() {
-        if (imageNum == 5) {
+        if (currentPosition == 5) {
             plane.position = startPosition;
-            imageNum = 1;
+            currentPosition = 1;
         }
         else {
-            imageNum++;
+            currentPosition++;
             plane.position += new Vector3(0f, 0.4f, 0f);
         }
     }
 
     public void moveDown() {
-        if (imageNum == 1) {
+        if (currentPosition == 1) {
             plane.position = endPosition;
-            imageNum = 5;
+            currentPosition = 5;
         }
         else {
-            imageNum--;
+            currentPosition--;
             plane.position -= new Vector3(0f, 0.4f, 0f);
         }
     }
 
+    public bool getCorrectAnswer() {
+        if (currentPosition == solutionPosition) return true;
+        else return false;
+    }
    
 }
