@@ -26,7 +26,10 @@ public class DoorUnlockerBehaviour : MonoBehaviour
         foreach (QuizBoxBehaviour quizBox in quizBoxes)
         {
             isCombinationCorrect = true;
-            if (!quizBox.getCorrectAnswer()) isCombinationCorrect = false;
+            if (!quizBox.getCorrectAnswer()) {
+                isCombinationCorrect = false;
+                break;
+            }
         }
         if (isCombinationCorrect) StartCoroutine(unlockDoor());
         else isCombinationCorrect = false;

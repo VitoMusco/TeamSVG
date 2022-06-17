@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public Transform predictedMovement;
     public Transform shootSource;
     public Transform playerSpawnPosition;
+    public MeshRenderer quizPaperRenderer;
     public MeshRenderer shieldRenderer;
     public MeshRenderer decalRenderer;
     public ParticleSystem particleShoot;
@@ -396,9 +397,24 @@ public class PlayerController : MonoBehaviour
 
     void interact() {
         RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f, rayCastLayer))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f, rayCastLayer)) {
             if (hit.collider.tag == "Button")
                 hit.collider.GetComponent<ButtonBehaviour>().pressButton();
+            else openQuizPaper();//Provvisorio
+        }
+    }
+
+    void openQuizPaper() {
+        quizPaperRenderer.enabled = true;
+        anim.ResetTrigger("ClosingQuizPaper");
+        anim.SetTrigger("OpeningQuizPaper");//Mettilo in handleAnimations
+        Invoke(nameof(closeQuizPaper), 3f);
+    }
+
+    void closeQuizPaper() {
+        quizPaperRenderer.enabled = false;
+        anim.SetTrigger("ClosingQuizPaper");
+        anim.ResetTrigger("OpeningQuizPaper");//Mettilo in handleAnimations
     }
 
     IEnumerator updateLaserAttack() {
@@ -611,13 +627,13 @@ public class PlayerController : MonoBehaviour
     IEnumerator handleDoubleJump() {
         float timeToFinish = 0.36f;
         float timeElapsed = 0;
-        anim.SetBool("DoubleJumping", true);
+        anim.SetBool("DoubleJumping", true); //Mettilo in handleAnimations
         while (timeElapsed < timeToFinish) {
             timeElapsed += Time.deltaTime;
 
             yield return null;
         }
-        anim.SetBool("DoubleJumping", false);
+        anim.SetBool("DoubleJumping", false);//Mettilo in handleAnimations
     }
 
     void handleHealthBar() {
