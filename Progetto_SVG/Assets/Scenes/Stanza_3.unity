@@ -2460,11 +2460,6 @@ PrefabInstance:
       propertyPath: groundMask.m_Bits
       value: 513
       objectReference: {fileID: 0}
-    - target: {fileID: 4631180161698990906, guid: ec57bb63d806e6a4295270ea77a032ff,
-        type: 3}
-      propertyPath: m_Volume
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 5214533176335969050, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: m_Layer
