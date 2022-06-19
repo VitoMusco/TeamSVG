@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float staminaToRemove = 0f;
     [SerializeField] private float staminaRemovalMultiplier = 1f;
     [SerializeField] private bool wantsToUncrouch = false;
-    [SerializeField] private bool canDoubleJump;
+    [SerializeField] private bool canDoubleJump = false;
     [SerializeField] private bool canLevitate = false;
     [SerializeField] Vector3 velocity;
 
@@ -335,7 +335,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void jump() {
-        if (isGrounded || !isGrounded && !hasDoubleJumped) {
+        if (isGrounded || !isGrounded && !hasDoubleJumped && canDoubleJump) {
             if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
 
             if (!isGrounded && !hasDoubleJumped)
@@ -383,14 +383,23 @@ public class PlayerController : MonoBehaviour
     void laserAttack() {
         if (isInMenu) return;
         if (canShoot && !isDefending && magicStamina > 0f) {
-            //PROGRAMMARE L'ATTACCO
-            shootBeam.enabled = true;
-            particleShoot.Play();
-            if (!isLaserAttacking) StartCoroutine(expandShootBeam());
-            attackSoundSource.Play();
-            /////
-            isLaserAttacking = true;
             isAttacking = true;
+            isLaserAttacking = true;
+            StartCoroutine(startLaserAttacking());
+        }
+    }
+
+    IEnumerator startLaserAttacking() {
+        float timeAfterInput = 0f;
+        float timeToShoot = 1.05f;
+        while (timeAfterInput < timeToShoot && isLaserAttacking) {
+            timeAfterInput += Time.deltaTime;
+            yield return null;
+        }
+        if (isLaserAttacking) {
+            StartCoroutine(expandShootBeam());
+            attackSoundSource.Play();
+            shootBeam.enabled = true;
             StartCoroutine(updateLaserAttack());
         }
     }
@@ -437,7 +446,7 @@ public class PlayerController : MonoBehaviour
             else {
                 shootBeam.SetPosition(1, playerCamera.transform.position + playerCamera.transform.forward * 100f);
             }
-            particleShoot.transform.position = shootSource.transform.position;
+            //particleShoot.transform.position = shootSource.transform.position;
             yield return null;
         }
     }
