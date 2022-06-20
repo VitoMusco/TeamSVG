@@ -41,7 +41,7 @@ Material:
     m_Floats:
     - _DissolveAmount: 1
     - _DissolveScale: 30
-    - _DissolveWidth: 0.073
+    - _DissolveWidth: 0.14
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Radius: 0.25
