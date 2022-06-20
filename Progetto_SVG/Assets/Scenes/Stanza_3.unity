@@ -1181,12 +1181,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100030008}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!82 &1119756952 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 182663208241692027, guid: 18f57944fb673794086ddb181afb5a49,
-    type: 3}
-  m_PrefabInstance: {fileID: 1927193793077284306}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1121459559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1710,12 +1704,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226459918}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!82 &1254032878 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 8178945002053857287, guid: 18f57944fb673794086ddb181afb5a49,
-    type: 3}
-  m_PrefabInstance: {fileID: 1927193793077284306}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1254032881 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
@@ -1836,12 +1824,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344393991}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!82 &1348599827 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 311423202475136185, guid: 18f57944fb673794086ddb181afb5a49,
-    type: 3}
-  m_PrefabInstance: {fileID: 1927193793077284306}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1421745681
 GameObject:
   m_ObjectHideFlags: 0
@@ -2375,6 +2357,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1322198509699243420, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322198509699243420, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322198509699243420, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1517712382802884726, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: m_Layer
@@ -2459,6 +2456,11 @@ PrefabInstance:
         type: 3}
       propertyPath: groundMask.m_Bits
       value: 513
+      objectReference: {fileID: 0}
+    - target: {fileID: 5048005595134217680, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5214533176335969050, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
@@ -2549,6 +2551,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761920541282532241, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9171679018322751019, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
@@ -2653,16 +2660,6 @@ PrefabInstance:
       objectReference: {fileID: 2037379623}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
-      propertyPath: sightRange
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
-        type: 3}
-      propertyPath: soundSource
-      value: 
-      objectReference: {fileID: 1348599827}
-    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
-        type: 3}
       propertyPath: eventHandler
       value: 
       objectReference: {fileID: 923601616}
@@ -2673,19 +2670,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
-      propertyPath: footStepSource
-      value: 
-      objectReference: {fileID: 1254032878}
-    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
-        type: 3}
       propertyPath: playerPrediction
       value: 
       objectReference: {fileID: 75388764}
-    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
-        type: 3}
-      propertyPath: attackSoundSource
-      value: 
-      objectReference: {fileID: 1119756952}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
       propertyPath: damageVoiceLines.Array.size

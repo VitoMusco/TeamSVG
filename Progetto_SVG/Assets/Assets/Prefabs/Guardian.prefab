@@ -540,13 +540,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9554d589fc496094584bad0d22df2ab1, type: 3}
   - {fileID: 8300000, guid: d5132a9b76ef4404b88e09f02a17de71, type: 3}
   - {fileID: 8300000, guid: b559bd5f33f9de540b2f07cd8f4fa265, type: 3}
-  soundSource: {fileID: 0}
-  attackSoundSource: {fileID: 0}
+  soundSource: {fileID: 311423202475136185}
+  attackSoundSource: {fileID: 182663208241692027}
   laserSound: {fileID: 8300000, guid: 198857dc32e3f0943aa8d93b1037af02, type: 3}
   laserChargeSound: {fileID: 8300000, guid: f545aca2b504b214f8b8526c6d96c89d, type: 3}
   slamSound: {fileID: 8300000, guid: 8affda2310d32b14b87f5acb3d62500f, type: 3}
   deathSound: {fileID: 8300000, guid: d62aa04fce3c74d43b78517b785b7e9c, type: 3}
-  footStepSource: {fileID: 0}
+  footStepSource: {fileID: 8178945002053857287}
   meshRenderer: {fileID: 3888118243247809349}
   agent: {fileID: 0}
   player: {fileID: 0}
@@ -594,7 +594,7 @@ MonoBehaviour:
   timeToDie: 10
   timeAfterShooting: 2.9
   timeAfterSlamming: 2.7
-  sightRange: 36
+  sightRange: 60
   laserAttackRange: 21
   slamAttackRange: 17
   playerInSightRange: 0

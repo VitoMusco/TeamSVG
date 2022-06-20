@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public Transform playerSpawnPosition;
     public MeshRenderer quizPaperRenderer;
     public MeshRenderer shieldRenderer;
+    public MeshRenderer shieldBraceletRenderer;
     public MeshRenderer decalRenderer;
     public ParticleSystem particleShoot;
     public LayerMask rayCastLayer;
@@ -52,6 +53,10 @@ public class PlayerController : MonoBehaviour
     public float healthBarEndStartPosition;
     public float staminaBarEndPos = 0f;
     public float staminaBarEndStartPosition;
+
+    //SHIELD
+    private Material[] shieldMaterials;
+    private float shieldHealth = 1f;
 
     private LineRenderer shootBeam;
     private CharacterController controller;
@@ -112,6 +117,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDefending = false;
     [SerializeField] private bool wantsToStopDefending = false;
     [SerializeField] private float attackDamage = 20f;
+    [SerializeField] private float laserAttackDamage = 2f;
     [SerializeField] private float shootAttackStaminaRemove = 10;
     [SerializeField] private float laserAttackStaminaRemove = 2;
     [SerializeField] private float defenseStaminaAdd = 2;
@@ -161,9 +167,11 @@ public class PlayerController : MonoBehaviour
             health = 1000000;
             magicStamina = 1000000;
         }
+        shieldMaterials = shieldRenderer.materials;
         staminaBarEndStartPosition = staminaBarEnd.transform.localPosition.x;
         healthBarEndStartPosition = healthBarEnd.transform.localPosition.x;
         shieldRenderer.enabled = false;
+        shieldBraceletRenderer.enabled = false;
         decalRenderer.enabled = false;
         shootBeam = GetComponentInChildren<LineRenderer>();
         shootBeam.enabled = false;
@@ -385,7 +393,6 @@ public class PlayerController : MonoBehaviour
     void laserAttack() {
         if (isInMenu) return;
         if (canShoot && !isDefending && magicStamina > 0f) {
-            isAttacking = true;
             isLaserAttacking = true;
             StartCoroutine(startLaserAttacking());
         }
@@ -399,6 +406,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         if (isLaserAttacking) {
+            isAttacking = true;
             shootBeam.material = electricMaterial;
             StartCoroutine(expandShootBeam());
             attackSoundSource.Play();
@@ -443,7 +451,7 @@ public class PlayerController : MonoBehaviour
                 Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * hit.distance, Color.green);
                 if (hit.collider.tag == "Guardian")
                     if (timeElapsed >= timeBetweenTicks) {
-                        hit.collider.GetComponent<GuardianController>().takeDamage(attackDamage);
+                        hit.collider.GetComponent<GuardianController>().takeDamage(laserAttackDamage);
                         timeElapsed = 0f;
                     }
             }
@@ -458,10 +466,12 @@ public class PlayerController : MonoBehaviour
     void endLaserAttack() {
         if (!isLaserAttacking) return;
         isLaserAttacking = false;
-        isAttacking = false;
-        canShoot = false;
-        StartCoroutine(shrinkShootBeam());
-        Invoke(nameof(resetShoot), 1f);
+        if (isAttacking) {
+            isAttacking = false;
+            canShoot = false;
+            StartCoroutine(shrinkShootBeam());
+            Invoke(nameof(resetShoot), 1f);
+        }
     }
 
     void defend()
@@ -469,6 +479,7 @@ public class PlayerController : MonoBehaviour
         if (!isDefending && !isAttacking && magicStamina > 0f)
         {
             shieldRenderer.enabled = true;
+            shieldBraceletRenderer.enabled = true;
             decalRenderer.enabled = true;
             isDefending = true;
             shieldSoundSource.Play();
@@ -483,6 +494,7 @@ public class PlayerController : MonoBehaviour
     void stopDefending() {
         shieldSoundSource.Stop();
         shieldRenderer.enabled = false;
+        shieldBraceletRenderer.enabled = false;
         decalRenderer.enabled = false;
         isDefending = false;
         wantsToStopDefending = false;
@@ -616,12 +628,12 @@ public class PlayerController : MonoBehaviour
     }
 
     void handleAnimations() {
-        if (isAttacking) {
-            if(isLaserAttacking) anim.SetInteger("Attacking", 2);
-            else anim.SetInteger("Attacking", 1);
-        }
-        else
-            anim.SetInteger("Attacking", 0);
+
+        if (isShootAttacking) anim.SetBool("ShootAttacking", true);
+        else anim.SetBool("ShootAttacking", false);
+        if (isLaserAttacking) anim.SetBool("LaserAttacking", true);
+        else anim.SetBool("LaserAttacking", false);
+            
 
         if (isDefending)
             anim.SetBool("Defending", true);
@@ -796,9 +808,29 @@ public class PlayerController : MonoBehaviour
                     magicStamina -= staminaToRemove;
             }
             handleStaminaBar();
+            StartCoroutine(updateShieldMaterial());
             staminaToRemove = 0f;
             yield return null;
         }
+    }
+
+    IEnumerator updateShieldMaterial() {
+        float timeToUpdate = 0.1f;
+        float timeElapsed = 0f;
+        float startHealth = shieldHealth;
+        while (timeElapsed < timeToUpdate) {
+            timeElapsed += Time.deltaTime;
+            if (shieldMaterials.Length > 0)
+            {
+                shieldHealth = Mathf.Lerp(startHealth, magicStamina / maxMagicStamina, timeElapsed/timeToUpdate);
+                for (int i = 0; i < shieldMaterials.Length; i++)
+                {
+                    shieldMaterials[i].SetFloat("_DissolveAmount", shieldHealth);
+                }
+            }
+            yield return null;
+        }
+        shieldHealth = magicStamina / maxMagicStamina;
     }
 
     public void setLevitation(bool value)
