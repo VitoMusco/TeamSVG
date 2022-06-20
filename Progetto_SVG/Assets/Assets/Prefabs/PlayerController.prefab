@@ -945,8 +945,7 @@ LineRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: cb53161fe3a57ec46b5f0ad532f6ad2e, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1020,7 +1019,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     shadowBias: 0.5
     generateLightingData: 0
   m_UseWorldSpace: 1
@@ -2745,6 +2744,8 @@ MonoBehaviour:
   footStepSounds:
   - {fileID: 8300000, guid: 5d8d0ccf9d7d88c4da421d1f61a25342, type: 3}
   - {fileID: 8300000, guid: deecb5cc14b0eb34a9520d54d157b1ec, type: 3}
+  laserMaterial: {fileID: 2100000, guid: cb53161fe3a57ec46b5f0ad532f6ad2e, type: 2}
+  electricMaterial: {fileID: 2100000, guid: e7b9972debe1f594bb7a4cd59a0df113, type: 2}
   healthBar: {fileID: 6804776356862594444}
   healthBarEnd: {fileID: 4894308198340507351}
   staminaBar: {fileID: 4494649565457881175}
@@ -11357,6 +11358,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7561201323995018119}
     m_Modifications:
+    - target: {fileID: 2116634857464497148, guid: 4797aa8593a30f3429748f0b76318cb4,
+        type: 3}
+      propertyPath: rolloffMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2116634857464497148, guid: 4797aa8593a30f3429748f0b76318cb4,
+        type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
+      value: 1.0013428
+      objectReference: {fileID: 0}
     - target: {fileID: 5971833423782085111, guid: 4797aa8593a30f3429748f0b76318cb4,
         type: 3}
       propertyPath: m_Name

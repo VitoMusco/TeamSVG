@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     public AudioSource shieldSoundSource;
     public AudioSource footStepSource;
     public List<AudioClip> footStepSounds;
+    public Material laserMaterial;
+    public Material electricMaterial;
 
     public Image healthBar;
     public Image healthBarEnd;
@@ -153,7 +155,6 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.Interact.performed += context => interact();
         inputs.PlayerInputs.Interact.Enable();
         /////////
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         if (developerMode) {
@@ -371,6 +372,7 @@ public class PlayerController : MonoBehaviour
         {
             if (canShoot)
             {
+                shootBeam.material = laserMaterial;
                 isAttacking = true;
                 isShootAttacking = true;
                 Invoke(nameof(shoot), timeToShoot);
@@ -397,6 +399,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         if (isLaserAttacking) {
+            shootBeam.material = electricMaterial;
             StartCoroutine(expandShootBeam());
             attackSoundSource.Play();
             shootBeam.enabled = true;

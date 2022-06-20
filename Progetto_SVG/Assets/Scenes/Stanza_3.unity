@@ -2653,6 +2653,11 @@ PrefabInstance:
       objectReference: {fileID: 2037379623}
     - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
         type: 3}
+      propertyPath: sightRange
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1927193793311248757, guid: 18f57944fb673794086ddb181afb5a49,
+        type: 3}
       propertyPath: soundSource
       value: 
       objectReference: {fileID: 1348599827}
