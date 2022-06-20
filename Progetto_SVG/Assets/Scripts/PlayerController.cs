@@ -401,6 +401,7 @@ public class PlayerController : MonoBehaviour
             attackSoundSource.Play();
             shootBeam.enabled = true;
             StartCoroutine(updateLaserAttack());
+            StartCoroutine(shakeCamera(0f, .2f, 1f, .25f, 0.007f));
         }
     }
 
@@ -816,7 +817,7 @@ public class PlayerController : MonoBehaviour
         float startRotationY = playerCamera.transform.localRotation.y;
         Vector3 positionToReach = new Vector3(startPosition.x + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.y + Random.Range(-shakeRange, shakeRange) * shakeMultiplier, startPosition.z);
         float rotationToReach = Random.Range(-rotationRange, rotationRange) * rotationMultiplier;
-        while (timeElapsed < shakingTime)
+        while ((timeElapsed < shakingTime && shakingTime > 0) || (isLaserAttacking && shakingTime == 0))
         {
             timeElapsed += Time.deltaTime;
             if (timeSinceLastPosition < timeToGenerateNewPosition)
