@@ -325,7 +325,7 @@ public class GuardianController : MonoBehaviour
         while (timeElapsed < timeToAim) {         
             lookPos = predictedLocation - transform.position;
             //if (lookPos.x < 3 || lookPos.z < 3)
-            lookPos.y = 0;
+            lookPos.y = 0f;
             whereToLook = Quaternion.LookRotation(lookPos);
             transform.rotation = Quaternion.Slerp(startRotation, whereToLook, timeElapsed / timeToAim);
 

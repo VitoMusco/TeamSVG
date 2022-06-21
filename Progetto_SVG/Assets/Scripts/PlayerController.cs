@@ -37,8 +37,9 @@ public class PlayerController : MonoBehaviour
     public Transform playerSpawnPosition;
     public MeshRenderer quizPaperRenderer;
     public MeshRenderer compassRenderer;
-    //public MeshRenderer compassNorthRenderer;
+    public MeshRenderer compassNorthRenderer;
     public MeshRenderer attackBraceletRenderer;
+    public MeshRenderer compassBraceletRenderer;
     public MeshRenderer shieldRenderer;
     public MeshRenderer shieldBraceletRenderer;
     public MeshRenderer decalRenderer;
@@ -151,25 +152,26 @@ public class PlayerController : MonoBehaviour
         move.Enable();
         look.Enable();
         inputs.PlayerInputs.Crouch.performed += context => crouch();
-        inputs.PlayerInputs.Crouch.canceled += context => unCrouch();
-        inputs.PlayerInputs.Crouch.Enable();
+        inputs.PlayerInputs.Crouch.canceled += context => unCrouch();       
         inputs.PlayerInputs.Run.performed += context => run();
-        inputs.PlayerInputs.Run.canceled += context => stopRunning();
-        inputs.PlayerInputs.Run.Enable();
-        inputs.PlayerInputs.Jump.performed += context => jump();
-        inputs.PlayerInputs.Jump.Enable();
-        inputs.PlayerInputs.Attack.performed += context => attack();
-        inputs.PlayerInputs.Attack.Enable();
+        inputs.PlayerInputs.Run.canceled += context => stopRunning();       
+        inputs.PlayerInputs.Jump.performed += context => jump();        
+        inputs.PlayerInputs.Attack.performed += context => attack();        
         inputs.PlayerInputs.LaserAttack.performed += context => laserAttack();
-        inputs.PlayerInputs.LaserAttack.canceled += context => endLaserAttack();
-        inputs.PlayerInputs.LaserAttack.Enable();
+        inputs.PlayerInputs.LaserAttack.canceled += context => endLaserAttack();        
         inputs.PlayerInputs.Defend.performed += context => defend();
         inputs.PlayerInputs.Defend.canceled += context => cancelDefense();
         inputs.PlayerInputs.UseCompass.performed += context => useCompass();
         inputs.PlayerInputs.UseCompass.canceled += context => cancelCompass();
+        inputs.PlayerInputs.Interact.performed += context => interact();
+
+        if (levelType == 3) inputs.PlayerInputs.Attack.Enable();
+        if (levelType == 3) inputs.PlayerInputs.LaserAttack.Enable();
         if (levelType == 1) inputs.PlayerInputs.UseCompass.Enable();
         if (levelType == 3) inputs.PlayerInputs.Defend.Enable();
-        inputs.PlayerInputs.Interact.performed += context => interact();
+        inputs.PlayerInputs.Crouch.Enable();
+        inputs.PlayerInputs.Run.Enable();
+        inputs.PlayerInputs.Jump.Enable();
         inputs.PlayerInputs.Interact.Enable();
         /////////
         Cursor.visible = false;
@@ -182,8 +184,9 @@ public class PlayerController : MonoBehaviour
         staminaBarEndStartPosition = staminaBarEnd.transform.localPosition.x;
         healthBarEndStartPosition = healthBarEnd.transform.localPosition.x;
         compassRenderer.enabled = false;
-        //compassNorthRenderer.enabled = false;
+        compassNorthRenderer.enabled = false;
         shieldRenderer.enabled = false;
+        compassBraceletRenderer.enabled = false;
         attackBraceletRenderer.enabled = false;
         shieldBraceletRenderer.enabled = false;
         decalRenderer.enabled = false;
@@ -498,12 +501,12 @@ public class PlayerController : MonoBehaviour
     }
 
     void endLaserAttack() {
+        attackBraceletRenderer.enabled = false;
         if (!isLaserAttacking) return;
         isLaserAttacking = false;
         if (isAttacking) {
             isAttacking = false;
             canShoot = false;
-            attackBraceletRenderer.enabled = false;
             StartCoroutine(shrinkShootBeam());
             Invoke(nameof(resetShoot), 1f);
         }
@@ -524,7 +527,8 @@ public class PlayerController : MonoBehaviour
     void useCompass() {
         if (!isUsingCompass) {
             compassRenderer.enabled = true;
-            //compassNorthRenderer.enabled = true;
+            compassBraceletRenderer.enabled = true;
+            compassNorthRenderer.enabled = true;
             isUsingCompass = true;
         }
     }
@@ -536,8 +540,10 @@ public class PlayerController : MonoBehaviour
 
     void stopUsingCompass() {
         compassRenderer.enabled = false;
-        //compassNorthRenderer.enabled = false;
+        compassBraceletRenderer.enabled = false;
+        compassNorthRenderer.enabled = false;
         isUsingCompass = false;
+        wantsToStopUsingCompass = false;
     }
 
     void cancelDefense() {
@@ -809,6 +815,7 @@ public class PlayerController : MonoBehaviour
         staminaBarEnd.transform.localPosition = new Vector2(staminaBarEndStartPosition, staminaBarEnd.transform.localPosition.y);
         isAlive = true;
         StartCoroutine(handleStamina());
+        StartCoroutine(updateShieldMaterial());
     }
 
     IEnumerator handleStamina() {
