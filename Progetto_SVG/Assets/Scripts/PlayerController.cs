@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     public MeshRenderer quizPaperRenderer;
     public MeshRenderer compassRenderer;
     //public MeshRenderer compassNorthRenderer;
+    public MeshRenderer attackBraceletRenderer;
     public MeshRenderer shieldRenderer;
     public MeshRenderer shieldBraceletRenderer;
     public MeshRenderer decalRenderer;
@@ -183,6 +184,7 @@ public class PlayerController : MonoBehaviour
         compassRenderer.enabled = false;
         //compassNorthRenderer.enabled = false;
         shieldRenderer.enabled = false;
+        attackBraceletRenderer.enabled = false;
         shieldBraceletRenderer.enabled = false;
         decalRenderer.enabled = false;
         shootBeam = GetComponentInChildren<LineRenderer>();
@@ -394,9 +396,11 @@ public class PlayerController : MonoBehaviour
         {
             if (canShoot)
             {
+                attackBraceletRenderer.enabled = true;
                 shootBeam.material = laserMaterial;
                 isAttacking = true;
                 isShootAttacking = true;
+                attackBraceletRenderer.enabled = true;
                 Invoke(nameof(shoot), timeToShoot);
                 canShoot = false;
                 Invoke(nameof(resetShoot), 1f);
@@ -408,6 +412,7 @@ public class PlayerController : MonoBehaviour
         if (isInMenu) return;
         if (canShoot && !isDefending && magicStamina > 0f) {
             isLaserAttacking = true;
+            attackBraceletRenderer.enabled = true;
             StartCoroutine(startLaserAttacking());
         }
     }
@@ -498,6 +503,7 @@ public class PlayerController : MonoBehaviour
         if (isAttacking) {
             isAttacking = false;
             canShoot = false;
+            attackBraceletRenderer.enabled = false;
             StartCoroutine(shrinkShootBeam());
             Invoke(nameof(resetShoot), 1f);
         }
@@ -647,6 +653,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(shrinkShootBeam());
         isAttacking = false;
         isShootAttacking = false;
+        attackBraceletRenderer.enabled = false;
         //Invoke(nameof(removeBeam), 1f);
     }
 

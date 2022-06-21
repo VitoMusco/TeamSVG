@@ -153,7 +153,7 @@ public class GuardianController : MonoBehaviour
                     speak();
                     hasPlayedStartVoiceLine = true;
                 }
-            };
+            }
             if (playerInSlamAttackRange && playerInSightRange)
             {
                 if (!isShooting)
