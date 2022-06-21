@@ -107,6 +107,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseCompass"",
+                    ""type"": ""Button"",
+                    ""id"": ""967b6c19-7779-4adc-93bd-880b28ad19b9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -349,6 +358,28 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f27fff53-8bf4-45ac-b156-06c2ac9549a4"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseCompass"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e1ddef3-65ec-44c6-8b81-13ced7a4319e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseCompass"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -615,6 +646,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_PlayerInputs_Run = m_PlayerInputs.FindAction("Run", throwIfNotFound: true);
         m_PlayerInputs_Crouch = m_PlayerInputs.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerInputs_Interact = m_PlayerInputs.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerInputs_UseCompass = m_PlayerInputs.FindAction("UseCompass", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Menu = m_Menu.FindAction("Menu", throwIfNotFound: true);
@@ -692,6 +724,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInputs_Run;
     private readonly InputAction m_PlayerInputs_Crouch;
     private readonly InputAction m_PlayerInputs_Interact;
+    private readonly InputAction m_PlayerInputs_UseCompass;
     public struct PlayerInputsActions
     {
         private @PlayerInput m_Wrapper;
@@ -705,6 +738,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_PlayerInputs_Run;
         public InputAction @Crouch => m_Wrapper.m_PlayerInputs_Crouch;
         public InputAction @Interact => m_Wrapper.m_PlayerInputs_Interact;
+        public InputAction @UseCompass => m_Wrapper.m_PlayerInputs_UseCompass;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -741,6 +775,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnInteract;
+                @UseCompass.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnUseCompass;
+                @UseCompass.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnUseCompass;
+                @UseCompass.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnUseCompass;
             }
             m_Wrapper.m_PlayerInputsActionsCallbackInterface = instance;
             if (instance != null)
@@ -772,6 +809,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @UseCompass.started += instance.OnUseCompass;
+                @UseCompass.performed += instance.OnUseCompass;
+                @UseCompass.canceled += instance.OnUseCompass;
             }
         }
     }
@@ -868,6 +908,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnUseCompass(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

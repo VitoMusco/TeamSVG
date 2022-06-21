@@ -4094,6 +4094,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
+      propertyPath: levelType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
       propertyPath: canLevitate
       value: 0
       objectReference: {fileID: 0}

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    //LEVELTYPE 1=MAZE 2=PARKOUR 3=COMBAT
+    public int levelType = 0;
+
     //CAMERA
     private Camera playerCamera;
 
@@ -33,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public Transform shootSource;
     public Transform playerSpawnPosition;
     public MeshRenderer quizPaperRenderer;
+    public MeshRenderer compassRenderer;
+    //public MeshRenderer compassNorthRenderer;
     public MeshRenderer shieldRenderer;
     public MeshRenderer shieldBraceletRenderer;
     public MeshRenderer decalRenderer;
@@ -115,7 +120,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isShootAttacking = false;
     [SerializeField] private bool isLaserAttacking = false;
     [SerializeField] private bool isDefending = false;
+    [SerializeField] private bool isUsingCompass = false;
     [SerializeField] private bool wantsToStopDefending = false;
+    [SerializeField] private bool wantsToStopUsingCompass = false;
     [SerializeField] private float attackDamage = 20f;
     [SerializeField] private float laserAttackDamage = 2f;
     [SerializeField] private float shootAttackStaminaRemove = 10;
@@ -157,7 +164,10 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.LaserAttack.Enable();
         inputs.PlayerInputs.Defend.performed += context => defend();
         inputs.PlayerInputs.Defend.canceled += context => cancelDefense();
-        inputs.PlayerInputs.Defend.Enable();
+        inputs.PlayerInputs.UseCompass.performed += context => useCompass();
+        inputs.PlayerInputs.UseCompass.canceled += context => cancelCompass();
+        if (levelType == 1) inputs.PlayerInputs.UseCompass.Enable();
+        if (levelType == 3) inputs.PlayerInputs.Defend.Enable();
         inputs.PlayerInputs.Interact.performed += context => interact();
         inputs.PlayerInputs.Interact.Enable();
         /////////
@@ -170,6 +180,8 @@ public class PlayerController : MonoBehaviour
         shieldMaterials = shieldRenderer.materials;
         staminaBarEndStartPosition = staminaBarEnd.transform.localPosition.x;
         healthBarEndStartPosition = healthBarEnd.transform.localPosition.x;
+        compassRenderer.enabled = false;
+        //compassNorthRenderer.enabled = false;
         shieldRenderer.enabled = false;
         shieldBraceletRenderer.enabled = false;
         decalRenderer.enabled = false;
@@ -190,7 +202,8 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.Jump.Disable();
         inputs.PlayerInputs.Attack.Disable();
         inputs.PlayerInputs.LaserAttack.Disable();
-        inputs.PlayerInputs.Defend.Disable();
+        if (levelType == 1) inputs.PlayerInputs.UseCompass.Disable();
+        if (levelType == 3) inputs.PlayerInputs.Defend.Disable();
         inputs.PlayerInputs.Interact.Disable();
     }
 
@@ -314,6 +327,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (wantsToStopDefending) stopDefending();
+        if (wantsToStopUsingCompass) stopUsingCompass();
 
         if (isDefending && magicStamina <= 0f) {
             stopDefending();
@@ -418,24 +432,39 @@ public class PlayerController : MonoBehaviour
 
     void interact() {
         RaycastHit hit;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f, rayCastLayer)) {
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3f, rayCastLayer)) {
             if (hit.collider.tag == "Button")
                 hit.collider.GetComponent<ButtonBehaviour>().pressButton();
-            else openQuizPaper();//Provvisorio
         }
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f, rayCastLayer)) {
+            if (hit.collider.tag == "Quiz")
+                getQuizPaper();//Provvisorio
+        }
+    }
+
+    void getQuizPaper() {
+        //Prendi pergamena
+        anim.ResetTrigger("ClosingQuizPaper");//Mettilo in handleAnimations
+        anim.SetTrigger("GettingQuizPaper");//Mettilo in handleAnimations
+        Invoke(nameof(gotQuizPaper), 4f);//Invoca quando arriva la pergamena al giocatore
+    }
+
+    void gotQuizPaper() {
+        anim.ResetTrigger("GettingQuizPaper");//Mettilo in handleAnimations
+        anim.SetTrigger("GotQuizPaper");//Mettilo in handleAnimations
+        Invoke(nameof(openQuizPaper),0.29f);
     }
 
     void openQuizPaper() {
         quizPaperRenderer.enabled = true;
-        anim.ResetTrigger("ClosingQuizPaper");
-        anim.SetTrigger("OpeningQuizPaper");//Mettilo in handleAnimations
-        Invoke(nameof(closeQuizPaper), 3f);
+        Invoke(nameof(closeQuizPaper), 5f);
     }
 
     void closeQuizPaper() {
-        quizPaperRenderer.enabled = false;
         anim.SetTrigger("ClosingQuizPaper");
-        anim.ResetTrigger("OpeningQuizPaper");//Mettilo in handleAnimations
+        quizPaperRenderer.enabled = false;
+        anim.ResetTrigger("GotQuizPaper");//Mettilo in handleAnimations
+        anim.ResetTrigger("GettingQuizPaper");//Mettilo in handleAnimations
     }
 
     IEnumerator updateLaserAttack() {
@@ -484,6 +513,25 @@ public class PlayerController : MonoBehaviour
             isDefending = true;
             shieldSoundSource.Play();
         }
+    }
+
+    void useCompass() {
+        if (!isUsingCompass) {
+            compassRenderer.enabled = true;
+            //compassNorthRenderer.enabled = true;
+            isUsingCompass = true;
+        }
+    }
+
+    void cancelCompass() {
+        if (!isInMenu) stopUsingCompass();
+        else wantsToStopUsingCompass = true;
+    }
+
+    void stopUsingCompass() {
+        compassRenderer.enabled = false;
+        //compassNorthRenderer.enabled = false;
+        isUsingCompass = false;
     }
 
     void cancelDefense() {
@@ -633,7 +681,11 @@ public class PlayerController : MonoBehaviour
         else anim.SetBool("ShootAttacking", false);
         if (isLaserAttacking) anim.SetBool("LaserAttacking", true);
         else anim.SetBool("LaserAttacking", false);
-            
+
+        if (isUsingCompass)
+            anim.SetBool("UsingCompass", true);
+        else
+            anim.SetBool("UsingCompass", false);
 
         if (isDefending)
             anim.SetBool("Defending", true);
@@ -760,7 +812,7 @@ public class PlayerController : MonoBehaviour
         float attackTime = 0f;
         float defenseTime = 0f;
         float runTime = 0f;
-        
+        float targetStamina = magicStamina;
         while (isAlive) {           
             if (timeAfterAnAction < maxTimeAfterAnAction)
                 timeAfterAnAction += Time.deltaTime;
@@ -783,8 +835,8 @@ public class PlayerController : MonoBehaviour
             }
 
             if (isDefending && defenseTime > staminaAddTime) {
-                if(magicStamina + defenseStaminaAdd <= maxMagicStamina)
-                    magicStamina += defenseStaminaAdd;
+                if(targetStamina + defenseStaminaAdd <= maxMagicStamina)
+                    targetStamina += defenseStaminaAdd;
                 defenseTime = 0f;
             }
                 
@@ -794,28 +846,32 @@ public class PlayerController : MonoBehaviour
             }
             if (staminaToRemove > 0f)
                 timeAfterAnAction = 0f;
-            if (timeAfterAnAction >= maxTimeAfterAnAction && stopTime > staminaAddTime && magicStamina < maxMagicStamina) {
-                if (magicStamina + staminaToAdd > maxMagicStamina)
-                    magicStamina = maxMagicStamina;
+            if (timeAfterAnAction >= maxTimeAfterAnAction && stopTime > staminaAddTime && targetStamina < maxMagicStamina) {
+                if (targetStamina + staminaToAdd > maxMagicStamina)
+                    targetStamina = maxMagicStamina;
                 else
-                    magicStamina += staminaToAdd;
+                    targetStamina += staminaToAdd;
                 stopTime = 0f;
             }
             else {
-                if (magicStamina - staminaToRemove < 0f)
-                    magicStamina = 0f;
+                if (targetStamina - staminaToRemove < 0f)
+                    targetStamina = 0f;
                 else
-                    magicStamina -= staminaToRemove;
+                    targetStamina -= staminaToRemove;
             }
             handleStaminaBar();
-            StartCoroutine(updateShieldMaterial());
+            if (magicStamina != targetStamina) {
+                StartCoroutine(updateShieldMaterial());
+                magicStamina = targetStamina;
+            }
             staminaToRemove = 0f;
             yield return null;
         }
     }
 
     IEnumerator updateShieldMaterial() {
-        float timeToUpdate = 0.1f;
+        print("inizio");
+        float timeToUpdate = 0.5f;
         float timeElapsed = 0f;
         float startHealth = shieldHealth;
         while (timeElapsed < timeToUpdate) {
