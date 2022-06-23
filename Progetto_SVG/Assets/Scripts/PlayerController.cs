@@ -875,7 +875,7 @@ public class PlayerController : MonoBehaviour
             }
             handleStaminaBar();
             if (magicStamina != targetStamina) {
-                StartCoroutine(updateShieldMaterial());
+                if (levelType == 3) StartCoroutine(updateShieldMaterial());
                 magicStamina = targetStamina;
             }
             staminaToRemove = 0f;

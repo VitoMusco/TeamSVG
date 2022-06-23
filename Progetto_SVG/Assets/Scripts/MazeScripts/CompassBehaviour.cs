@@ -30,16 +30,6 @@ public class CompassBehaviour : MonoBehaviour
                 minDistance = distance;
             }
         }
-        lookAt(nearestQuiz);
-        //transform.LookAt(nearestQuiz, Vector3.up);
-    }
-
-    void lookAt(Vector3 nearestQuiz) {
-        Vector3 lookPosition = new Vector3();
-        Quaternion whereToLook = new Quaternion();
-
-        lookPosition = nearestQuiz - transform.position;
-        whereToLook = Quaternion.LookRotation(lookPosition);
-        transform.rotation = whereToLook;
+        transform.LookAt(nearestQuiz, Vector3.up);
     }
 }
