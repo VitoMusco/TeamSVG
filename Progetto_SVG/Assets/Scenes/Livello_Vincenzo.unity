@@ -23883,6 +23883,11 @@ PrefabInstance:
       objectReference: {fileID: 1539525734}
     - target: {fileID: 7639267326600663133, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
+      propertyPath: quizes.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639267326600663133, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
       propertyPath: quizes.Array.data[0]
       value: 
       objectReference: {fileID: 501867171}

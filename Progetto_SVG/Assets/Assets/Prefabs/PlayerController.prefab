@@ -11528,12 +11528,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f826d0085990c48a94a9b488994843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quizes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  quizes: []
+  exitPortal: {fileID: 0}
 --- !u!23 &3720252370925523327 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 07f705eafa5964c40b55bcf072ff28f8,

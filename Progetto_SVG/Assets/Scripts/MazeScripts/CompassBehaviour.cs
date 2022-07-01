@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class CompassBehaviour : MonoBehaviour
 {
-    public List<GameObject> quizes;
+    public List<GameObject> quizes = new List<GameObject>();
     public Transform exitPortal;
+
+    private bool canSearchForQuizes = false;
 
     // Update is called once per frame
     void Update()
     {
-        findAndPointToNearestQuiz();
+        if(canSearchForQuizes) findAndPointToNearestQuiz();
     }
 
     void findAndPointToNearestQuiz() {
@@ -30,7 +32,6 @@ public class CompassBehaviour : MonoBehaviour
             }
             if (distance < minDistance)
             {
-                print(quiz.transform.position);
                 nearestQuiz = quiz.transform.position;
                 minDistance = distance;
             }
@@ -40,5 +41,9 @@ public class CompassBehaviour : MonoBehaviour
 
     public void foundQuiz(GameObject quiz) {
         quizes.Remove(quiz);
+    }
+
+    public void enable() {
+        canSearchForQuizes = true;
     }
 }

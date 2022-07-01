@@ -169,7 +169,10 @@ public class PlayerController : MonoBehaviour
 
         if (levelType == 3) inputs.PlayerInputs.Attack.Enable();
         if (levelType == 3) inputs.PlayerInputs.LaserAttack.Enable();
-        if (levelType == 1) inputs.PlayerInputs.UseCompass.Enable();
+        if (levelType == 1) {
+            compass.enable();
+            inputs.PlayerInputs.UseCompass.Enable();
+        } 
         if (levelType == 3) inputs.PlayerInputs.Defend.Enable();
         inputs.PlayerInputs.Crouch.Enable();
         inputs.PlayerInputs.Run.Enable();
@@ -896,7 +899,6 @@ public class PlayerController : MonoBehaviour
     }
 
     IEnumerator updateShieldMaterial() {
-        print("inizio");
         float timeToUpdate = 0.5f;
         float timeElapsed = 0f;
         float startHealth = shieldHealth;
