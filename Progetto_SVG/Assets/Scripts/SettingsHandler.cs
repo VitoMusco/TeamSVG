@@ -17,6 +17,7 @@ public class SettingsHandler : MonoBehaviour
     public TMP_Dropdown qualitySelector;
     public TMP_Dropdown resolutionSelector;
     public Toggle fullScreenToggle;
+    public Toggle VSyncToggle;
     public PlayerController player;
 
     private Canvas settingsMenu;
@@ -36,17 +37,28 @@ public class SettingsHandler : MonoBehaviour
             string option = resolutions[i].width + " x " + resolutions[i].height;
             resolutionOptions.Add(option);
 
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height) {
+            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height) {
                 currentResolutionIndex = i;
             }
 
         }
 
+        
+
         resolutionSelector.AddOptions(resolutionOptions);
         resolutionSelector.value = currentResolutionIndex;
         resolutionSelector.RefreshShownValue();
+        //Screen.SetResolution(resolutions[currentResolutionIndex].width, resolutions[currentResolutionIndex].height, fullScreenToggle.isOn);
+
+        fullScreenToggle.isOn = Screen.fullScreen;
+
+        if(QualitySettings.vSyncCount == 0)
+            VSyncToggle.isOn = false;
+        else
+            VSyncToggle.isOn = true;
 
         qualitySelector.value = QualitySettings.GetQualityLevel();
+        qualitySelector.RefreshShownValue();
 
         inputs = new PlayerInput();
         inputs.Menu.Menu.performed += pause;
@@ -82,9 +94,10 @@ public class SettingsHandler : MonoBehaviour
         mixer.SetFloat("mixerVolume", volume);
     }
 
-    public void changeLevel(int value) {
+    public void changeQualityLevel(int value) {
         QualitySettings.SetQualityLevel(value);
         QualitySettings.renderPipeline = qualityLevels[value];
+        toggleVSync(VSyncToggle.isOn);
     }
 
     public void changeResolution(int resolutionIndex) {
@@ -93,8 +106,14 @@ public class SettingsHandler : MonoBehaviour
     }
 
     public void changeFullscreen(bool toggle) {
-        fullScreenToggle.isOn = toggle;
         Screen.fullScreen = toggle;
+    }
+
+    public void toggleVSync(bool toggle) {
+        if (toggle)
+            QualitySettings.vSyncCount = 1;
+        else
+            QualitySettings.vSyncCount = 0;
     }
 
     public void setSensitivity(float sensitivity) {

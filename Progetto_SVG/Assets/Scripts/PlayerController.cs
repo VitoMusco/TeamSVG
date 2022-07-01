@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isLaserAttacking = false;
     [SerializeField] private bool isDefending = false;
     [SerializeField] private bool isUsingCompass = false;
+    [SerializeField] private bool wantsToStopAttacking = false;
     [SerializeField] private bool wantsToStopDefending = false;
     [SerializeField] private bool wantsToStopUsingCompass = false;
     [SerializeField] private float attackDamage = 20f;
@@ -158,7 +159,7 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.Jump.performed += context => jump();        
         inputs.PlayerInputs.Attack.performed += context => attack();        
         inputs.PlayerInputs.LaserAttack.performed += context => laserAttack();
-        inputs.PlayerInputs.LaserAttack.canceled += context => endLaserAttack();        
+        inputs.PlayerInputs.LaserAttack.canceled += context => stopLaserAttack();        
         inputs.PlayerInputs.Defend.performed += context => defend();
         inputs.PlayerInputs.Defend.canceled += context => cancelDefense();
         inputs.PlayerInputs.UseCompass.performed += context => useCompass();
@@ -331,6 +332,7 @@ public class PlayerController : MonoBehaviour
             hasDoubleJumped = false;
         }
 
+        if (wantsToStopAttacking) endLaserAttack();
         if (wantsToStopDefending) stopDefending();
         if (wantsToStopUsingCompass) stopUsingCompass();
 
@@ -339,7 +341,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (isLaserAttacking && magicStamina <= 0f) {
-            endLaserAttack();
+            stopLaserAttack();
         }
     }
 
@@ -500,6 +502,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void stopLaserAttack() {
+        if (!isInMenu) endLaserAttack();
+        else wantsToStopAttacking = true;
+    }
+
     void endLaserAttack() {
         attackBraceletRenderer.enabled = false;
         if (!isLaserAttacking) return;
@@ -510,6 +517,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(shrinkShootBeam());
             Invoke(nameof(resetShoot), 1f);
         }
+        wantsToStopAttacking = false;
     }
 
     void defend()
