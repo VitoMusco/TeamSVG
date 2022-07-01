@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public Transform predictedMovement;
     public Transform shootSource;
     public Transform playerSpawnPosition;
+    public CompassBehaviour compass;
     public MeshRenderer quizPaperRenderer;
     public MeshRenderer compassRenderer;
     public MeshRenderer compassNorthRenderer;
@@ -447,8 +448,11 @@ public class PlayerController : MonoBehaviour
                 hit.collider.GetComponent<ButtonBehaviour>().pressButton();
         }
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f, rayCastLayer)) {
-            if (hit.collider.tag == "Quiz")
+            if (hit.collider.tag == "Quiz") {
+                compass.foundQuiz(hit.transform.gameObject);
+                hit.collider.GetComponent<QuizBehaviour>().getGrabbed(transform);
                 getQuizPaper();//Provvisorio
+            }
         }
     }
 

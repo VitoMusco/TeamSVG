@@ -3195,6 +3195,7 @@ MonoBehaviour:
   predictedMovement: {fileID: 1572844747972509238}
   shootSource: {fileID: 1572844748092834766}
   playerSpawnPosition: {fileID: 2325401189755165937}
+  compass: {fileID: 7639267326600663133}
   quizPaperRenderer: {fileID: 514651509849001164}
   compassRenderer: {fileID: 3720252370925523327}
   compassNorthRenderer: {fileID: 5440952078580198489}
@@ -11509,6 +11510,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2621491304482246139}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2927341553716146346 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 07f705eafa5964c40b55bcf072ff28f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2621491304482246139}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7639267326600663133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2927341553716146346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f826d0085990c48a94a9b488994843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quizes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!23 &3720252370925523327 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 07f705eafa5964c40b55bcf072ff28f8,
