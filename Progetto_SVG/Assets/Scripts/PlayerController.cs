@@ -453,7 +453,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f, rayCastLayer)) {
             if (hit.collider.tag == "Quiz") {
                 compass.foundQuiz(hit.transform.gameObject);
-                hit.collider.GetComponent<QuizBehaviour>().getGrabbed(transform);
+                hit.collider.GetComponent<QuizBehaviour>().getGrabbed();
                 getQuizPaper();//Provvisorio
             }
         }

@@ -5,11 +5,12 @@ using UnityEngine;
 public class QuizBehaviour : MonoBehaviour
 {
     public Transform ghostSpawner;
-    public GameObject ghostPrefab;
+    public GhostBehaviour ghostPrefab;
 
-    public void getGrabbed(Transform playerPos) {
-        GameObject ghost = (GameObject)Instantiate(ghostPrefab, ghostSpawner.position, ghostSpawner.rotation);
-        ghost.GetComponent<GhostBehaviour>().assignPlayer(playerPos);
+    public void getGrabbed() {
+        ghostPrefab.transform.position = ghostSpawner.position;
+        ghostPrefab.transform.rotation = ghostSpawner.rotation;
+        ghostPrefab.activate();
         Destroy(gameObject);
     }
 }
