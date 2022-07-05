@@ -55,6 +55,38 @@ public class ObjectParkourMovement : MonoBehaviour
     {
         Debug.Log("Entrato nell'if");
         if (other.gameObject.CompareTag("Player") && isDangerous) other.gameObject.GetComponent<PlayerController>().kill();
+        if (other.gameObject.CompareTag("Player"))
+            {
+            Transform playerTransform = gameObject.transform;
+            if (Xaxis)
+            {
+                if (toMax)
+                {
+                    playerTransform.position = new Vector3(playerTransform.position.x + speed * Time.deltaTime, playerTransform.position.y, playerTransform.position.z);
+                    
+                }
+                else
+                {
+                    playerTransform.position = new Vector3(playerTransform.position.x - speed * Time.deltaTime, playerTransform.position.y, playerTransform.position.z);
+                    
+                }
+            }
+            else
+            {
+                if (toMax)
+                {
+                    playerTransform.position = new Vector3(playerTransform.position.x, playerTransform.position.y + speed * Time.deltaTime, playerTransform.position.z);
+                    
+                }
+                else
+                {
+                    playerTransform.position = new Vector3(playerTransform.position.x, playerTransform.position.y - speed * Time.deltaTime, playerTransform.position.z);
+                    
+                }
+            }
+
+            if (rotate) transform.Rotate(new Vector3(0, 0, transform.localRotation.z + speed * Time.deltaTime * 500));
+        }
     }
 
 }
