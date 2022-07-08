@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float timeToShoot = 0.4f;
     [SerializeField] private bool isGrounded;
     [SerializeField] private bool isMoving = false;
+    [SerializeField] private bool isJumping = false;
     [SerializeField] private bool isCrouching = false;
     [SerializeField] private bool isWalking = false;
     [SerializeField] private bool isRunning = false;
@@ -139,10 +140,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canDoubleJump = false;
     [SerializeField] private bool canLevitate = false;
     [SerializeField] Vector3 velocity;
+    [SerializeField] Vector3 addedVelocity;
 
     [SerializeField] private bool hasDoubleJumped = false;
     [SerializeField] private float maxTimeAfterAnAction = 2f;
     [SerializeField] float timeToRespawn = 2f;
+
+    [SerializeField] float timeAfterNotGrounded = 0f;
+    [SerializeField] float maxTimeAfterNotGrounded = 0.1f;
 
     void Awake() {
         //INPUT//
@@ -257,7 +262,20 @@ public class PlayerController : MonoBehaviour
     }
 
     //CONTROLLA SE SI E' A TERRA
-    void checkIfGrounded() => isGrounded = controller.isGrounded;
+    void checkIfGrounded() {
+        if (timeAfterNotGrounded > maxTimeAfterNotGrounded && !controller.isGrounded && !isJumping) {
+            isGrounded = false;
+        }
+        else if (timeAfterNotGrounded < maxTimeAfterNotGrounded && !controller.isGrounded && !isJumping) {
+            timeAfterNotGrounded += Time.deltaTime;
+        }
+        else if (controller.isGrounded)
+        {
+            isGrounded = true;
+            isJumping = false;
+            timeAfterNotGrounded = 0f;
+        }
+    }
 
     void movePlayer() {
         verticalVelocity = velocity.y;
@@ -273,7 +291,6 @@ public class PlayerController : MonoBehaviour
         }
 
         velocity.y = verticalVelocity;
-
         controller.Move(velocity * Time.deltaTime);
     }
 
@@ -328,7 +345,7 @@ public class PlayerController : MonoBehaviour
             handleFallDamage();
             if (!isGrounded)
                 velocity.y += gravity * gravityMultiplier * Time.deltaTime;
-            if (velocity.y > gravity && isGrounded)
+            if (isGrounded)
                 velocity.y = gravity;
         }
 
@@ -384,6 +401,8 @@ public class PlayerController : MonoBehaviour
             lockX = x;
             lockZ = z;
             lockSpeed = speed;
+            isJumping = true;
+            isGrounded = false;
             movePlayer();
         }
     }
@@ -959,5 +978,9 @@ public class PlayerController : MonoBehaviour
 
         playerCamera.transform.localPosition = startPosition;
         playerCamera.transform.localRotation = startRotation;
+    }
+
+    public void addVelocity(Vector3 vel) {
+        addedVelocity = vel;
     }
 }
