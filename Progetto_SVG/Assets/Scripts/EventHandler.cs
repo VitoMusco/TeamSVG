@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventHandler : MonoBehaviour
 {
     public Transform gate;
+    public Transform gateCollider;
     public GuardianController guardian;
     public PlayerController player;
     public MeshRenderer portal;
@@ -42,6 +43,7 @@ public class EventHandler : MonoBehaviour
             desiredYPosition = 1.4f;
         }
         else desiredYPosition = -2.6f;
+        gateCollider.position = new Vector3(gateCollider.position.x, desiredYPosition, gateCollider.position.z);
         Vector3 startPosition = gate.position;
         Vector3 desiredPosition = new Vector3(startPosition.x, desiredYPosition, startPosition.z);
 

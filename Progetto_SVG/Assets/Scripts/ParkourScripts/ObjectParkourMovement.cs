@@ -6,36 +6,19 @@ public class ObjectParkourMovement : MonoBehaviour
 {
 
     public Transform pointA, pointB;
-    public bool reachedPoint = false; //False arriva a B, true arriva ad A
-
+    
     private Rigidbody rb;
     private Vector3 currentPos;
+    private bool reachedPoint = false; //False arriva a B, true arriva ad A
 
-    private bool playerOnPlatform = false;
     private CharacterController player;
 
-    [SerializeField] bool Xaxis = true;
     [SerializeField] float timeFromAToB = 5f;
-    [SerializeField] bool isDangerous;
-    [SerializeField] bool rotate = false;
-    private bool toMax = true;
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
         StartCoroutine(moveObject());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (rotate) transform.Rotate(new Vector3(0, 0, transform.localRotation.z + speed * Time.deltaTime * 500));
-    }
-
-    /*void FixedUpdate() {
-        currentPos = Vector3.Lerp(pointA.position, pointB.position, Mathf.Cos(Time.time / timeFromAToB * Mathf.PI * 2) * -.5f + .5f);
-
-        rb.MovePosition(currentPos);
-    }*/
     
     IEnumerator moveObject() {
         float timeElapsed = 0f;
@@ -70,7 +53,7 @@ public class ObjectParkourMovement : MonoBehaviour
         if (collidedObject.CompareTag("Player"))
         {
             platformVelocity = rb.velocity;
-            platformVelocity.y = 0f;
+            //platformVelocity.y = 0f;
             
             player.Move(platformVelocity * Time.deltaTime);
         }
