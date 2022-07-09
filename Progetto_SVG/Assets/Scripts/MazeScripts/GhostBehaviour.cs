@@ -7,6 +7,8 @@ public class GhostBehaviour : MonoBehaviour
 {
     public Transform player;
 
+    [SerializeField] private float timeBeforeDeath = 15f;
+    private float timeAfterActivation = 0f;
     private NavMeshAgent agent;
     private Animator anim;
     private bool isActivated = false;
@@ -19,6 +21,8 @@ public class GhostBehaviour : MonoBehaviour
     void Update()
     {
         if(isActivated) agent.SetDestination(player.position);
+        if (isActivated) timeAfterActivation += Time.deltaTime;
+        if (isActivated && timeAfterActivation >= timeBeforeDeath) Destroy(gameObject);
     }
 
     public void activate() {
