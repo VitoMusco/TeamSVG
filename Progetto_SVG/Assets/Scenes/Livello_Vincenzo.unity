@@ -1955,6 +1955,11 @@ PrefabInstance:
       propertyPath: sceneToLoad
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6025720927958547630, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6058766738470376347, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
         type: 3}
       propertyPath: m_RootOrder
@@ -5763,7 +5768,7 @@ PrefabInstance:
     - target: {fileID: 2412132120641496794, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000032424927
+      value: 0.000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 2588392272132172304, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
