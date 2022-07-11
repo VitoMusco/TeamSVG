@@ -68,15 +68,16 @@ public class DoorUnlockerBehaviour : MonoBehaviour
 
     public void foundQuiz(int quizId) {
         if (!quizIsAwaitingSolution) {
-            askQuiz(quizId-1);
+            quizBoxes[quizId - 1].unlock();
+            askQuiz(quizId - 1);
         }
-        foundQuizes[quizId-1] = 1;
+        foundQuizes[quizId - 1] = 1;
     }
 
     public void solvedQuiz(int quizId) {
         if (foundQuizes[quizId - 1] != 1) return;
         quizIsAwaitingSolution = false;
-        foundQuizes[quizId-1] = 2;
+        foundQuizes[quizId - 1] = 2;
         for (int i=0; i<foundQuizes.Length; i++) {
             if (foundQuizes[i] == 1) {
                 askQuiz(i);
