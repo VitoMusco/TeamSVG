@@ -3,7 +3,22 @@ guid: d4fa2a6412d4d3942858d2db83226fa3
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Arch
+    second: {fileID: 2100000, guid: bee0740eaf2a2664081f39172a958278, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Column
+    second: {fileID: 2100000, guid: 6dee778422b6a5146a3ab7420539f495, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ColumnBlock
+    second: {fileID: 2100000, guid: 1fa73409c14875440aaae69f92bdb304, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
