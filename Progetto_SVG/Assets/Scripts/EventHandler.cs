@@ -24,6 +24,7 @@ public class EventHandler : MonoBehaviour
     void Update() {
         if (!player.checkIfAlive() && !guardianHasBeenKilled) {
             gate.position = new Vector3(gate.position.x, -2.6f, gate.position.z);
+            gateCollider.position = new Vector3(gateCollider.position.x, -2.6f, gateCollider.position.z);
             hasCrossedGate = false;
             guardian.resetGuardian();
         }
