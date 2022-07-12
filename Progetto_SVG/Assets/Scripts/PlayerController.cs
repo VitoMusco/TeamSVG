@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
     public Transform shootSource;
     public Transform playerSpawnPosition;
     public CompassBehaviour compass;
-    public MeshRenderer quizPaperRenderer;
     public MeshRenderer compassRenderer;
     public MeshRenderer compassNorthRenderer;
     public MeshRenderer attackBraceletRenderer;
@@ -473,35 +472,11 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.tag == "Quiz") {
                 compass.foundQuiz(hit.transform.gameObject);
                 hit.collider.GetComponent<QuizBehaviour>().getGrabbed();
-                getQuizPaper();//Provvisorio
+                //getQuizPaper();Provvisorio
             }
         }
     }
 
-    void getQuizPaper() {
-        //Prendi pergamena
-        anim.ResetTrigger("ClosingQuizPaper");//Mettilo in handleAnimations
-        anim.SetTrigger("GettingQuizPaper");//Mettilo in handleAnimations
-        Invoke(nameof(gotQuizPaper), 4f);//Invoca quando arriva la pergamena al giocatore
-    }
-
-    void gotQuizPaper() {
-        anim.ResetTrigger("GettingQuizPaper");//Mettilo in handleAnimations
-        anim.SetTrigger("GotQuizPaper");//Mettilo in handleAnimations
-        Invoke(nameof(openQuizPaper),0.29f);
-    }
-
-    void openQuizPaper() {
-        quizPaperRenderer.enabled = true;
-        Invoke(nameof(closeQuizPaper), 5f);
-    }
-
-    void closeQuizPaper() {
-        anim.SetTrigger("ClosingQuizPaper");
-        quizPaperRenderer.enabled = false;
-        anim.ResetTrigger("GotQuizPaper");//Mettilo in handleAnimations
-        anim.ResetTrigger("GettingQuizPaper");//Mettilo in handleAnimations
-    }
 
     IEnumerator updateLaserAttack() {
         RaycastHit hit;

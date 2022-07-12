@@ -60,4 +60,8 @@ public class QuizBoxBehaviour : MonoBehaviour
         transform.position += new Vector3(0f, 0.4f, 0f);
     }
 
+    public void lockQuiz() {
+        currentPosition = -1;
+        transform.position = startPosition - new Vector3(0f, 1.2f, 0f);
+    }
 }

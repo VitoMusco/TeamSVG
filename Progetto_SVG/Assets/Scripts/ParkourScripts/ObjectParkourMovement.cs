@@ -27,9 +27,9 @@ public class ObjectParkourMovement : MonoBehaviour
             timeElapsed += Time.deltaTime;
 
             if(reachedPoint)
-                currentPos = Vector3.Lerp(pointB.position, pointA.position, timeElapsed / timeFromAToB);
+                currentPos = Vector3.Lerp(pointB.position, pointA.position, Mathf.Sin(timeElapsed / timeFromAToB * Mathf.PI/2));
             else
-                currentPos = Vector3.Lerp(pointA.position, pointB.position, timeElapsed / timeFromAToB);
+                currentPos = Vector3.Lerp(pointA.position, pointB.position, Mathf.Sin(timeElapsed / timeFromAToB * Mathf.PI/2));
 
             rb.MovePosition(currentPos);
             yield return null;
