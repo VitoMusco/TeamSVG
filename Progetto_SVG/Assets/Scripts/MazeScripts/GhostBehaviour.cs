@@ -7,6 +7,7 @@ public class GhostBehaviour : MonoBehaviour
 {
     public PlayerController player;
 
+    private AudioSource soundSource;
     [SerializeField] private float timeBeforeDeath = 15f;
     private float timeAfterActivation = 0f;
     private float timeAfterLastAttack = 0f;
@@ -25,6 +26,7 @@ public class GhostBehaviour : MonoBehaviour
     [SerializeField] private LayerMask whatIsPlayer;
 
     void Awake() {
+        soundSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
     }
@@ -83,6 +85,7 @@ public class GhostBehaviour : MonoBehaviour
     }
 
     public void activate() {
+        soundSource.Play();
         isSpawning = true;
         agent.enabled = true;
         anim.enabled = true;

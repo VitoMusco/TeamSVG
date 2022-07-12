@@ -458,6 +458,7 @@ public class PlayerController : MonoBehaviour
             shootBeam.material = electricMaterial;
             StartCoroutine(expandShootBeam());
             attackSoundSource.clip = playerLaserAttackSound;
+            attackSoundSource.loop = true;
             attackSoundSource.Play();
             shootBeam.enabled = true;
             StartCoroutine(updateLaserAttack());
@@ -656,6 +657,7 @@ public class PlayerController : MonoBehaviour
         shootBeam.enabled = true;
         shootBeam.SetPosition(0, shootSource.transform.position);
         attackSoundSource.clip = playerAttackSound;
+        attackSoundSource.loop = false;
         attackSoundSource.Play();
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 42f, rayCastLayer))
         {
