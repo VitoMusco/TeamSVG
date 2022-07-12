@@ -68,7 +68,9 @@ public class GhostBehaviour : MonoBehaviour
             handleAnimations();
         }
 
-        if (!isActivated && timeAfterActivation >= timeBeforeDeath) Destroy(gameObject);
+        if (!isActivated && timeAfterActivation >= timeBeforeDeath) {
+            kill();
+        }
     }
 
     void handleAnimations() {
@@ -82,6 +84,13 @@ public class GhostBehaviour : MonoBehaviour
     void attack() {
         player.takeDamage(10f);
         isAttacking = false;
+    }
+
+    public void kill() {
+        transform.position = new Vector3(0f, 0f, 0f);
+        agent.enabled = false;
+        anim.enabled = false;
+        gameObject.SetActive(false);
     }
 
     public void activate() {

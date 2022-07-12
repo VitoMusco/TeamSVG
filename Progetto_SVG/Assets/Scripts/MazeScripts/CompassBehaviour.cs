@@ -5,11 +5,15 @@ using UnityEngine;
 public class CompassBehaviour : MonoBehaviour
 {
     public List<GameObject> quizes = new List<GameObject>();
+    public List<GameObject> startQuizes;
     public Transform exitPortal;
 
     private bool canSearchForQuizes = false;
 
-    // Update is called once per frame
+    void Awake() {
+        startQuizes = new List<GameObject>(quizes);
+    }
+
     void Update()
     {
         if(canSearchForQuizes) findAndPointToNearestQuiz();
@@ -45,5 +49,9 @@ public class CompassBehaviour : MonoBehaviour
 
     public void enable() {
         canSearchForQuizes = true;
+    }
+
+    public void reset() {
+        quizes = new List<GameObject>(startQuizes);
     }
 }

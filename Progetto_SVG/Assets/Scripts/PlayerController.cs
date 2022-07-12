@@ -795,6 +795,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void die() {
+        if (levelType == 1) compass.reset();
         health = 0f;
         magicStamina = 0f;
         lockRight = new Vector3();

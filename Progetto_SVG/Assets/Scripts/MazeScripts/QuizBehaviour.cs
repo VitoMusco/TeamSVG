@@ -18,10 +18,12 @@ public class QuizBehaviour : MonoBehaviour
     private float maxVerticalMovement = .2f;
     private float newPos;
     private Vector3 startPosition;
+    private Vector3 startScale;
     private Vector3 targetPosition;
 
     void Awake() {
         startPosition = quizPaper.localPosition;
+        startScale = transform.localScale;
         newPos = maxVerticalMovement;
         timeSinceLastMovement = timeBetweenMovements;
     }
@@ -48,17 +50,17 @@ public class QuizBehaviour : MonoBehaviour
     }
 
     void destroy() {
+        ghostPrefab.gameObject.SetActive(true);
         ghostPrefab.transform.position = ghostSpawner.position;
         ghostPrefab.transform.rotation = ghostSpawner.rotation;
         ghostPrefab.activate();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     IEnumerator ascendQuizPaper() {
         float timeElapsed = 0f;
         float timeToAscend = 1.3f;
         Vector3 ascendPosition = startPosition + new Vector3(0f, 2f, 0f);
-        Vector3 startScale = quizPaper.localScale;
         Vector3 targetScale = new Vector3(0f, 0f, 0f);
         while (timeElapsed < timeToAscend) {
             timeElapsed += Time.deltaTime;
@@ -76,5 +78,13 @@ public class QuizBehaviour : MonoBehaviour
         quizHandler.foundQuiz(id);
         explosionParticles.Play();
         Invoke(nameof(destroy), 1.4f);
+    }
+
+    public void reset() {
+        gameObject.SetActive(true);
+        isGrabbed = false;
+        particles.Play();        
+        quizPaper.localPosition = startPosition;
+        quizPaper.localScale = startScale;
     }
 }

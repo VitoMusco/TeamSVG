@@ -64,4 +64,9 @@ public class QuizBoxBehaviour : MonoBehaviour
         currentPosition = -1;
         transform.position = startPosition - new Vector3(0f, 1.2f, 0f);
     }
+
+    public void reset() {
+        currentPosition = -1;
+        transform.position = startPosition - new Vector3(0f, 0.8f, 0f);
+    }
 }

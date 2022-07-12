@@ -89,4 +89,14 @@ public class DoorUnlockerBehaviour : MonoBehaviour
     void setDefaultQuizLine() {
         quizText.text = defaultQuizLine;
     }
+
+    public void reset() {
+        for(int i = 0; i < foundQuizes.Length; i++){
+            foundQuizes[i] = 0;
+        }
+        for (int i = 0; i < quizBoxes.Length; i++) {
+            quizBoxes[i].reset();
+        }
+        quizText.text = defaultQuizLine;
+    }
 }
