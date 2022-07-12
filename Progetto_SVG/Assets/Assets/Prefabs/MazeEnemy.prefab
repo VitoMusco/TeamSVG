@@ -349,10 +349,10 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2954533620718173588}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.1
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -377,6 +377,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  timeBeforeDeath: 20
+  timeBetweenAttacks: 2
+  timeAfterSpawning: 0
+  timeToActivate: 3
+  attackRange: 2
+  isWalking: 0
+  isAttacking: 0
+  isDissolving: 0
+  isSpawning: 0
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &3336488862835143329
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,17 @@ guid: a3ad190752d303148a473aa4c81120e5
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: QuizAnswer
+    second: {fileID: 2100000, guid: 553d632b7bced934fac3a3a4f613420a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: QuizPanel
+    second: {fileID: 2100000, guid: ad7047514ee39f04e87382cd6f8f2878, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
