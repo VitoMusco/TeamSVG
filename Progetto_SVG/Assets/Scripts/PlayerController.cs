@@ -272,6 +272,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (controller.isGrounded)
         {
+            if (isJumping) {
+                footStepSource.clip = footStepSounds[Random.Range(0, footStepSounds.Count)];
+                footStepSource.Play();
+            } 
             isGrounded = true;
             isJumping = false;
             timeAfterNotGrounded = 0f;
