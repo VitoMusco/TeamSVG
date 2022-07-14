@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isLaserAttacking = false;
     [SerializeField] private bool isDefending = false;
     [SerializeField] private bool isUsingCompass = false;
+    [SerializeField] private bool wantsToRun = false;
     [SerializeField] private bool wantsToStopAttacking = false;
     [SerializeField] private bool wantsToStopDefending = false;
     [SerializeField] private bool wantsToStopUsingCompass = false;
@@ -321,7 +322,13 @@ public class PlayerController : MonoBehaviour
 
         checkIfMoving(velocity.x, velocity.z);
         handleHeadBob();
-        
+
+        if (wantsToRun && isMoving) {
+            isRunning = true;
+        }
+        if (!isMoving && isRunning) {
+            isRunning = false;
+        }
         speed = isCrouching ? crouchSpeed : (!isCrouching && isRunning && magicStamina > 0f) ? runSpeed : walkSpeed;
 
         if (isCrouching && wantsToUncrouch && canCrouch)
@@ -413,12 +420,13 @@ public class PlayerController : MonoBehaviour
     }
 
     void run() {
-        if(isGrounded && !isCrouching && isMoving)
-            isRunning = true;
+        if (isGrounded && !isCrouching)
+            wantsToRun = true;
     }
 
     void stopRunning()
     {
+        wantsToRun = false;
         isRunning = false;
     }
 
