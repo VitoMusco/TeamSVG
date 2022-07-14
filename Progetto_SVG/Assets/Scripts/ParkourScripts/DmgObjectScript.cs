@@ -38,7 +38,6 @@ public class DmgObjectScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("entrato nell'if");
