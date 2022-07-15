@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class deadArea : MonoBehaviour
+public class PoisonBehaviour : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
