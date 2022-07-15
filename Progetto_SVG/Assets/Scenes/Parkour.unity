@@ -2520,12 +2520,12 @@ PrefabInstance:
     - target: {fileID: 1192984743345304349, guid: 7832bca11c3c05a468fbe7cd10c04932,
         type: 3}
       propertyPath: timeFromAToB
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6985270883005361897, guid: 7832bca11c3c05a468fbe7cd10c04932,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.47
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8274845017916648723, guid: 7832bca11c3c05a468fbe7cd10c04932,
         type: 3}
@@ -2535,7 +2535,7 @@ PrefabInstance:
     - target: {fileID: 8274845017916648723, guid: 7832bca11c3c05a468fbe7cd10c04932,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -136.62845
+      value: -138.84
       objectReference: {fileID: 0}
     - target: {fileID: 8274845017916648723, guid: 7832bca11c3c05a468fbe7cd10c04932,
         type: 3}
@@ -3983,6 +3983,8 @@ GameObject:
   - component: {fileID: 355986910}
   - component: {fileID: 355986909}
   - component: {fileID: 355986908}
+  - component: {fileID: 355986913}
+  - component: {fileID: 355986912}
   m_Layer: 0
   m_Name: Poison (1)
   m_TagString: Untagged
@@ -4069,6 +4071,31 @@ Transform:
   m_Father: {fileID: 1273477897}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &355986912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355986907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9af805a1d3d0441842f1a38c3c3991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &355986913
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355986907}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000002, y: 2, z: 10.000001}
+  m_Center: {x: 0, y: 1, z: 0.0000009536743}
 --- !u!1 &360153699
 GameObject:
   m_ObjectHideFlags: 0
@@ -6742,7 +6769,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh38698
+  m_Name: pb_Mesh30406
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10187,6 +10214,8 @@ GameObject:
   - component: {fileID: 1140386917}
   - component: {fileID: 1140386916}
   - component: {fileID: 1140386915}
+  - component: {fileID: 1140386920}
+  - component: {fileID: 1140386919}
   m_Layer: 0
   m_Name: Poison (2)
   m_TagString: Untagged
@@ -10273,6 +10302,31 @@ Transform:
   m_Father: {fileID: 1273477897}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1140386919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140386914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9af805a1d3d0441842f1a38c3c3991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1140386920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140386914}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2, z: 10}
+  m_Center: {x: 0.0000009536743, y: 0, z: 0}
 --- !u!4 &1142838049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5497383418865996084, guid: 00e87b304920ff54a9508fa2214f7d01,
@@ -13666,7 +13720,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh38672
+  m_Name: pb_Mesh30380
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13836,6 +13890,8 @@ GameObject:
   - component: {fileID: 1416898704}
   - component: {fileID: 1416898703}
   - component: {fileID: 1416898702}
+  - component: {fileID: 1416898707}
+  - component: {fileID: 1416898706}
   m_Layer: 0
   m_Name: Poison
   m_TagString: Untagged
@@ -13922,6 +13978,31 @@ Transform:
   m_Father: {fileID: 1273477897}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1416898706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416898701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f9af805a1d3d0441842f1a38c3c3991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1416898707
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416898701}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2, z: 9.999999}
+  m_Center: {x: -0.00000011920929, y: 1, z: 0.00000023841858}
 --- !u!4 &1426539012 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d4fa2a6412d4d3942858d2db83226fa3,

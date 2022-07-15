@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public Transform shootSource;
     public Transform playerSpawnPosition;
     public CompassBehaviour compass;
+    public MeshRenderer levitationBraceletRendererL, levitationBraceletRendererR;
     public MeshRenderer compassRenderer;
     public MeshRenderer compassNorthRenderer;
     public MeshRenderer attackBraceletRenderer;
@@ -199,6 +200,8 @@ public class PlayerController : MonoBehaviour
         shieldMaterials = shieldRenderer.materials;
         staminaBarEndStartPosition = staminaBarEnd.transform.localPosition.x;
         healthBarEndStartPosition = healthBarEnd.transform.localPosition.x;
+        levitationBraceletRendererL.enabled = false;
+        levitationBraceletRendererR.enabled = false;
         compassRenderer.enabled = false;
         compassNorthRenderer.enabled = false;
         shieldRenderer.enabled = false;
@@ -327,13 +330,13 @@ public class PlayerController : MonoBehaviour
         checkIfMoving(velocity.x, velocity.z);
         handleHeadBob();
 
-        if (wantsToRun && isMoving) {
+        if (wantsToRun && isMoving && isGrounded) {
             isRunning = true;
         }
-        if (!isMoving && isRunning) {
+        if (!isMoving && isRunning || !isGrounded) {
             isRunning = false;
         }
-        speed = isCrouching ? crouchSpeed : (!isCrouching && isRunning && magicStamina > 0f) ? runSpeed : walkSpeed;
+        speed = isCrouching ? crouchSpeed : (!isCrouching && isRunning && magicStamina > 0f) ? runSpeed : (!isGrounded && wantsToRun) ? runSpeed : walkSpeed;
 
         if (isCrouching && wantsToUncrouch && canCrouch)
         {
@@ -352,12 +355,14 @@ public class PlayerController : MonoBehaviour
             {
                 velocity.y += -2f * Time.deltaTime;
                 isLevitating = true;
+                levitationBraceletRendererL.enabled = true;
+                levitationBraceletRendererR.enabled = true;
             }
-            else isLevitating = false;
+            else stopLevitating();
         }
         else
         {
-            isLevitating = false;
+            stopLevitating();
             handleFallDamage();
             if (!isGrounded)
                 velocity.y += gravity * gravityMultiplier * Time.deltaTime;
@@ -381,6 +386,13 @@ public class PlayerController : MonoBehaviour
             stopLaserAttack();
         }
     }
+
+    void stopLevitating() { 
+        isLevitating = false;
+        levitationBraceletRendererL.enabled = false;
+        levitationBraceletRendererR.enabled = false;
+    }
+    
 
     public void stopDoingAnything() {
         stopDefending();
@@ -410,8 +422,8 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(handleDoubleJump());
                 hasDoubleJumped = true;
             }
-
-            velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            if (!hasDoubleJumped || hasDoubleJumped && velocity.y > gravity + gravity/2) velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+            else velocity.y = velocity.y + Mathf.Sqrt(jumpHeight * -2 * gravity);
             lockRight = transform.right;
             lockForward = transform.forward;
             lockX = x;

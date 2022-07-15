@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 1590174936800419703}
   - component: {fileID: 3599951598893607869}
   - component: {fileID: 3090349239881835616}
+  - component: {fileID: 7970884501170638223}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -138,3 +139,17 @@ MonoBehaviour:
   rangeOfVision: 20
   spawnTime: 2
   shootingOffset: 0
+--- !u!64 &7970884501170638223
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3095490922113698408}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: f516dbb721a013f44807550f0c93617d, type: 3}
