@@ -14,7 +14,6 @@ public class ObjectGenerator : MonoBehaviour
     void Start()
     {
         timeToSpawn -= waitTime;
-        dmgObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -26,9 +25,7 @@ public class ObjectGenerator : MonoBehaviour
         if(timeToSpawn >= spawnTime)
         {
 
-            dmgObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
-            dmgObject.SetActive(true);
-           
+            Instantiate(dmgObject, transform.position, transform.rotation);
             timeToSpawn = 0;
 
         }

@@ -20,18 +20,11 @@ public class DmgObjectScript : MonoBehaviour
     {
         if (lifetime != 0 && speed != 0)
         { 
-            transform.localPosition = new Vector3(0, 0, transform.localPosition.z + speed * Time.deltaTime);
-
-            //rotazione
-            transform.Rotate(new Vector3(0, 0, transform.localRotation.z + speed * Time.deltaTime* 150));
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
 
             timeLived += Time.deltaTime;
-            if (timeLived > lifetime)
-            {
-            timeLived = 0;
-            gameObject.SetActive(false);
-            }
+            if (timeLived > lifetime) Destroy(gameObject);
         }
 
     }

@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/NuovoMenu.unity
     guid: 7c448f8416ccde24190fc5d45e97f24b
   - enabled: 1
+    path: Assets/Scenes/LevelSelectScene.unity
+    guid: e06c2d7fcf7f9444bb2db7655bd3ce54
+  - enabled: 1
     path: Assets/Scenes/Labirinto.unity
     guid: 73442301d85564ec1957f922cde44925
   - enabled: 1
