@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8927676537607446161}
   - component: {fileID: 6629736031627160155}
   - component: {fileID: 6067708481308248786}
+  - component: {fileID: 1850434836605272046}
   m_Layer: 0
   m_Name: ParkourGroundSide
   m_TagString: Untagged
@@ -98,3 +99,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3087774899430307935, guid: b2ab71f669e166248bfe7e19c21493d1, type: 3}
+--- !u!65 &1850434836605272046
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5116495700868270990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 25, z: 4}
+  m_Center: {x: 0, y: 12.2, z: -0.02}
