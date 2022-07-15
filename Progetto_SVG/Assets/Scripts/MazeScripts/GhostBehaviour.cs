@@ -6,10 +6,11 @@ using UnityEngine.AI;
 public class GhostBehaviour : MonoBehaviour
 {
     public PlayerController player;
+    public AudioClip spawn, slap, death;
 
     private AudioSource soundSource;
     [SerializeField] private float timeBeforeDeath = 15f;
-    private float timeAfterActivation = 0f;
+    [SerializeField] private float timeAfterActivation = 0f;
     private float timeAfterLastAttack = 0f;
     [SerializeField] private float timeBetweenAttacks = 3f;
     [SerializeField] private float timeAfterSpawning = 0f;
@@ -26,6 +27,7 @@ public class GhostBehaviour : MonoBehaviour
     [SerializeField] private LayerMask whatIsPlayer;
 
     void Awake() {
+        timeBeforeDeath += death.length;
         soundSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
@@ -37,9 +39,9 @@ public class GhostBehaviour : MonoBehaviour
             timeAfterSpawning += Time.deltaTime;
             if (timeAfterSpawning >= timeToActivate) {
                 isActivated = true;
+                isSpawning = false;
             }
         }
-
         if (isActivated)
         {
             timeAfterActivation += Time.deltaTime;
@@ -53,6 +55,8 @@ public class GhostBehaviour : MonoBehaviour
                 if (timeAfterLastAttack >= timeBetweenAttacks) {
                     isAttacking = true;
                     timeAfterLastAttack = 0f;
+                    soundSource.clip = slap;
+                    soundSource.Play();
                     Invoke(nameof(attack), 1f);
                 }
             }
@@ -61,7 +65,9 @@ public class GhostBehaviour : MonoBehaviour
                 isAttacking = false;
                 isWalking = true;
             }
-            if (timeAfterActivation >= timeBeforeDeath - 0.8f) {
+            if (timeAfterActivation >= timeBeforeDeath - death.length) {
+                soundSource.clip = death;
+                soundSource.Play();
                 isDissolving = true;
                 isActivated = false;
             }
@@ -82,18 +88,24 @@ public class GhostBehaviour : MonoBehaviour
     }
 
     void attack() {
-        player.takeDamage(10f);
-        isAttacking = false;
+        if (isActivated) {
+            player.takeDamage(10f);
+            isAttacking = false;
+        }
     }
 
     public void kill() {
         transform.position = new Vector3(0f, 0f, 0f);
+        timeAfterSpawning = 0f;
+        timeAfterActivation = 0f;
+        isDissolving = false;
         agent.enabled = false;
         anim.enabled = false;
         gameObject.SetActive(false);
     }
 
     public void activate() {
+        soundSource.clip = spawn;
         soundSource.Play();
         isSpawning = true;
         agent.enabled = true;
