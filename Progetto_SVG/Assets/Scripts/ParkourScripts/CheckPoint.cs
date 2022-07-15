@@ -10,8 +10,8 @@ public class CheckPoint : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            spawnPoint.transform.localPosition= transform.localPosition;
-            spawnPoint.transform.localRotation = transform.localRotation;
+            spawnPoint.transform.position= transform.localPosition;
+            spawnPoint.transform.rotation = transform.localRotation;
 
         }
     }

@@ -462,10 +462,15 @@ public class GuardianController : MonoBehaviour
 
     public void activateGuardian() {
         isActivated = true;
+        anim.SetBool("StandStill", false);
     }
 
     public void resetGuardian()
     {
+        chargeParticles.Stop();
+        anim.SetBool("StandStill", true);
+        shootBeam.enabled = false;
+        laserParticles.Stop();
         isActivated = false;
         hasPlayedStartVoiceLine = false;
         transform.position = startPosition;
