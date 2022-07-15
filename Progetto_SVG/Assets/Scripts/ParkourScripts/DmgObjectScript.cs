@@ -22,7 +22,6 @@ public class DmgObjectScript : MonoBehaviour
         { 
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-
             timeLived += Time.deltaTime;
             if (timeLived > lifetime) Destroy(gameObject);
         }
@@ -33,8 +32,7 @@ public class DmgObjectScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //other.gameObject.GetComponent<PlayerController>().kill();
-            
+            other.gameObject.GetComponent<PlayerController>().kill();
         }
     }
 }

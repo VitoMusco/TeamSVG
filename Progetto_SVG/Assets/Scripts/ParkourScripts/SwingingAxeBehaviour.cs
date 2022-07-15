@@ -7,16 +7,19 @@ public class SwingingAxeBehaviour : MonoBehaviour
     [SerializeField, Range(0f, 360f)] private float angle = 90f;
     [SerializeField, Range(0f, 5f)] private float speed = 2f;
     [SerializeField, Range(0f, 10f)] private float startTime = 0f;
-    Quaternion start, end;
+    private Quaternion start, end;
+    //private BoxCollider collider;
+
+    void Awake()
+    {
+        //collider = GetComponent<BoxCollider>();
+        start = axeRotation(angle);
+        end = axeRotation(-angle);
+    }
 
     void Update()
     {
         rotateAxe();
-    }
-
-    void Awake() {
-        start = axeRotation(angle);
-        end = axeRotation(-angle);
     }
 
     void resetTimer() {
@@ -37,5 +40,11 @@ public class SwingingAxeBehaviour : MonoBehaviour
     void rotateAxe() {
         startTime += Time.deltaTime;
         transform.rotation = Quaternion.Lerp(start, end, (Mathf.Sin(startTime * speed + Mathf.PI / 2) + 1f) / 2f);
+    }
+
+    void OnTriggerEnter(Collider collidedObject) {
+        if (collidedObject.CompareTag("Player")) {
+            collidedObject.GetComponent<PlayerController>().kill();
+        }
     }
 }

@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     private InputAction move;
     private InputAction look;
 
+    //DEATH
+    [SerializeField] private float fallAngle = 90f;
+    [SerializeField] private float fallTime = 0.15f;
+
     //PLAYER
     public bool developerMode = false;
     public bool hasRespawned = false;
@@ -273,7 +277,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (controller.isGrounded)
         {
-            if (isJumping) {
+            if (!isGrounded) {
                 footStepSource.clip = footStepSounds[Random.Range(0, footStepSounds.Count)];
                 footStepSource.Play();
             } 
@@ -779,6 +783,7 @@ public class PlayerController : MonoBehaviour
         if (isAlive)
         {
             if (!isDefending) {
+                StartCoroutine(shakeCamera(.2f, .25f, .25f, .25f, 0.017f));
                 print("Ho preso " + damageAmount + " danni");
                 health -= damageAmount;
                 handleHealthBar();
@@ -791,7 +796,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void kill() {
-        die();
+        if(isAlive) die();
     }
 
     public bool checkIfAlive() {
@@ -807,6 +812,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void die() {
+        StartCoroutine(shakeCamera(1f, .25f, .25f, .25f, 0.017f));
+        anim.SetBool("isDead", true);
         if (levelType == 1) compass.reset();
         health = 0f;
         magicStamina = 0f;
@@ -821,17 +828,38 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
         isAlive = false;
         velocity = new Vector3();
+        StartCoroutine(fall(fallAngle));
         StartCoroutine(respawn());
     }
-    
+
+    IEnumerator fall(float fallAngle) {
+        float timeElapsed = 0f;
+        if (Random.Range(-1, 1) < 0) fallAngle = -fallAngle;
+        Quaternion startRotation = transform.localRotation;
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, fallAngle));
+
+        while (timeElapsed < fallTime) {
+            timeElapsed += Time.deltaTime;
+            transform.localRotation = Quaternion.Lerp(startRotation, targetRotation, timeElapsed / fallTime);
+            yield return null;
+        }
+    }
+
     IEnumerator respawn() {
         
         float timeElapsed = 0f;
+        
+        while (timeElapsed < timeToRespawn) {
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        timeElapsed = 0f;
         transform.localRotation = playerSpawnPosition.localRotation;
         transform.localPosition = playerSpawnPosition.localPosition;
-        
 
-        while (timeElapsed < timeToRespawn) {
+        while (timeElapsed < 0.1f)
+        {
             timeElapsed += Time.deltaTime;
             yield return null;
         }
@@ -843,6 +871,7 @@ public class PlayerController : MonoBehaviour
         staminaBar.fillAmount = 1f;
         staminaBarEnd.transform.localPosition = new Vector2(staminaBarEndStartPosition, staminaBarEnd.transform.localPosition.y);
         isAlive = true;
+        anim.SetBool("isDead", false);
         StartCoroutine(handleStamina());
         StartCoroutine(updateShieldMaterial());
     }

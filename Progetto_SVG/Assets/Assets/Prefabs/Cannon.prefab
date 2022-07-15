@@ -132,5 +132,9 @@ MonoBehaviour:
   dmgObject: {fileID: 5701484062184625990, guid: 6dc3a05d7a9be374a83a8aa75f5ec9d6,
     type: 3}
   cannonBallSpawner: {fileID: 2752839866708457761}
-  spawnTime: 2.5
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 64
+  rangeOfVision: 20
+  spawnTime: 2
   shootingOffset: 0
