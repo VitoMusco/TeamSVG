@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallAngle = 90f;
     [SerializeField] private float fallTime = 0.15f;
 
+    //UI CROSSHAIR CHANGE
+    public Sprite dotCrosshair, upArrow, downArrow, confirmCrosshair;
+    public Image crosshair;
+
     //PLAYER
     public bool developerMode = false;
     public bool hasRespawned = false;
@@ -235,6 +239,7 @@ public class PlayerController : MonoBehaviour
         if (isAlive) {
             if (!isInMenu){
                 handleCameraLook();
+                handleCrosshair();
                 checkIfGrounded();
                 handleInputs();
                 handleFootSteps();
@@ -268,6 +273,16 @@ public class PlayerController : MonoBehaviour
 
         playerCamera.transform.localRotation = Quaternion.Euler(yRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+    }
+
+    void handleCrosshair() {
+        RaycastHit hit;
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3f, rayCastLayer)) {
+            if (hit.collider.CompareTag("ConfirmButton")) crosshair.sprite = confirmCrosshair;
+            else if (hit.collider.gameObject.name == "ButtonUp") crosshair.sprite = upArrow;
+            else if (hit.collider.gameObject.name == "ButtonDown") crosshair.sprite = downArrow;
+            else crosshair.sprite = dotCrosshair;
+        }
     }
 
     //CONTROLLA SE SI E' A TERRA
@@ -499,6 +514,8 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3f, rayCastLayer)) {
             if (hit.collider.tag == "Button")
                 hit.collider.GetComponent<ButtonBehaviour>().pressButton();
+            else if (hit.collider.CompareTag("ConfirmButton"))
+                hit.collider.GetComponent<ConfirmButtonBehaviour>().pressButton();
         }
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f, rayCastLayer)) {
             if (hit.collider.tag == "Quiz") {

@@ -20,12 +20,6 @@ public class QuizBoxBehaviour : MonoBehaviour
         endPosition = startPosition + new Vector3(0f, 1.6f, 0f);
     }
 
-    void Update() {
-        if (currentPosition == solutionPosition) {
-            quizHandler.solvedQuiz(id);
-        }
-    }
-
     public void moveUp() {
         if (currentPosition == -1) return;
         else if (currentPosition >= maxPosition) {
@@ -68,5 +62,15 @@ public class QuizBoxBehaviour : MonoBehaviour
     public void reset() {
         currentPosition = -1;
         transform.position = startPosition - new Vector3(0f, 0.8f, 0f);
+    }
+
+    public void confirmAnswer() {
+        if (currentPosition < 1) return;
+        if (currentPosition == solutionPosition) quizHandler.solvedQuiz(id);
+        else enteredWrongAnswer();
+    }
+
+    public void enteredWrongAnswer() {
+        print("haha risposta sbagliata");
     }
 }

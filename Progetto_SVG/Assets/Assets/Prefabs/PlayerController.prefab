@@ -3234,6 +3234,11 @@ MonoBehaviour:
   playerArms: {fileID: 4146769916292405000}
   fallAngle: 90
   fallTime: 0.15
+  dotCrosshair: {fileID: 21300000, guid: 702de59e44fc9a247921b48756e06a2b, type: 3}
+  upArrow: {fileID: 21300000, guid: 17a7c32027db7a04cb882d5bff29f5d4, type: 3}
+  downArrow: {fileID: 21300000, guid: f04bb2b8364131d4ba9a4df61d565a19, type: 3}
+  confirmCrosshair: {fileID: 21300000, guid: a66628338ecb53d4996dff8aa91de16d, type: 3}
+  crosshair: {fileID: 978204130039289776}
   developerMode: 0
   hasRespawned: 0
   predictedMovement: {fileID: 1572844747972509238}
@@ -4099,7 +4104,7 @@ GameObject:
   - component: {fileID: 5104678771586459566}
   - component: {fileID: 978204130039289776}
   m_Layer: 6
-  m_Name: Image
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
