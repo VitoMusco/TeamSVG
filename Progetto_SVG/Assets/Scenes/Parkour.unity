@@ -6388,17 +6388,17 @@ PrefabInstance:
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.83921576
+      value: 0.9921569
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.21960786
+      value: 0.043137256
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.7843138
+      value: 0.6784314
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101227, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
@@ -6843,7 +6843,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh158704
+  m_Name: pb_Mesh34818
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8399,17 +8399,17 @@ PrefabInstance:
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.83921576
+      value: 0.9921569
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.22352943
+      value: 0.043137256
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.78823537
+      value: 0.6862745
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
@@ -8893,17 +8893,17 @@ PrefabInstance:
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.83921576
+      value: 0.9921569
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.21960786
+      value: 0.043137256
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.7843138
+      value: 0.6784314
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101227, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
@@ -14270,7 +14270,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh158668
+  m_Name: pb_Mesh34782
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14498,17 +14498,17 @@ PrefabInstance:
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.83921576
+      value: 0.99215686
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.21960786
+      value: 0.043137256
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.7843138
+      value: 0.6862745
       objectReference: {fileID: 0}
     - target: {fileID: 8601266819721101225, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
@@ -14575,6 +14575,11 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.minMaxState
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8601266819721101226, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 53a736b79437d4f4cb688e9643d99fa7, type: 2}
     - target: {fileID: 8601266819721101227, guid: ab78c9bd1cd6fd34aa43767497bd5de4,
         type: 3}
       propertyPath: m_RootOrder
