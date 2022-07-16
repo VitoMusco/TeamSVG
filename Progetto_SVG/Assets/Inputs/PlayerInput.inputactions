@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DisableHints",
+                    "type": "Button",
+                    "id": "ccf29a30-ce15-4b16-9006-de83e94c870d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -358,6 +367,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "UseCompass",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a85aca7-8fe3-4f3d-8800-6d56fa6f4eb1",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DisableHints",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

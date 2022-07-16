@@ -116,6 +116,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DisableHints"",
+                    ""type"": ""Button"",
+                    ""id"": ""ccf29a30-ce15-4b16-9006-de83e94c870d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -380,6 +389,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UseCompass"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a85aca7-8fe3-4f3d-8800-6d56fa6f4eb1"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DisableHints"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -647,6 +667,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_PlayerInputs_Crouch = m_PlayerInputs.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerInputs_Interact = m_PlayerInputs.FindAction("Interact", throwIfNotFound: true);
         m_PlayerInputs_UseCompass = m_PlayerInputs.FindAction("UseCompass", throwIfNotFound: true);
+        m_PlayerInputs_DisableHints = m_PlayerInputs.FindAction("DisableHints", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Menu = m_Menu.FindAction("Menu", throwIfNotFound: true);
@@ -725,6 +746,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInputs_Crouch;
     private readonly InputAction m_PlayerInputs_Interact;
     private readonly InputAction m_PlayerInputs_UseCompass;
+    private readonly InputAction m_PlayerInputs_DisableHints;
     public struct PlayerInputsActions
     {
         private @PlayerInput m_Wrapper;
@@ -739,6 +761,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_PlayerInputs_Crouch;
         public InputAction @Interact => m_Wrapper.m_PlayerInputs_Interact;
         public InputAction @UseCompass => m_Wrapper.m_PlayerInputs_UseCompass;
+        public InputAction @DisableHints => m_Wrapper.m_PlayerInputs_DisableHints;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -778,6 +801,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @UseCompass.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnUseCompass;
                 @UseCompass.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnUseCompass;
                 @UseCompass.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnUseCompass;
+                @DisableHints.started -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnDisableHints;
+                @DisableHints.performed -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnDisableHints;
+                @DisableHints.canceled -= m_Wrapper.m_PlayerInputsActionsCallbackInterface.OnDisableHints;
             }
             m_Wrapper.m_PlayerInputsActionsCallbackInterface = instance;
             if (instance != null)
@@ -812,6 +838,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @UseCompass.started += instance.OnUseCompass;
                 @UseCompass.performed += instance.OnUseCompass;
                 @UseCompass.canceled += instance.OnUseCompass;
+                @DisableHints.started += instance.OnDisableHints;
+                @DisableHints.performed += instance.OnDisableHints;
+                @DisableHints.canceled += instance.OnDisableHints;
             }
         }
     }
@@ -909,6 +938,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnUseCompass(InputAction.CallbackContext context);
+        void OnDisableHints(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

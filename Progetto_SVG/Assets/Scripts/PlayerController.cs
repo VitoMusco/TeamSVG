@@ -7,8 +7,8 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-    //LEVELTYPE 1=MAZE 2=PARKOUR 3=COMBAT
-    public int levelType = 0;
+    //LEVELTYPE 0=NOABILITIES 1=MAZE 2=PARKOUR 3=COMBAT
+    [SerializeField] private int levelType = 0;
 
     //CAMERA
     private Camera playerCamera;
@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
 
     //UI HINTS
     [SerializeField] private TMP_Text crosshairHintText;
+    [SerializeField] private TMP_Text hintText;
+    [SerializeField] private List<string> hintTexts;
+    [SerializeField] private Image hintImage;
 
     //PLAYER
     public bool developerMode = false;
@@ -186,20 +189,28 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.UseCompass.performed += context => useCompass();
         inputs.PlayerInputs.UseCompass.canceled += context => cancelCompass();
         inputs.PlayerInputs.Interact.performed += context => interact();
+        inputs.PlayerInputs.DisableHints.performed += context => handleHints();
 
-        if (levelType == 3) inputs.PlayerInputs.Attack.Enable();
-        if (levelType == 3) inputs.PlayerInputs.LaserAttack.Enable();
+        if (levelType == 3) {
+            inputs.PlayerInputs.Attack.Enable();
+            inputs.PlayerInputs.LaserAttack.Enable();
+            inputs.PlayerInputs.Defend.Enable();
+        } 
         if (levelType == 1) {
             compass.enable();
             inputs.PlayerInputs.UseCompass.Enable();
-        } 
-        if (levelType == 3) inputs.PlayerInputs.Defend.Enable();
+        }
         inputs.PlayerInputs.Crouch.Enable();
         inputs.PlayerInputs.Run.Enable();
         inputs.PlayerInputs.Jump.Enable();
         inputs.PlayerInputs.Interact.Enable();
         //UI
         crosshairHintText.enabled = false;
+        if (levelType >= 1 && levelType <= 3) {
+            inputs.PlayerInputs.DisableHints.Enable();
+            hintText.text = hintTexts[levelType - 1];
+        }
+        else handleHints();
         /////////
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -441,6 +452,11 @@ public class PlayerController : MonoBehaviour
         if (isLaserAttacking && magicStamina <= 0f) {
             stopLaserAttack();
         }
+    }
+
+    void handleHints() {
+        hintText.enabled = !hintText.enabled;
+        hintImage.enabled = !hintImage.enabled;
     }
 
     void stopLevitating() { 

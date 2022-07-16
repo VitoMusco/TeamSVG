@@ -5,21 +5,23 @@ using TMPro;
 
 public class DoorUnlockerBehaviour : MonoBehaviour
 {
-    public QuizBoxBehaviour[] quizBoxes;
+    [SerializeField] private bool developerMode = false;
+    [SerializeField] private QuizBoxBehaviour[] quizBoxes;
 
-    public Transform door;
-    public Transform doorEndTransform;
+    [SerializeField] private AudioSource doorSoundSource;
+    [SerializeField] private Transform door;
+    [SerializeField] private Transform doorEndTransform;
     [SerializeField] private Transform ghostSpawner;
     [SerializeField] private GhostBehaviour ghostPrefab;
 
-    public List<string> quizes;
-    public string defaultQuizLine;
-    public string completionText;
+    [SerializeField] private List<string> quizes;
+    [SerializeField] private string defaultQuizLine;
+    [SerializeField] private string completionText;
     private string currentQuiz;
     private int currentQuizId = 0;
     [SerializeField] private short[] foundQuizes; //0- non trovato 1-trovato ma non risolto 2-trovato e risolto
 
-    public TMP_Text quizText;
+    [SerializeField] private TMP_Text quizText;
 
     private bool quizIsAwaitingSolution = false;
     private Vector3 doorStartPosition;
@@ -34,6 +36,8 @@ public class DoorUnlockerBehaviour : MonoBehaviour
     IEnumerator unlockDoor() {
         float timeElapsed = 0f;
         float timeToMove = 5f;
+
+        doorSoundSource.Play();
 
         while (timeElapsed < timeToMove) {
             timeElapsed += Time.deltaTime;
@@ -80,6 +84,7 @@ public class DoorUnlockerBehaviour : MonoBehaviour
             }
             else setDefaultQuizLine();
         }
+        if (developerMode) StartCoroutine(unlockDoor());
     }
 
     void askQuiz(int quizId) {

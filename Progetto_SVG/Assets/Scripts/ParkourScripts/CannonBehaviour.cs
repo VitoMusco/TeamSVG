@@ -9,17 +9,22 @@ public class CannonBehaviour : MonoBehaviour
     public Transform cannonBallSpawner;
     public LayerMask whatIsPlayer;
 
+    private AudioSource soundSource;
     private Vector3 playerPosition;
     [SerializeField] private float rangeOfVision = 10f;
+    [SerializeField] private float rangeOfBlindness = 0f;
     [SerializeField] private float spawnTime;
     [SerializeField, Range(0, 10)] private float shootingOffset;
-    private float timeToSpawn = 0;
+    private float timeToSpawn = 0f;
     private bool playerInShootArea = false;
 
 
     void Awake()
     {
-        timeToSpawn -= shootingOffset;
+
+        soundSource = GetComponent<AudioSource>();
+        timeToSpawn -= (shootingOffset / 5);
+        timeToSpawn += spawnTime;
     }
 
     void Update()
@@ -32,6 +37,9 @@ public class CannonBehaviour : MonoBehaviour
     void checkIfPlayerIsInShootArea()
     {
         playerInShootArea = Physics.CheckSphere(transform.position, rangeOfVision, whatIsPlayer);
+        if (rangeOfBlindness > 0 && playerInShootArea) {
+            playerInShootArea = !Physics.CheckSphere(transform.position, rangeOfBlindness, whatIsPlayer);
+        }
     }
 
     void followPlayer()
@@ -48,6 +56,7 @@ public class CannonBehaviour : MonoBehaviour
 
         if (timeToSpawn >= spawnTime)
         {
+            soundSource.Play();
             Instantiate(dmgObject, cannonBallSpawner.position, transform.rotation);
             timeToSpawn = 0;
         }
@@ -57,5 +66,7 @@ public class CannonBehaviour : MonoBehaviour
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, rangeOfVision);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, rangeOfBlindness);
     }
 }

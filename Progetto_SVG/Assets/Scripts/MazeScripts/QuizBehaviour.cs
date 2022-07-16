@@ -12,6 +12,7 @@ public class QuizBehaviour : MonoBehaviour
     public ParticleSystem particles;
     public ParticleSystem explosionParticles;
 
+    private AudioSource soundSource;
     private bool isGrabbed = false;
     private float timeBetweenMovements = 3f;
     private float timeSinceLastMovement;
@@ -22,6 +23,7 @@ public class QuizBehaviour : MonoBehaviour
     private Vector3 targetPosition;
 
     void Awake() {
+        soundSource = GetComponent<AudioSource>();
         startPosition = quizPaper.localPosition;
         startScale = transform.localScale;
         newPos = maxVerticalMovement;
@@ -72,6 +74,7 @@ public class QuizBehaviour : MonoBehaviour
     }
 
     public void getGrabbed() {
+        soundSource.Play();
         isGrabbed = true;
         particles.Stop();
         StartCoroutine(ascendQuizPaper());

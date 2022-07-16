@@ -1193,7 +1193,6 @@ MonoBehaviour:
   guardian: {fileID: 1254032881}
   player: {fileID: 3158481079519212008}
   portal: {fileID: 1711813854550487957}
-  portalCollider: {fileID: 1711813854550487959}
   portalParticles: {fileID: 1810671567}
   gateCrossDetector: {fileID: 0}
   hasCrossedGate: 0
@@ -2810,6 +2809,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1914711135825071899, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2369259327232152972, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2856,6 +2860,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3077731365575008809, guid: ec57bb63d806e6a4295270ea77a032ff,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3362301829709950640, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3060,12 +3069,6 @@ PrefabInstance:
 --- !u!23 &1711813854550487957 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4926441991726000372, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
-    type: 3}
-  m_PrefabInstance: {fileID: 6025720928610524001}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &1711813854550487959 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 6874448015376211566, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
     type: 3}
   m_PrefabInstance: {fileID: 6025720928610524001}
   m_PrefabAsset: {fileID: 0}
