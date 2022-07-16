@@ -210,7 +210,7 @@ public class PlayerController : MonoBehaviour
         compassNorthRenderer.enabled = false;
         shieldRenderer.enabled = false;
         compassBraceletRenderer.enabled = false;
-        attackBraceletRenderer.enabled = false;
+        disableAttackBracelet();
         shieldBraceletRenderer.enabled = false;
         decalRenderer.enabled = false;
         shootBeam = GetComponentInChildren<LineRenderer>();
@@ -239,7 +239,7 @@ public class PlayerController : MonoBehaviour
         if (isAlive) {
             if (!isInMenu){
                 handleCameraLook();
-                handleCrosshair();
+                if (levelType == 1) handleCrosshair();
                 checkIfGrounded();
                 handleInputs();
                 handleFootSteps();
@@ -283,6 +283,7 @@ public class PlayerController : MonoBehaviour
             else if (hit.collider.gameObject.name == "ButtonDown") crosshair.sprite = downArrow;
             else crosshair.sprite = dotCrosshair;
         }
+        else crosshair.sprite = dotCrosshair;
     }
 
     //CONTROLLA SE SI E' A TERRA
@@ -466,25 +467,25 @@ public class PlayerController : MonoBehaviour
         if (isInMenu) return;
         if (canShoot && !isDefending && magicStamina > 0f)
         {
-            if (canShoot)
-            {
-                attackBraceletRenderer.enabled = true;
-                shootBeam.material = laserMaterial;
-                isAttacking = true;
-                isShootAttacking = true;
-                attackBraceletRenderer.enabled = true;
-                Invoke(nameof(shoot), timeToShoot);
-                canShoot = false;
-                Invoke(nameof(resetShoot), 1f);
-            }
+            shootBeam.material = laserMaterial;
+            isAttacking = true;
+            enableAttackBracelet();
+            isShootAttacking = true;
+            Invoke(nameof(shoot), timeToShoot);
+            canShoot = false;
+            Invoke(nameof(resetShoot), 1f);
         }
+    }
+
+    void enableAttackBracelet() {
+        attackBraceletRenderer.enabled = true;
     }
 
     void laserAttack() {
         if (isInMenu) return;
         if (canShoot && !isDefending && magicStamina > 0f) {
             isLaserAttacking = true;
-            attackBraceletRenderer.enabled = true;
+            enableAttackBracelet();
             StartCoroutine(startLaserAttacking());
         }
     }
@@ -558,8 +559,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void endLaserAttack() {
-        attackBraceletRenderer.enabled = false;
         if (!isLaserAttacking) return;
+        disableAttackBracelet();
         isLaserAttacking = false;
         if (isAttacking) {
             isAttacking = false;
@@ -640,6 +641,10 @@ public class PlayerController : MonoBehaviour
         predictedMovement.position = Vector3.Lerp(predictedMovement.position, transform.position + XZVelocity * predictedVelocityMultiplier, 0.25f);
     }
 
+    void disableAttackBracelet() {
+        attackBraceletRenderer.enabled = false;
+    }
+
     void resetShoot() {
         canShoot = true;
     }
@@ -698,6 +703,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void shoot() {
+        Invoke(nameof(disableAttackBracelet), 0.5f);
         RaycastHit hit;
         shootBeam.enabled = true;
         shootBeam.SetPosition(0, shootSource.transform.position);
@@ -720,7 +726,6 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(shrinkShootBeam());
         isAttacking = false;
         isShootAttacking = false;
-        attackBraceletRenderer.enabled = false;
         //Invoke(nameof(removeBeam), 1f);
     }
 

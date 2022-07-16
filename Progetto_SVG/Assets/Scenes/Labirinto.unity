@@ -807,6 +807,10 @@ MonoBehaviour:
   quizHandler: {fileID: 86090395}
   maxPosition: 5
   minPosition: 1
+  answerMaterialPosition: 1
+  timeAfterChangingAnswer: 0
+  timeToWaitBeforeGlowing: 3
+  isGlowing: 0
 --- !u!1 &164658692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,6 +1191,10 @@ MonoBehaviour:
   quizHandler: {fileID: 86090395}
   maxPosition: 5
   minPosition: 1
+  answerMaterialPosition: 1
+  timeAfterChangingAnswer: 0
+  timeToWaitBeforeGlowing: 3
+  isGlowing: 0
 --- !u!1 &243063459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,6 +1910,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a3ad190752d303148a473aa4c81120e5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e7136b73e710d842b0e493c6c82f2e1, type: 2}
     - target: {fileID: 919132149155446097, guid: a3ad190752d303148a473aa4c81120e5,
         type: 3}
       propertyPath: m_Name
@@ -2852,6 +2865,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a3ad190752d303148a473aa4c81120e5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e7136b73e710d842b0e493c6c82f2e1, type: 2}
     - target: {fileID: 919132149155446097, guid: a3ad190752d303148a473aa4c81120e5,
         type: 3}
       propertyPath: m_Name
@@ -3935,6 +3953,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a3ad190752d303148a473aa4c81120e5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e7136b73e710d842b0e493c6c82f2e1, type: 2}
     - target: {fileID: 919132149155446097, guid: a3ad190752d303148a473aa4c81120e5,
         type: 3}
       propertyPath: m_Name
@@ -4167,6 +4190,10 @@ MonoBehaviour:
   quizHandler: {fileID: 86090395}
   maxPosition: 5
   minPosition: 1
+  answerMaterialPosition: 1
+  timeAfterChangingAnswer: 0
+  timeToWaitBeforeGlowing: 3
+  isGlowing: 0
 --- !u!4 &1247893206 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a3ad190752d303148a473aa4c81120e5,
@@ -4527,6 +4554,10 @@ MonoBehaviour:
   quizHandler: {fileID: 86090395}
   maxPosition: 5
   minPosition: 1
+  answerMaterialPosition: 1
+  timeAfterChangingAnswer: 0
+  timeToWaitBeforeGlowing: 3
+  isGlowing: 0
 --- !u!1001 &1350788599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5125,6 +5156,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ad7047514ee39f04e87382cd6f8f2878, type: 2}
+    - target: {fileID: -7511558181221131132, guid: a3ad190752d303148a473aa4c81120e5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e7136b73e710d842b0e493c6c82f2e1, type: 2}
     - target: {fileID: 919132149155446097, guid: a3ad190752d303148a473aa4c81120e5,
         type: 3}
       propertyPath: m_Name
@@ -5890,6 +5926,10 @@ MonoBehaviour:
   quizHandler: {fileID: 86090395}
   maxPosition: 5
   minPosition: 1
+  answerMaterialPosition: 1
+  timeAfterChangingAnswer: 0
+  timeToWaitBeforeGlowing: 3
+  isGlowing: 0
 --- !u!1001 &1736733747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6381,6 +6421,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a3ad190752d303148a473aa4c81120e5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e7136b73e710d842b0e493c6c82f2e1, type: 2}
     - target: {fileID: 919132149155446097, guid: a3ad190752d303148a473aa4c81120e5,
         type: 3}
       propertyPath: m_Name

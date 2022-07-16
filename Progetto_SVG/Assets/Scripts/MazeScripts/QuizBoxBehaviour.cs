@@ -12,12 +12,40 @@ public class QuizBoxBehaviour : MonoBehaviour
     public DoorUnlockerBehaviour quizHandler;
     public int maxPosition = 5;
     public int minPosition = 1;
+    private MeshRenderer meshRenderer;
+    private Material[] materials;
+    [SerializeField] private int answerMaterialPosition = 1;
+    [SerializeField] private float timeAfterChangingAnswer = 0;
+    [SerializeField] private float timeToWaitBeforeGlowing = 3f;
+    [SerializeField] private bool isGlowing = false;
 
     // Start is called before the first frame update
     void Awake()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
+        materials = meshRenderer.materials;
         startPosition = transform.position + new Vector3(0f, 0.8f, 0f);
         endPosition = startPosition + new Vector3(0f, 1.6f, 0f);
+    }
+
+    void Update() {
+        handleGlow();
+    }
+
+    void handleGlow() {
+        timeAfterChangingAnswer += Time.deltaTime;
+        if (isGlowing) return;
+        if (timeAfterChangingAnswer > timeToWaitBeforeGlowing && currentPosition <= maxPosition && currentPosition >= minPosition) {
+            StartCoroutine(glow());
+        }
+    }
+
+    IEnumerator glow() {
+        isGlowing = true;
+        while (isGlowing) {
+            materials[answerMaterialPosition].SetFloat("_FresnelAmount", 1.25f * Mathf.Sin(timeAfterChangingAnswer * Mathf.PI) + 1.25f);
+            yield return null;
+        }
     }
 
     public void moveUp() {
@@ -30,6 +58,7 @@ public class QuizBoxBehaviour : MonoBehaviour
             currentPosition++;
             transform.position += new Vector3(0f, 0.4f, 0f);
         }
+        resetTimeAfterChangingAnswer();
     }
 
     public void moveDown() {
@@ -42,6 +71,13 @@ public class QuizBoxBehaviour : MonoBehaviour
             currentPosition--;
             transform.position -= new Vector3(0f, 0.4f, 0f);
         }
+        resetTimeAfterChangingAnswer();
+    }
+
+    void resetTimeAfterChangingAnswer() {
+        isGlowing = false;
+        materials[answerMaterialPosition].SetFloat("_FresnelAmount", 2.5f);
+        timeAfterChangingAnswer = 0f;
     }
 
     public bool getCorrectAnswer() {
