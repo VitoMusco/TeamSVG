@@ -687,6 +687,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2617794302352387108, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     - target: {fileID: 2716160352567455777, guid: 77a6345f3805a4041aded2b1c8148d40,
         type: 3}
       propertyPath: m_Enabled
@@ -702,6 +707,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazeEnemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6207338566427101411, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
+    - target: {fileID: 7088934566408331305, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77a6345f3805a4041aded2b1c8148d40, type: 3}
 --- !u!1001 &136242962
@@ -1849,6 +1864,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2617794302352387108, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     - target: {fileID: 2716160352567455777, guid: 77a6345f3805a4041aded2b1c8148d40,
         type: 3}
       propertyPath: m_Enabled
@@ -1864,6 +1884,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazeEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6207338566427101411, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
+    - target: {fileID: 7088934566408331305, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77a6345f3805a4041aded2b1c8148d40, type: 3}
 --- !u!1001 &397391764
@@ -1933,6 +1963,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2617794302352387108, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     - target: {fileID: 2716160352567455777, guid: 77a6345f3805a4041aded2b1c8148d40,
         type: 3}
       propertyPath: m_Enabled
@@ -1948,6 +1983,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazeEnemy (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6207338566427101411, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
+    - target: {fileID: 7088934566408331305, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77a6345f3805a4041aded2b1c8148d40, type: 3}
 --- !u!114 &414488070 stripped
@@ -3094,6 +3139,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2617794302352387108, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     - target: {fileID: 2716160352567455777, guid: 77a6345f3805a4041aded2b1c8148d40,
         type: 3}
       propertyPath: m_Enabled
@@ -3109,6 +3159,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazeEnemy (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6207338566427101411, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
+    - target: {fileID: 7088934566408331305, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77a6345f3805a4041aded2b1c8148d40, type: 3}
 --- !u!1001 &682067401
@@ -3433,7 +3493,7 @@ PrefabInstance:
     - target: {fileID: 4246044256390091901, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
       propertyPath: m_Name
-      value: PlayerController
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5709487528944331762, guid: ec57bb63d806e6a4295270ea77a032ff,
         type: 3}
@@ -3579,6 +3639,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839d27ec78eab7d41bcc4a8f7ff31d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &968688222 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4469523810957908108, guid: ec57bb63d806e6a4295270ea77a032ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 968688220}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &989267794 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2283811534930015220, guid: 77a6345f3805a4041aded2b1c8148d40,
@@ -5245,6 +5311,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2617794302352387108, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     - target: {fileID: 2720725569087384163, guid: 77a6345f3805a4041aded2b1c8148d40,
         type: 3}
       propertyPath: m_Enabled
@@ -5255,6 +5326,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazeEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6207338566427101411, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
+    - target: {fileID: 7088934566408331305, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77a6345f3805a4041aded2b1c8148d40, type: 3}
 --- !u!1001 &1406309383
@@ -6280,6 +6361,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2617794302352387108, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     - target: {fileID: 2716160352567455777, guid: 77a6345f3805a4041aded2b1c8148d40,
         type: 3}
       propertyPath: m_Enabled
@@ -6295,6 +6381,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MazeEnemy (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6207338566427101411, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
+    - target: {fileID: 7088934566408331305, guid: 77a6345f3805a4041aded2b1c8148d40,
+        type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 968688222}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77a6345f3805a4041aded2b1c8148d40, type: 3}
 --- !u!1001 &1789953695

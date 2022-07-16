@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,8 +35,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallTime = 0.15f;
 
     //UI CROSSHAIR CHANGE
-    public Sprite dotCrosshair, upArrow, downArrow, confirmCrosshair;
+    public Sprite dotCrosshair, upArrow, downArrow, confirmCrosshair, grabHand;
     public Image crosshair;
+
+    //UI HINTS
+    [SerializeField] private TMP_Text crosshairHintText;
 
     //PLAYER
     public bool developerMode = false;
@@ -194,6 +198,8 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.Run.Enable();
         inputs.PlayerInputs.Jump.Enable();
         inputs.PlayerInputs.Interact.Enable();
+        //UI
+        crosshairHintText.enabled = false;
         /////////
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -282,12 +288,42 @@ public class PlayerController : MonoBehaviour
     void handleCrosshair() {
         RaycastHit hit;
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3f, rayCastLayer)) {
-            if (hit.collider.CompareTag("ConfirmButton")) crosshair.sprite = confirmCrosshair;
-            else if (hit.collider.gameObject.name == "ButtonUp") crosshair.sprite = upArrow;
-            else if (hit.collider.gameObject.name == "ButtonDown") crosshair.sprite = downArrow;
-            else crosshair.sprite = dotCrosshair;
+            if (hit.collider.CompareTag("ConfirmButton")) {
+                crosshair.sprite = confirmCrosshair;
+                crosshairHintText.text = "E - Conferma";
+                crosshairHintText.enabled = true;
+            }
+            else if (hit.collider.gameObject.name == "ButtonUp") {
+                crosshair.sprite = upArrow;
+                crosshairHintText.text = "E - Su";
+                crosshairHintText.enabled = true;
+            }
+            else if (hit.collider.gameObject.name == "ButtonDown") {
+                crosshair.sprite = downArrow;
+                crosshairHintText.text = "E - Giu";
+                crosshairHintText.enabled = true;
+            }
+            else {
+                crosshair.sprite = dotCrosshair;
+                crosshairHintText.enabled = false;
+            }
         }
-        else crosshair.sprite = dotCrosshair;
+        else if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f, rayCastLayer))
+        {
+            if (hit.collider.CompareTag("Quiz")) {
+                crosshair.sprite = grabHand;
+                crosshairHintText.text = "E - Prendi";
+                crosshairHintText.enabled = true;
+            }
+            else {
+                crosshair.sprite = dotCrosshair;
+                crosshairHintText.enabled = false;
+            }
+        }
+        else {
+            crosshair.sprite = dotCrosshair;
+            crosshairHintText.enabled = false;
+        }
     }
 
     //CONTROLLA SE SI E' A TERRA
