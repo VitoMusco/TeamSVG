@@ -256,6 +256,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void setFov(float fov) { 
+        playerCamera.fieldOfView = fov;
+    }
+
     void handleCameraLook() {
         Vector2 mouseInputs = look.ReadValue<Vector2>();
         float mouseX = mouseInputs.x * mouseSensitivity;

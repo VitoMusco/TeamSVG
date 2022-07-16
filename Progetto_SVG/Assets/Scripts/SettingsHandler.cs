@@ -126,4 +126,8 @@ public class SettingsHandler : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(0);
     }
+
+    public void setFov(float fieldOfView) {
+        player.setFov(fieldOfView);
+    }
 }
