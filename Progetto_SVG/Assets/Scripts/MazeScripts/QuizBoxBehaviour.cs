@@ -103,10 +103,6 @@ public class QuizBoxBehaviour : MonoBehaviour
     public void confirmAnswer() {
         if (currentPosition < 1) return;
         if (currentPosition == solutionPosition) quizHandler.solvedQuiz(id);
-        else enteredWrongAnswer();
-    }
-
-    public void enteredWrongAnswer() {
-        print("haha risposta sbagliata");
+        else quizHandler.enteredWrongAnswer();
     }
 }

@@ -13,10 +13,14 @@ public class MazeEventHandler : MonoBehaviour
     void Update()
     {
         if (!player.checkIfAlive()) {
-            resetQuizes();
-            killAllGhosts();
-            resetQuizGroup();
+            Invoke(nameof(resetLevel), player.getTimeToRespawn());
         }
+    }
+
+    void resetLevel() {
+        resetQuizes();
+        killAllGhosts();
+        resetQuizGroup();
     }
 
     void resetQuizes() {

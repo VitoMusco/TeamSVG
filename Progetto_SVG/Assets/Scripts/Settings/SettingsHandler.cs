@@ -19,6 +19,7 @@ public class SettingsHandler : MonoBehaviour
     public Toggle fullScreenToggle;
     public Toggle VSyncToggle;
     public PlayerController player;
+    public Slider sensitivitySlider, fovSlider, volumeSlider;
 
     private Canvas settingsMenu;
     Resolution[] resolutions;
@@ -26,6 +27,11 @@ public class SettingsHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sensitivitySlider.value = GlobalSettings.getSensitivity();
+        fovSlider.value = GlobalSettings.getFov();
+        volumeSlider.value = GlobalSettings.getVolume();
+        player.setSensitivity(sensitivitySlider.value);
+        player.setFov(fovSlider.value);
         resolutions = Screen.resolutions;
         resolutionSelector.ClearOptions();
 
@@ -33,17 +39,19 @@ public class SettingsHandler : MonoBehaviour
 
         List<string> resolutionOptions = new List<string>();
 
-        for (int i = 0; i < resolutions.Length; i++) {
+        for (int i = 0; i < resolutions.Length; i++)
+        {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             resolutionOptions.Add(option);
 
-            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height) {
+            if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height)
+            {
                 currentResolutionIndex = i;
             }
 
         }
 
-        
+
 
         resolutionSelector.AddOptions(resolutionOptions);
         resolutionSelector.value = currentResolutionIndex;
@@ -52,7 +60,7 @@ public class SettingsHandler : MonoBehaviour
 
         fullScreenToggle.isOn = Screen.fullScreen;
 
-        if(QualitySettings.vSyncCount == 0)
+        if (QualitySettings.vSyncCount == 0)
             VSyncToggle.isOn = false;
         else
             VSyncToggle.isOn = true;
@@ -68,11 +76,13 @@ public class SettingsHandler : MonoBehaviour
         settingsMenu.enabled = false;
     }
 
-    void OnDestroy() {
+    void OnDestroy()
+    {
         inputs.Menu.Menu.Disable();
     }
 
-    void pause(InputAction.CallbackContext obj) {
+    void pause(InputAction.CallbackContext obj)
+    {
         Time.timeScale = 0f;
         AudioListener.pause = true;
         settingsMenu.enabled = true;
@@ -81,7 +91,8 @@ public class SettingsHandler : MonoBehaviour
         player.enterMenu();
     }
 
-    public void resume() {
+    public void resume()
+    {
         Time.timeScale = 1f;
         AudioListener.pause = false;
         settingsMenu.enabled = false;
@@ -90,44 +101,55 @@ public class SettingsHandler : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    public void changeVolume(float volume) {
+    public void changeVolume(float volume)
+    {
         mixer.SetFloat("mixerVolume", volume);
+        GlobalSettings.setVolume(volume);
     }
 
-    public void changeQualityLevel(int value) {
+    public void changeQualityLevel(int value)
+    {
         QualitySettings.SetQualityLevel(value);
         QualitySettings.renderPipeline = qualityLevels[value];
         toggleVSync(VSyncToggle.isOn);
     }
 
-    public void changeResolution(int resolutionIndex) {
+    public void changeResolution(int resolutionIndex)
+    {
         Resolution screenResolution = resolutions[resolutionIndex];
         Screen.SetResolution(screenResolution.width, screenResolution.height, fullScreenToggle.isOn);
     }
 
-    public void changeFullscreen(bool toggle) {
+    public void changeFullscreen(bool toggle)
+    {
         Screen.fullScreen = toggle;
     }
 
-    public void toggleVSync(bool toggle) {
+    public void toggleVSync(bool toggle)
+    {
         if (toggle)
             QualitySettings.vSyncCount = 1;
         else
             QualitySettings.vSyncCount = 0;
     }
 
-    public void setSensitivity(float sensitivity) {
+    public void setSensitivity(float sensitivity)
+    {
         player.setSensitivity(sensitivity);
+        GlobalSettings.setSensitivity(sensitivity);
     }
 
-    public void goToMainMenu() {
+    public void goToMainMenu()
+    {
         resume();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(0);
     }
 
-    public void setFov(float fieldOfView) {
+    public void setFov(float fieldOfView)
+    {
         player.setFov(fieldOfView);
+        GlobalSettings.setFov(fieldOfView);
     }
 }

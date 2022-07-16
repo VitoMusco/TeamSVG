@@ -9,6 +9,8 @@ public class DoorUnlockerBehaviour : MonoBehaviour
 
     public Transform door;
     public Transform doorEndTransform;
+    [SerializeField] private Transform ghostSpawner;
+    [SerializeField] private GhostBehaviour ghostPrefab;
 
     public List<string> quizes;
     public string defaultQuizLine;
@@ -88,6 +90,13 @@ public class DoorUnlockerBehaviour : MonoBehaviour
 
     void setDefaultQuizLine() {
         quizText.text = defaultQuizLine;
+    }
+
+    public void enteredWrongAnswer() {
+        ghostPrefab.gameObject.SetActive(true);
+        ghostPrefab.transform.position = ghostSpawner.position;
+        ghostPrefab.transform.rotation = ghostSpawner.rotation;
+        ghostPrefab.activate();
     }
 
     public void reset() {

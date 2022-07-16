@@ -914,6 +914,10 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(updateShieldMaterial());
     }
 
+    public float getTimeToRespawn() {
+        return timeToRespawn;
+    }
+
     IEnumerator handleStamina() {
         float staminaToAdd = 5f;
         float staminaRemovalTime = 0.25f;
