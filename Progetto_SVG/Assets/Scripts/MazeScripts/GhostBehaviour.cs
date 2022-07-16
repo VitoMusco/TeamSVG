@@ -42,9 +42,10 @@ public class GhostBehaviour : MonoBehaviour
                 isSpawning = false;
             }
         }
+        
+        if (isActivated || isDissolving) timeAfterActivation += Time.deltaTime;
         if (isActivated)
         {
-            timeAfterActivation += Time.deltaTime;
             timeAfterLastAttack += Time.deltaTime;
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
@@ -99,6 +100,8 @@ public class GhostBehaviour : MonoBehaviour
         timeAfterSpawning = 0f;
         timeAfterActivation = 0f;
         isDissolving = false;
+        isWalking = false;
+        isAttacking = false;
         agent.enabled = false;
         anim.enabled = false;
         gameObject.SetActive(false);
@@ -110,5 +113,10 @@ public class GhostBehaviour : MonoBehaviour
         isSpawning = true;
         agent.enabled = true;
         anim.enabled = true;
+    }
+
+    public bool isActive() {
+        if (isActivated || isSpawning) return true;
+        else return false;
     }
 }

@@ -93,6 +93,7 @@ public class DoorUnlockerBehaviour : MonoBehaviour
     }
 
     public void enteredWrongAnswer() {
+        if (ghostPrefab.isActive()) return;
         ghostPrefab.gameObject.SetActive(true);
         ghostPrefab.transform.position = ghostSpawner.position;
         ghostPrefab.transform.rotation = ghostSpawner.rotation;
