@@ -646,6 +646,7 @@ public class PlayerController : MonoBehaviour
 
     void useCompass() {
         if (!isUsingCompass) {
+            if (!GlobalEvents.UsedCompass) GlobalEvents.UsedCompass = true;
             compassRenderer.enabled = true;
             compassBraceletRenderer.enabled = true;
             compassNorthRenderer.enabled = true;
@@ -1068,14 +1069,14 @@ public class PlayerController : MonoBehaviour
     }
 
     public bool playVoiceLine(AudioClip voiceLine, string subtitles) {
-        if (GlobalEvents.PlayerPlayingVoiceLine) return true;
+        if (GlobalEvents.PlayerPlayingVoiceLine) return false;
         GlobalEvents.PlayerPlayingVoiceLine = true;
         voiceLineSource.clip = voiceLine;
         voiceLineSource.Play();
         subtitleText.text = subtitles;
         subtitleText.enabled = true;
         Invoke(nameof(finishedVoiceLine), voiceLine.length);
-        return false;
+        return true;
     }
 
     void finishedVoiceLine() {

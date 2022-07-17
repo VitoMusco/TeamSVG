@@ -15,17 +15,17 @@ public class LSRoomEventHandler : MonoBehaviour
     [SerializeField] private string secondLevelCompletionSubtitles;
 
     void Awake() {
-        if (GlobalEvents.SpawnedForTheFirstTime) {
+        if (!GlobalEvents.SpawnedForTheFirstTime) {
             GlobalEvents.SpawnedForTheFirstTime = player.playVoiceLine(firstSpawnClip, firstSpawnClipSubtitles);
         }
 
-        if (GlobalEvents.CompletedFirstLevel) {
-            GlobalEvents.CompletedFirstLevel = player.playVoiceLine(firstLevelCompletion, firstLevelCompletionSubtitles);
+        if (GlobalEvents.CompletedFirstLevel && !GlobalEvents.CompletedFirstLevelPlayed) {
+            GlobalEvents.CompletedFirstLevelPlayed = player.playVoiceLine(firstLevelCompletion, firstLevelCompletionSubtitles);
         }
 
-        if (GlobalEvents.CompletedSecondLevel)
+        if (GlobalEvents.CompletedSecondLevel && !GlobalEvents.CompletedSecondLevelPlayed)
         {
-            GlobalEvents.CompletedFirstLevel = player.playVoiceLine(secondLevelCompletion, secondLevelCompletionSubtitles);
+            GlobalEvents.CompletedSecondLevelPlayed = player.playVoiceLine(secondLevelCompletion, secondLevelCompletionSubtitles);
         }
     }
 }
