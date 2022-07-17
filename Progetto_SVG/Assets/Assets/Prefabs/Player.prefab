@@ -3869,14 +3869,38 @@ MonoBehaviour:
   playerArms: {fileID: 4146769916292405000}
   fallAngle: 90
   fallTime: 0.15
-  attackVoiceLines: []
-  defenseVoiceLines: []
-  takenDamageVoiceLines: []
-  attackVoiceLinesSubtitles: []
-  defenseVoiceLinesSubtitles: []
-  takenDamageVoiceLinesSubtitles: []
+  attackVoiceLines:
+  - {fileID: 8300000, guid: 7074fdf6817516a4e99580563d823c35, type: 3}
+  - {fileID: 8300000, guid: 39b9a4ff30858dc4ebeaf240f52456b4, type: 3}
+  - {fileID: 8300000, guid: cc8d0ddcf34cc454a9e34ff1b4d40416, type: 3}
+  - {fileID: 8300000, guid: 88f9ec28fd67cc843afeeecc84064038, type: 3}
+  defenseVoiceLines:
+  - {fileID: 8300000, guid: 799f73aa302e52d4b813e4de3cc5cfa4, type: 3}
+  - {fileID: 8300000, guid: c3167cabc0904dd4aa549bb5b926df20, type: 3}
+  - {fileID: 8300000, guid: 00d7158b967625c48a56e477a68d0127, type: 3}
+  - {fileID: 8300000, guid: 7f886931ab8f1d94199802169782dd70, type: 3}
+  takenDamageVoiceLines:
+  - {fileID: 8300000, guid: f46849c51c1370140bf59c9371d89591, type: 3}
+  - {fileID: 8300000, guid: 8d3f98224374b284c80cc35ac2bbcb01, type: 3}
+  - {fileID: 8300000, guid: 892e7daf60172614fb5df6250a95d716, type: 3}
+  - {fileID: 8300000, guid: cfa88d12c70757f429a2430fc669f702, type: 3}
+  attackVoiceLinesSubtitles:
+  - Zitto e subisci!
+  - Ora ti faccio vedere io!
+  - Questo me l'ha insegnato Giampiero!
+  - Vediamo se resisti a questo!
+  defenseVoiceLinesSubtitles:
+  - Speriamo che regga...
+  - Altro che lo scudo di Capitan America!
+  - Prova a farmi male adesso!
+  - Prova a sfiorarmi adesso!
+  takenDamageVoiceLinesSubtitles:
+  - Ahi che dolore!
+  - Questo mi ha fatto male...
+  - Brucia...
+  - "Questa \xE8 peggio delle lezioni in presenza!"
   timeSinceLastVoiceLine: 0
-  timeBetweenVoiceLines: 20
+  timeBetweenVoiceLines: 10
   dotCrosshair: {fileID: 21300000, guid: 702de59e44fc9a247921b48756e06a2b, type: 3}
   upArrow: {fileID: 21300000, guid: 17a7c32027db7a04cb882d5bff29f5d4, type: 3}
   downArrow: {fileID: 21300000, guid: f04bb2b8364131d4ba9a4df61d565a19, type: 3}

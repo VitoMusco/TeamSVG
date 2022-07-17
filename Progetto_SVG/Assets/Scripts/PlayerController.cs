@@ -1006,6 +1006,8 @@ public class PlayerController : MonoBehaviour
     void die() {
         StartCoroutine(shakeCamera(1f, .25f, .25f, .25f, 0.017f));
         StartCoroutine(handleDamageFeedback());
+        voiceLineSource.Stop();
+        subtitleText.enabled = false;
         anim.SetBool("isDead", true);
         if (levelType == 1) compass.reset();
         health = 0f;
