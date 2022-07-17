@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stanza_3.unity
     guid: d780ac4d16b8b4077877e13357946bce
+  - enabled: 1
+    path: Assets/Scenes/Crediti.unity
+    guid: bed73ded69db01c44a2282996af6de75
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: a2c5214cb1bcd60438d38b5ad305f997
   m_configObjects: {}

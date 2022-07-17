@@ -89,10 +89,6 @@ public class MazeEventHandler : MonoBehaviour
     }
 
     void handleVoiceLines() {
-        if (GlobalEvents.SpawnedInMaze && !GlobalEvents.SpawnedInMazePlayed)
-        {
-            GlobalEvents.SpawnedInMazePlayed = player.playVoiceLine(firstMazeSpawnClip, firstMazeSpawnClipSubtitles);
-        }
         if (GlobalEvents.UsedCompass && !GlobalEvents.UsedCompassPlayed)
         {
             GlobalEvents.UsedCompassPlayed = player.playVoiceLine(usedCompassClip, usedCompassClipSubtitles);
