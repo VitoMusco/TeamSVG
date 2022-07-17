@@ -1560,6 +1560,37 @@ MonoBehaviour:
   - {fileID: 2141260541}
   - {fileID: 1913580739}
   quizGroup: {fileID: 86090395}
+  firstMazeSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  firstMazeSpawnClipSubtitles: "Che posto strano\u2026"
+  usedCompassClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  usedCompassClipSubtitles: "Vediamo se questo incantesimo pu\xF2 servire a qualcosa\u2026"
+  takenQuizClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  takenQuizClipSubtitles: "Ehi, ma dov\u2019\xE8 andato!"
+  ghostSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  ghostSpawnClipSubtitles: "Mio dio cos\u2019\xE8 quello?"
+  ghostDamageClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  ghostDamageClipSubtitles: Ahia!
+  ghostDeathClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  ghostDeathClipSubtitles: Ben ti sta!
+  wrongAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  wrongAnswerClipSubtitles: Oh no...
+  firstCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+    type: 3}
+  firstCorrectAnswerClipSubtitles: Bene, uno in meno
+  secondCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+    type: 3}
+  secondCorrectAnswerClipSubtitles: 
+  thirdCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+    type: 3}
+  thirdCorrectAnswerClipSubtitles: 
+  fourthCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+    type: 3}
+  fourthCorrectAnswerClipSubtitles: 
+  fifthCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+    type: 3}
+  fifthCorrectAnswerClipSubtitles: 
+  openedMazeDoorClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  openedMazeDoorClipSubtitles: Perfetto, si sta aprendo! Andiamo via da qui
 --- !u!4 &324648392
 Transform:
   m_ObjectHideFlags: 0

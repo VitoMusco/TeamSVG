@@ -1198,6 +1198,19 @@ MonoBehaviour:
   hasCrossedGate: 0
   guardianHasBeenKilled: 0
   timeToMoveGate: 3
+  firstSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  firstSpawnClipSubtitles: "E quello cos\u2019\xE8? "
+  guardianAttackClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  guardianAttackClipSubtitles: "Questo mostro fa proprio paura\u2026"
+  halfGuardianLifeClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+    type: 3}
+  halfGuardianLifeClipSubtitles: Non muori mai eh mostro!
+  guardianDeathClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  guardianDeathClipSubtitles: Finalmente ho dimostrato che sono maturo!
+  playerAttackClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  playerAttackClipSubtitles: Spero di farti male con questo!
+  playerDefenseClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  playerDefenseClipSubtitles: Dai incantesimo! Proteggimi!
 --- !u!4 &923601617
 Transform:
   m_ObjectHideFlags: 0

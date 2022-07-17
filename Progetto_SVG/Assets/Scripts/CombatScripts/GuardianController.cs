@@ -219,6 +219,7 @@ public class GuardianController : MonoBehaviour
 
     IEnumerator slam() {
         agent.SetDestination(transform.position);
+        if (!GlobalEvents.FirstGuardianAttack) GlobalEvents.FirstGuardianAttack = true;
         if (canAim)
             StartCoroutine(aim());
         canAim = false;
@@ -435,6 +436,7 @@ public class GuardianController : MonoBehaviour
     IEnumerator die() {
         float timeElapsed = 0f;
         float slider = 0f;
+        if (!GlobalEvents.GuardianDeath) GlobalEvents.GuardianDeath = true;
         agent.SetDestination(transform.position);
         chargeParticles.Stop();
         attackSoundSource.Stop();
@@ -497,6 +499,8 @@ public class GuardianController : MonoBehaviour
         {
             print("Ho preso " + amount + " danni");
             health -= amount;
+            if (health <= maxHealth / 2)
+                if (!GlobalEvents.HalfGuardianLife) GlobalEvents.HalfGuardianLife = true;
             checkHealth();
             playDamageVoiceLine();
         }

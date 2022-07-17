@@ -19,6 +19,9 @@ public class LSRoomEventHandler : MonoBehaviour
             GlobalEvents.SpawnedForTheFirstTime = player.playVoiceLine(firstSpawnClip, firstSpawnClipSubtitles);
         }
 
+        if (LevelHandler.getLevelToPlay() == 2) GlobalEvents.CompletedFirstLevel = true;
+        if (LevelHandler.getLevelToPlay() == 3) GlobalEvents.CompletedSecondLevel = true;
+
         if (GlobalEvents.CompletedFirstLevel && !GlobalEvents.CompletedFirstLevelPlayed) {
             GlobalEvents.CompletedFirstLevelPlayed = player.playVoiceLine(firstLevelCompletion, firstLevelCompletionSubtitles);
         }

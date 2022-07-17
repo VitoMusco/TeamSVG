@@ -5763,13 +5763,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 596020393}
   firstSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
-  firstSpawnClipSubtitles: Dialogo primo spawn
+  firstSpawnClipSubtitles: "\u2026Dove mi trovo?... <br> Mi sembra un luogo familiare
+    ma non riesco a ricordare...<br> Provo ad esplorare un po' in giro ci sar\xE0
+    una via d\u2019uscita\u2026<br> "
   firstLevelCompletion: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
     type: 3}
-  firstLevelCompletionSubtitles: Una stanza in meno, ottimo
+  firstLevelCompletionSubtitles: Una stanza in meno, ottimo.
   secondLevelCompletion: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
     type: 3}
-  secondLevelCompletionSubtitles: Finalmente... posto carino ma accoglienza pessima
+  secondLevelCompletionSubtitles: "Finalmente\u2026 posto carino ma accoglienza pessima!"
 --- !u!114 &596020393 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
@@ -25849,6 +25851,38 @@ Transform:
   m_Father: {fileID: 931057822}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &1698870426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4307002366162352248, guid: 9cc32143ec71a1c43922d7e84581055e,
+    type: 3}
+  m_PrefabInstance: {fileID: 216665332}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1698870428
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698870426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.754178, y: 2.87, z: 0.19}
+  m_Center: {x: -7.686299, y: 0.26, z: 3.4}
+--- !u!65 &1698870429
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698870426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.754178, y: 5.2454567, z: 0.22}
+  m_Center: {x: -7.686299, y: -0.96829003, z: 1.48}
 --- !u!1 &1746481326
 GameObject:
   m_ObjectHideFlags: 0

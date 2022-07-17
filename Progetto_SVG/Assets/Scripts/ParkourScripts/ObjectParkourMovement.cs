@@ -5,7 +5,8 @@ using UnityEngine;
 public class ObjectParkourMovement : MonoBehaviour
 {
 
-    public Transform pointA, pointB;
+    [SerializeField] private Transform pointA, pointB;
+    [SerializeField] private bool isVertical = false;
     
     private Rigidbody rb;
     private Vector3 currentPos;
@@ -54,8 +55,10 @@ public class ObjectParkourMovement : MonoBehaviour
         if (collidedObject.CompareTag("Player"))
         {
             platformVelocity = rb.velocity;
-            //platformVelocity.y = 0f;
-            
+            if (isVertical) {
+                platformVelocity.x = 0f;
+                platformVelocity.z = 0f;
+            }    
             player.Move(platformVelocity * Time.deltaTime);
         }
     }

@@ -528,6 +528,7 @@ public class PlayerController : MonoBehaviour
         if (isInMenu) return;
         if (canShoot && !isDefending && magicStamina > 0f)
         {
+            if (!GlobalEvents.FirstPlayerAttack) GlobalEvents.FirstPlayerAttack = true;
             shootBeam.material = laserMaterial;
             isAttacking = true;
             enableAttackBracelet();
@@ -562,6 +563,7 @@ public class PlayerController : MonoBehaviour
             isAttacking = true;
             shootBeam.material = electricMaterial;
             StartCoroutine(expandShootBeam());
+            if (!GlobalEvents.FirstPlayerAttack) GlobalEvents.FirstPlayerAttack = true;
             attackSoundSource.clip = playerLaserAttackSound;
             attackSoundSource.loop = true;
             attackSoundSource.Play();
@@ -638,6 +640,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isDefending && !isAttacking && magicStamina > 0f)
         {
+            if (!GlobalEvents.FirstPlayerDefense) GlobalEvents.FirstPlayerDefense = true;
             shieldRenderer.enabled = true;
             shieldBraceletRenderer.enabled = true;
             decalRenderer.enabled = true;

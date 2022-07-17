@@ -86,23 +86,23 @@ public class EventHandler : MonoBehaviour
     }
 
     void handleVoiceLines() {
-        if (GlobalEvents.FirstGuardianAttack)
+        if (GlobalEvents.FirstGuardianAttack && !GlobalEvents.FirstGuardianAttackPlayed)
         {
             GlobalEvents.FirstGuardianAttackPlayed = player.playVoiceLine(guardianAttackClip, guardianAttackClipSubtitles);
         }
-        if (GlobalEvents.HalfGuardianLife)
+        if (GlobalEvents.HalfGuardianLife && !GlobalEvents.HalfGuardianLifePlayed)
         {
             GlobalEvents.HalfGuardianLifePlayed = player.playVoiceLine(halfGuardianLifeClip, halfGuardianLifeClipSubtitles);
         }
-        if (GlobalEvents.GuardianDeath)
+        if (GlobalEvents.GuardianDeath && !GlobalEvents.GuardianDeathPlayed)
         {
             GlobalEvents.GuardianDeathPlayed = player.playVoiceLine(guardianDeathClip, guardianDeathClipSubtitles);
         }
-        if (GlobalEvents.FirstPlayerAttack)
+        if (GlobalEvents.FirstPlayerAttack && !GlobalEvents.FirstPlayerAttackPlayed)
         {
-            GlobalEvents.FirstPlayerAttackPlayed = player.playVoiceLine(playerAttackClip, guardianDeathClipSubtitles);
+            GlobalEvents.FirstPlayerAttackPlayed = player.playVoiceLine(playerAttackClip, playerAttackClipSubtitles);
         }
-        if (GlobalEvents.FirstPlayerDefense)
+        if (GlobalEvents.FirstPlayerDefense && !GlobalEvents.FirstPlayerDefensePlayed)
         {
             GlobalEvents.FirstPlayerDefensePlayed = player.playVoiceLine(playerDefenseClip, playerDefenseClipSubtitles);
         }
