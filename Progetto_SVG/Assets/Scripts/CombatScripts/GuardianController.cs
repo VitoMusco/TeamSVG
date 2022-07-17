@@ -283,7 +283,7 @@ public class GuardianController : MonoBehaviour
         laserParticles.Play();
         attackSoundSource.clip = laserSound;
         attackSoundSource.Play();
-        while (timeElapsed < timeSpentShooting && isAlive) {
+        while (timeElapsed < timeSpentShooting && isAlive && isActivated) {
             timeElapsed += Time.deltaTime;
             timeAfterLastShot += Time.deltaTime;
             shootBeam.SetPosition(0, shootSource.position);
@@ -468,6 +468,7 @@ public class GuardianController : MonoBehaviour
     public void resetGuardian()
     {
         chargeParticles.Stop();
+        anim.ResetTrigger("StopShooting");
         anim.SetBool("StandStill", true);
         shootBeam.enabled = false;
         laserParticles.Stop();

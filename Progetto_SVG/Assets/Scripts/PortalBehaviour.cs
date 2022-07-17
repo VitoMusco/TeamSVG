@@ -18,6 +18,7 @@ public class PortalBehaviour : MonoBehaviour
         {
             collidedObj.gameObject.GetComponent<PlayerController>().stopDoingAnything();
             if (completesLevel) LevelHandler.completedLevel();
+            GlobalEvents.PlayerPlayingVoiceLine = false;
             SceneManager.LoadScene(sceneToLoad);
         }
     }

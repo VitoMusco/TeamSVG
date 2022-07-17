@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List<string> hintTexts;
     [SerializeField] private Image hintImage;
 
+    //UI SUBTITLES
+    [SerializeField] private TMP_Text subtitleText;
+
     //PLAYER
     public bool developerMode = false;
     public bool hasRespawned = false;
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour
     public MeshRenderer decalRenderer;
     public ParticleSystem particleShoot;
     public LayerMask rayCastLayer;
+    public AudioSource voiceLineSource;
     public AudioSource attackSoundSource;
     public AudioSource shieldSoundSource;
     public AudioSource footStepSource;
@@ -1061,6 +1065,20 @@ public class PlayerController : MonoBehaviour
 
     public void setSensitivity(float sensitivity) {
         mouseSensitivity = sensitivity;
+    }
+
+    public void playVoiceLine(AudioClip voiceLine, string subtitles) {
+        GlobalEvents.PlayerPlayingVoiceLine = true;
+        voiceLineSource.clip = voiceLine;
+        voiceLineSource.Play();
+        subtitleText.text = subtitles;
+        subtitleText.enabled = true;
+        Invoke(nameof(finishedVoiceLine), voiceLine.length);
+    }
+
+    void finishedVoiceLine() {
+        GlobalEvents.PlayerPlayingVoiceLine = false;
+        subtitleText.enabled = false;
     }
 
     public IEnumerator shakeCamera(float shakingTime, float shakeMultiplier, float rotationMultiplier, float shakeRange, float rotationRange)
