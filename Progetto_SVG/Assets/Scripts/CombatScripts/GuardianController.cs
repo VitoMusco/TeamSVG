@@ -308,7 +308,6 @@ public class GuardianController : MonoBehaviour
             else {
                 shootBeam.SetPosition(1, shootSource.transform.position + shootSource.transform.forward * 100f);
             }
-            Debug.DrawRay(shootSource.transform.position, shootSource.transform.forward * hit.distance, Color.green);
             yield return null;
         }
         shootBeam.enabled = false;
@@ -440,6 +439,8 @@ public class GuardianController : MonoBehaviour
     IEnumerator die() {
         float timeElapsed = 0f;
         float slider = 0f;
+        isAlive = false;
+        isActivated = false;
         agent.SetDestination(transform.position);
         chargeParticles.Stop();
         attackSoundSource.Stop();
@@ -448,7 +449,7 @@ public class GuardianController : MonoBehaviour
         soundSource.Play();
         deathParticles.Play();
         collisions.enabled = false;
-        while (timeElapsed < timeToDie) { 
+        while (timeElapsed < timeToDie) {
             timeElapsed += Time.deltaTime;
             if (timeElapsed >= timeToDie - timeToDie / 4)
                 soundSource.volume = Mathf.Lerp(1f, 0f, timeElapsed / timeToDie);
@@ -462,7 +463,7 @@ public class GuardianController : MonoBehaviour
             yield return null;
         }
         eventHandler.setGuardianKilled();
-        if (!GlobalEvents.GuardianDeath) GlobalEvents.GuardianDeath = true;
+        soundSource.Stop();
         Destroy(gameObject);
     }
 

@@ -1192,7 +1192,7 @@ MonoBehaviour:
   gateCollider: {fileID: 821131117}
   guardian: {fileID: 1254032881}
   player: {fileID: 3158481079519212008}
-  portal: {fileID: 1711813854550487957}
+  portal: {fileID: 1711813854550487959}
   portalParticles: {fileID: 1810671567}
   gateCrossDetector: {fileID: 0}
   hasCrossedGate: 0
@@ -3079,12 +3079,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec57bb63d806e6a4295270ea77a032ff, type: 3}
---- !u!23 &1711813854550487957 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4926441991726000372, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
+--- !u!114 &1711813854550487959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5573919386300836537, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
     type: 3}
   m_PrefabInstance: {fileID: 6025720928610524001}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a103118bf8c30c4b88207e859855427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1927193793077284306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3467,11 +3473,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573919386300836537, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
-        type: 3}
-      propertyPath: sceneToLoad
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6058766738470376347, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
         type: 3}

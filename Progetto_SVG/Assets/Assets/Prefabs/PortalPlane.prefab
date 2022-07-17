@@ -4932,3 +4932,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a103118bf8c30c4b88207e859855427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  completesLevel: 1
+  sceneToLoad: 0
+  gate: {fileID: 0}

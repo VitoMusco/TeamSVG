@@ -7,7 +7,7 @@ public class PortalBehaviour : MonoBehaviour
 {
     [SerializeField] private bool completesLevel = true;
     [SerializeField] private int sceneToLoad = 0;
-    [SerializeField] Transform gate;
+    [SerializeField] private Transform gate;
     private MeshRenderer portal;
     private BoxCollider portalCollider;
     private ParticleSystem portalParticles;
