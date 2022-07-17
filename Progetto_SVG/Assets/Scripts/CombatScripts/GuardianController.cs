@@ -464,6 +464,7 @@ public class GuardianController : MonoBehaviour
         }
         eventHandler.setGuardianKilled();
         soundSource.Stop();
+        if(!GlobalEvents.GuardianDeath) GlobalEvents.GuardianDeath = true;
         Destroy(gameObject);
     }
 
