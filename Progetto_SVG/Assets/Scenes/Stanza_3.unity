@@ -1201,10 +1201,10 @@ MonoBehaviour:
   firstSpawnClip: {fileID: 8300000, guid: 90c26344a95d35a458e5f8dd54460694, type: 3}
   firstSpawnClipSubtitles: "E quello cos\u2019\xE8? "
   guardianAttackClip: {fileID: 8300000, guid: f2f251de1e0a70f4f9fdf65af82e86b2, type: 3}
-  guardianAttackClipSubtitles: "Questo mostro fa proprio paura\u2026"
+  guardianAttackClipSubtitles: Ehi vacci piano!
   halfGuardianLifeClip: {fileID: 8300000, guid: 8787f1f888b6ef54ba36eaf144d4f049,
     type: 3}
-  halfGuardianLifeClipSubtitles: Non muori mai eh mostro!
+  halfGuardianLifeClipSubtitles: Non muori mai eh!
   guardianDeathClip: {fileID: 8300000, guid: ca2765bcbe18c814e8b9e02b7ca5351c, type: 3}
   guardianDeathClipSubtitles: Finalmente ho dimostrato che sono maturo!
   playerAttackClip: {fileID: 8300000, guid: 536a7fe65903f7c40af1617db0bb21a9, type: 3}

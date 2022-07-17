@@ -563,11 +563,14 @@ public class PlayerController : MonoBehaviour
         if (isInMenu) return;
         if (canShoot && !isDefending && magicStamina > 0f)
         {
-            if (!GlobalEvents.FirstPlayerAttack) GlobalEvents.FirstPlayerAttack = true;
-            else if (attackVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines) {
-                int index = Random.Range(0, attackVoiceLines.Count);
-                playVoiceLine(attackVoiceLines[index], attackVoiceLinesSubtitles[index]);
-                timeSinceLastVoiceLine = 0f;
+            if (GlobalEvents.CrossedGate) {
+                if (!GlobalEvents.FirstPlayerAttack) GlobalEvents.FirstPlayerAttack = true;
+                else if (attackVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines)
+                {
+                    int index = Random.Range(0, attackVoiceLines.Count);
+                    playVoiceLine(attackVoiceLines[index], attackVoiceLinesSubtitles[index]);
+                    timeSinceLastVoiceLine = 0f;
+                }
             }
             shootBeam.material = laserMaterial;
             isAttacking = true;
@@ -603,11 +606,15 @@ public class PlayerController : MonoBehaviour
             isAttacking = true;
             shootBeam.material = electricMaterial;
             StartCoroutine(expandShootBeam());
-            if (!GlobalEvents.FirstPlayerAttack) GlobalEvents.FirstPlayerAttack = true;
-            else if (attackVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines) {
-                int index = Random.Range(0, attackVoiceLines.Count);
-                playVoiceLine(attackVoiceLines[index], attackVoiceLinesSubtitles[index]);
-                timeSinceLastVoiceLine = 0f;
+            if (GlobalEvents.CrossedGate)
+            {
+                if (!GlobalEvents.FirstPlayerAttack) GlobalEvents.FirstPlayerAttack = true;
+                else if (attackVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines)
+                {
+                    int index = Random.Range(0, attackVoiceLines.Count);
+                    playVoiceLine(attackVoiceLines[index], attackVoiceLinesSubtitles[index]);
+                    timeSinceLastVoiceLine = 0f;
+                }
             }
             attackSoundSource.clip = playerLaserAttackSound;
             attackSoundSource.loop = true;
@@ -685,11 +692,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!isDefending && !isAttacking && magicStamina > 0f)
         {
-            if (!GlobalEvents.FirstPlayerDefense) GlobalEvents.FirstPlayerDefense = true;
-            else if (defenseVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines) {
-                int index = Random.Range(0, defenseVoiceLines.Count);
-                playVoiceLine(defenseVoiceLines[index], defenseVoiceLinesSubtitles[index]);
-                timeSinceLastVoiceLine = 0f;
+            if (GlobalEvents.CrossedGate) {
+                if (!GlobalEvents.FirstPlayerDefense) GlobalEvents.FirstPlayerDefense = true;
+                else if (defenseVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines)
+                {
+                    int index = Random.Range(0, defenseVoiceLines.Count);
+                    playVoiceLine(defenseVoiceLines[index], defenseVoiceLinesSubtitles[index]);
+                    timeSinceLastVoiceLine = 0f;
+                }
             }
             shieldRenderer.enabled = true;
             shieldBraceletRenderer.enabled = true;

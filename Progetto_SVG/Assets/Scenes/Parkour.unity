@@ -16879,7 +16879,8 @@ MonoBehaviour:
   platformRideClipSubtitles: Questa roba mi fa venire il mal di mare
   halfParkourCompletionClip: {fileID: 8300000, guid: 29ed28c227d7ba54e9ce5a988e4be0dc,
     type: 3}
-  halfParkourCompletionClipSubtitles: "Devo dire che questo posto \xE8 proprio carino\u2026"
+  halfParkourCompletionClipSubtitles: Da piccolo non avevo nemmeno i genitori, e
+    ora guarda, posso anche levitare!
   levitationClip: {fileID: 8300000, guid: 10e528dacb284af43a0383335f44d4c2, type: 3}
   levitationClipSubtitles: Oohh, che figataa!
   rotatingAxesClip: {fileID: 8300000, guid: d698a989da0349346a9077cac3abd7a8, type: 3}

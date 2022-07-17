@@ -219,7 +219,6 @@ public class GuardianController : MonoBehaviour
 
     IEnumerator slam() {
         agent.SetDestination(transform.position);
-        if (!GlobalEvents.FirstGuardianAttack) GlobalEvents.FirstGuardianAttack = true;
         if (canAim)
             StartCoroutine(aim());
         canAim = false;
@@ -243,11 +242,16 @@ public class GuardianController : MonoBehaviour
             attackSoundSource.Play();
             StartCoroutine(player.GetComponent<PlayerController>().shakeCamera(2f, .5f, 1f, .25f, 0.017f));
             anim.ResetTrigger("Slam");
+            Invoke(nameof(hasAttackedPlayer), 3f);
             isSlamming = false;
             hasSlammed = true;
             canAim = true;
             Invoke(nameof(ResetAttack), timeAfterSlamming);
         }
+    }
+
+    void hasAttackedPlayer() {
+        if (!GlobalEvents.FirstGuardianAttack) GlobalEvents.FirstGuardianAttack = true;
     }
 
     IEnumerator startShooting() {

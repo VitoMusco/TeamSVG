@@ -79,6 +79,8 @@ public class GlobalEvents : MonoBehaviour
     private static bool spawnedInCombat = false;
     private static bool spawnedInCombatPlayed = false;
 
+    private static bool crossedGate = false;
+
     private static bool firstGuardianAttack = false;
     private static bool firstGuardianAttackPlayed = false;
 
@@ -152,4 +154,5 @@ public class GlobalEvents : MonoBehaviour
     public static bool FirstPlayerAttackPlayed { get => firstPlayerAttackPlayed; set => firstPlayerAttackPlayed = value; }
     public static bool FirstPlayerDefense { get => firstPlayerDefense; set => firstPlayerDefense = value; }
     public static bool FirstPlayerDefensePlayed { get => firstPlayerDefensePlayed; set => firstPlayerDefensePlayed = value; }
+    public static bool CrossedGate { get => crossedGate; set => crossedGate = value; }
 }

@@ -35,10 +35,15 @@ public class EventHandler : MonoBehaviour
     [SerializeField] private string playerDefenseClipSubtitles;
 
     void Awake() {
-        if (!GlobalEvents.SpawnedInCombat) {
+        Invoke(nameof(playStartVoiceLine), 3f);
+        gateCrossDetector = GetComponent<BoxCollider>();
+    }
+
+    void playStartVoiceLine() {
+        if (!GlobalEvents.SpawnedInCombat)
+        {
             GlobalEvents.SpawnedInCombatPlayed = player.playVoiceLine(firstSpawnClip, firstSpawnClipSubtitles);
         }
-        gateCrossDetector = GetComponent<BoxCollider>();
     }
 
     void Update() {
@@ -54,6 +59,7 @@ public class EventHandler : MonoBehaviour
     void OnTriggerEnter(Collider collidedObject) {
         if (collidedObject.gameObject.tag == "Player" && !hasCrossedGate) {
             guardian.activateGuardian();
+            if(!GlobalEvents.CrossedGate) GlobalEvents.CrossedGate = true;
             StartCoroutine(operateGate());
         }
     }
