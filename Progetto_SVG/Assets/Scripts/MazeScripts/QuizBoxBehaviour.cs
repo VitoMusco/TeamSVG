@@ -86,7 +86,7 @@ public class QuizBoxBehaviour : MonoBehaviour
     }
 
     public void unlock() {
-        currentPosition++;
+        currentPosition = 0;
         transform.position += new Vector3(0f, 0.4f, 0f);
     }
 

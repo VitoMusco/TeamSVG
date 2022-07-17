@@ -104,6 +104,8 @@ public class GhostBehaviour : MonoBehaviour
         isDissolving = false;
         isWalking = false;
         isAttacking = false;
+        isActivated = false;
+        isSpawning = false;
         agent.enabled = false;
         anim.enabled = false;
         gameObject.SetActive(false);

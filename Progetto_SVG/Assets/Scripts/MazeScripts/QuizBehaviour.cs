@@ -75,6 +75,7 @@ public class QuizBehaviour : MonoBehaviour
     }
 
     public void getGrabbed() {
+        if (isGrabbed) return;
         soundSource.Play();
         isGrabbed = true;
         particles.Stop();
