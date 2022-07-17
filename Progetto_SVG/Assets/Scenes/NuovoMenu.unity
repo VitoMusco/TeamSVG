@@ -16384,7 +16384,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 93818341}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: NewGame
+        m_MethodName: Credits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

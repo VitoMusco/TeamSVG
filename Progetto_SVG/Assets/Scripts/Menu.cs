@@ -17,4 +17,8 @@ public class Menu : MonoBehaviour
     public void OptionGame(){
        
     }
+    public void Credits()
+    {
+        SceneManager.LoadScene(5);
+    }
 }
