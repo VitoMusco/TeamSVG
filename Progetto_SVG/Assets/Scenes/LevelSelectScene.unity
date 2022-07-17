@@ -5762,12 +5762,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 596020393}
-  firstSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  firstSpawnClip: {fileID: 8300000, guid: 648b7b9e794a607438141b1dddd3ff7d, type: 3}
   firstSpawnClipSubtitles: "Dimostrero\u2019 a Giampiero di che pasta sono fatto."
-  firstLevelCompletion: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+  firstLevelCompletion: {fileID: 8300000, guid: 50b616b0b610c6248b3cf8647af421d2,
     type: 3}
   firstLevelCompletionSubtitles: Una stanza in meno, ottimo.
-  secondLevelCompletion: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+  secondLevelCompletion: {fileID: 8300000, guid: 59376236248fd36499a62780a74f57c9,
     type: 3}
   secondLevelCompletionSubtitles: "Finalmente\u2026 posto carino ma accoglienza pessima!"
 --- !u!114 &596020393 stripped

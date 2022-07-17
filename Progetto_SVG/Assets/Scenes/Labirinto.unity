@@ -1560,37 +1560,37 @@ MonoBehaviour:
   - {fileID: 2141260541}
   - {fileID: 1913580739}
   quizGroup: {fileID: 86090395}
-  firstMazeSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  firstMazeSpawnClip: {fileID: 8300000, guid: 88edb492b953707428ada57abff6b6f2, type: 3}
   firstMazeSpawnClipSubtitles: "Che posto strano\u2026"
-  usedCompassClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  usedCompassClip: {fileID: 8300000, guid: cdc8b2dd2cca80942b2d04c22c71634f, type: 3}
   usedCompassClipSubtitles: "Vediamo se questo incantesimo pu\xF2 servire a qualcosa\u2026"
-  takenQuizClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  takenQuizClip: {fileID: 8300000, guid: a8984e8fd506b3b4ea9b92c69f410cce, type: 3}
   takenQuizClipSubtitles: "Ehi, ma dov\u2019\xE8 andato!"
-  ghostSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  ghostSpawnClip: {fileID: 8300000, guid: 09b8846d66961ac448abe89e1851dee1, type: 3}
   ghostSpawnClipSubtitles: "Mio dio cos\u2019\xE8 quello?"
-  ghostDamageClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  ghostDamageClip: {fileID: 8300000, guid: d5e05e2673ca3e34cacd5b68e08fbd7d, type: 3}
   ghostDamageClipSubtitles: Ahia!
-  ghostDeathClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  ghostDeathClip: {fileID: 8300000, guid: fb6df894748741e42a428ce50f872948, type: 3}
   ghostDeathClipSubtitles: Ben ti sta!
-  wrongAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  wrongAnswerClip: {fileID: 8300000, guid: 53f2a035bc711f341bab1d55f688544e, type: 3}
   wrongAnswerClipSubtitles: Oh no...
-  firstCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+  firstCorrectAnswerClip: {fileID: 8300000, guid: 70ce486d4e560c847be1a5a933ecb5f8,
     type: 3}
   firstCorrectAnswerClipSubtitles: Che schifo, non mi piacciono i pomodori!
-  secondCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+  secondCorrectAnswerClip: {fileID: 8300000, guid: 709ac0695da1628479c038cedc2e195d,
     type: 3}
   secondCorrectAnswerClipSubtitles: "Che domanda stupida, ci vuole qualcosa di pi\xF9
     difficile per confondermi!"
-  thirdCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+  thirdCorrectAnswerClip: {fileID: 8300000, guid: 53af3a0823244fa4eabb65a7e865f2f9,
     type: 3}
   thirdCorrectAnswerClipSubtitles: Non saranno queste domandine a fermarmi!
-  fourthCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+  fourthCorrectAnswerClip: {fileID: 8300000, guid: ec6cec4bbead1e44b9f86e54ac5c4489,
     type: 3}
   fourthCorrectAnswerClipSubtitles: "Bell\u2019 indovinello\u2026"
-  fifthCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+  fifthCorrectAnswerClip: {fileID: 8300000, guid: f4aedc62414aea641917b76e6defe970,
     type: 3}
   fifthCorrectAnswerClipSubtitles: "Spero che nessuno festeggi sulla mia tomba\u2026"
-  openedMazeDoorClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  openedMazeDoorClip: {fileID: 8300000, guid: 3aa9165948f8e0146ab41aa48e3483a0, type: 3}
   openedMazeDoorClipSubtitles: Perfetto si sta aprendo! Andiamo via da qui
 --- !u!4 &324648392
 Transform:

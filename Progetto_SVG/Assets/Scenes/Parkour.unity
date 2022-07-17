@@ -16870,19 +16870,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2082710707}
-  firstParkourSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+  firstParkourSpawnClip: {fileID: 8300000, guid: feaf95b746be4b4479966172753675e9,
     type: 3}
   firstParkourSpawnClipSubtitles: "lo sapevo che dovevo fare pi\xF9 cardio\u2026"
-  cannonShotClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  cannonShotClip: {fileID: 8300000, guid: 81dc34a16c289dc45a713e7601221dde, type: 3}
   cannonShotClipSubtitles: "Ehi non facciamo scherzi\u2026"
-  platformRideClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  platformRideClip: {fileID: 8300000, guid: 2a5457a394108db46824a47e5a1fe620, type: 3}
   platformRideClipSubtitles: Questa roba mi fa venire il mal di mare
-  halfParkourCompletionClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+  halfParkourCompletionClip: {fileID: 8300000, guid: 29ed28c227d7ba54e9ce5a988e4be0dc,
     type: 3}
   halfParkourCompletionClipSubtitles: "Devo dire che questo posto \xE8 proprio carino\u2026"
-  levitationClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  levitationClip: {fileID: 8300000, guid: 10e528dacb284af43a0383335f44d4c2, type: 3}
   levitationClipSubtitles: Oohh, che figataa!
-  rotatingAxesClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
+  rotatingAxesClip: {fileID: 8300000, guid: d698a989da0349346a9077cac3abd7a8, type: 3}
   rotatingAxesClipSubtitles: "Ma dai ci manca solo che vengo fatto a brandelli\u2026"
 --- !u!4 &1640173642
 Transform:
