@@ -273,6 +273,7 @@ public class PlayerController : MonoBehaviour
         if (levelType == 1) inputs.PlayerInputs.UseCompass.Disable();
         if (levelType == 3) inputs.PlayerInputs.Defend.Disable();
         inputs.PlayerInputs.Interact.Disable();
+        inputs.PlayerInputs.DisableHints.Disable();
     }
 
     void Update() {
