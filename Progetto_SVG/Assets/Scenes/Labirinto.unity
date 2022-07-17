@@ -1576,19 +1576,21 @@ MonoBehaviour:
   wrongAnswerClipSubtitles: Oh no...
   firstCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
     type: 3}
-  firstCorrectAnswerClipSubtitles: Bene, uno in meno
+  firstCorrectAnswerClipSubtitles: Che schifo, non mi piacciono i pomodori!
   secondCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
     type: 3}
-  secondCorrectAnswerClipSubtitles: 
+  secondCorrectAnswerClipSubtitles: "Che domanda stupida, ci vuole qualcosa di pi\xF9
+    difficile per impensierirmi!"
   thirdCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
     type: 3}
-  thirdCorrectAnswerClipSubtitles: 
+  thirdCorrectAnswerClipSubtitles: Non saranno queste domandine a fermarmi!
   fourthCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
     type: 3}
-  fourthCorrectAnswerClipSubtitles: 
+  fourthCorrectAnswerClipSubtitles: "Molto interessante, mi \xE8 piaciuta questa
+    domanda!"
   fifthCorrectAnswerClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
     type: 3}
-  fifthCorrectAnswerClipSubtitles: 
+  fifthCorrectAnswerClipSubtitles: "Spero che nessuno festeggi sulla mia tomba\u2026"
   openedMazeDoorClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
   openedMazeDoorClipSubtitles: Perfetto, si sta aprendo! Andiamo via da qui
 --- !u!4 &324648392

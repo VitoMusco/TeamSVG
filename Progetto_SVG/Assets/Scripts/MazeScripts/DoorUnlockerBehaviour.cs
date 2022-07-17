@@ -58,8 +58,24 @@ public class DoorUnlockerBehaviour : MonoBehaviour
 
     public void solvedQuiz(int quizId) {
         if (foundQuizes[quizId - 1] != 1) return;
+        switch (quizId - 1) {
+            case 0:
+                if (!GlobalEvents.FirstQuizCorrectAnswer) GlobalEvents.FirstQuizCorrectAnswer = true;
+                break;
+            case 1:
+                if (!GlobalEvents.SecondQuizCorrectAnswer) GlobalEvents.SecondQuizCorrectAnswer = true;
+                break;
+            case 2:
+                if (!GlobalEvents.ThirdQuizCorrectAnswer) GlobalEvents.ThirdQuizCorrectAnswer = true;
+                break;
+            case 3:
+                if (!GlobalEvents.FourthQuizCorrectAnswer) GlobalEvents.FourthQuizCorrectAnswer = true;
+                break;
+            case 4:
+                if (!GlobalEvents.FifthQuizCorrectAnswer) GlobalEvents.FifthQuizCorrectAnswer = true;
+                break;
+        }
         quizIsAwaitingSolution = false;
-        if (!GlobalEvents.FirstQuizCorrectAnswer) GlobalEvents.FirstQuizCorrectAnswer = true;
         foundQuizes[quizId - 1] = 2;
         quizBoxes[quizId - 1].lockQuiz();
         for (int i=0; i<foundQuizes.Length; i++) {

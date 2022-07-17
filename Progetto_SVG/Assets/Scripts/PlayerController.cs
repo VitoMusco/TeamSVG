@@ -327,7 +327,7 @@ public class PlayerController : MonoBehaviour
                 crosshairHintText.enabled = false;
             }
         }
-        else if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f, rayCastLayer))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 5f, rayCastLayer))
         {
             if (hit.collider.CompareTag("Quiz")) {
                 crosshair.sprite = grabHand;

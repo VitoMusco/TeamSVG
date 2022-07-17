@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 611701621042106370}
   m_Layer: 0
   m_Name: Particles
-  m_TagString: Untagged
+  m_TagString: Quiz
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5083,7 +5083,7 @@ GameObject:
   - component: {fileID: 611701621336012326}
   m_Layer: 0
   m_Name: ExplosionParticles
-  m_TagString: Untagged
+  m_TagString: Quiz
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
