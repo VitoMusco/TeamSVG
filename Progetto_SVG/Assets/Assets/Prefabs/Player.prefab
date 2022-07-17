@@ -3914,12 +3914,12 @@ MonoBehaviour:
   - ' Tieni premuto il tasto destro del mouse per usare la bussola<br> Premi E per
     interagire con gli oggetti<br> Premi H per disabilitare o attivare gli aiuti<br>'
   - ' Premi SPAZIO per saltare, due volte per un doppio salto<br> Premi SHIFT per
-    correre<br> Premi LCTRL per abbassarti<br> Premi LCTRL o C in volo per levitare<br>
-    Premi H per disabilitare o attivare gli aiuti<br>'
+    correre<br> Premi LCTRL o C in volo per levitare (potrai solo quando prenderai
+    il powerUP)<br> Premi H per disabilitare o attivare gli aiuti<br>'
   - ' Tieni premuto il tasto destro del mouse per difenderti<br> Premi il tasto sinistro
-    del mouse per attaccare<br> Tieni premuto il tasto sinistro del mouse per un
-    attacco continuato<br> Non restare troppo tempo vicino alle colonne, prenderai
-    danno<br> Premi H per disabilitare o attivare gli aiuti<br>'
+    del mouse per fare un attacco pesante<br> Tieni premuto il tasto sinistro del
+    mouse per un attacco leggero continuato<br> Non restare troppo tempo vicino alle
+    colonne, ti farai male<br> Premi H per disabilitare o attivare gli aiuti<br>'
   hintImage: {fileID: 2768368984614596201}
   subtitleText: {fileID: 8524235015209206597}
   damageFeedbackImage: {fileID: 5640876594781984980}
@@ -3999,7 +3999,7 @@ MonoBehaviour:
   wantsToStopAttacking: 0
   wantsToStopDefending: 0
   wantsToStopUsingCompass: 0
-  attackDamage: 20
+  attackDamage: 30
   laserAttackDamage: 4
   shootAttackStaminaRemove: 10
   laserAttackStaminaRemove: 2

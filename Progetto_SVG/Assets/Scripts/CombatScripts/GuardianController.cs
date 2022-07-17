@@ -473,6 +473,7 @@ public class GuardianController : MonoBehaviour
 
     public void resetGuardian()
     {
+        if (GlobalEvents.GuardianDeath) return;
         chargeParticles.Stop();
         anim.ResetTrigger("StopShooting");
         anim.SetBool("StandStill", true);
@@ -492,16 +493,12 @@ public class GuardianController : MonoBehaviour
             isAlive = false;
             StartCoroutine(die());
         } 
-        else {
-            print("Salute rimanente: " + health);
-        }
     }
 
     public void takeDamage(float amount)
     {
         if (isAlive)
         {
-            print("Ho preso " + amount + " danni");
             health -= amount;
             if (health <= maxHealth / 2)
                 if (!GlobalEvents.HalfGuardianLife) GlobalEvents.HalfGuardianLife = true;

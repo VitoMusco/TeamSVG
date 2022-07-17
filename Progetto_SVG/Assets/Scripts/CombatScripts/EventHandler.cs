@@ -48,7 +48,7 @@ public class EventHandler : MonoBehaviour
 
     void Update() {
         handleVoiceLines();
-        if (!player.checkIfAlive() && !guardianHasBeenKilled) {
+        if (!player.checkIfAlive() && !guardianHasBeenKilled && !GlobalEvents.GuardianDeath) {
             gate.position = new Vector3(gate.position.x, -2.6f, gate.position.z);
             gateCollider.position = new Vector3(gateCollider.position.x, -2.6f, gateCollider.position.z);
             hasCrossedGate = false;
@@ -65,24 +65,28 @@ public class EventHandler : MonoBehaviour
     }
 
     IEnumerator operateGate() {
-        float timeElapsed = 0f;
-        float desiredYPosition;
-        if (!hasCrossedGate) {
-            desiredYPosition = 1.4f;
-        }
-        else desiredYPosition = -2.6f;
-        gateCollider.position = new Vector3(gateCollider.position.x, desiredYPosition, gateCollider.position.z);
-        Vector3 startPosition = gate.position;
-        Vector3 desiredPosition = new Vector3(startPosition.x, desiredYPosition, startPosition.z);
+        if (!GlobalEvents.GuardianDeath) {
+            float timeElapsed = 0f;
+            float desiredYPosition;
+            if (!hasCrossedGate)
+            {
+                desiredYPosition = 1.4f;
+            }
+            else desiredYPosition = -2.6f;
+            gateCollider.position = new Vector3(gateCollider.position.x, desiredYPosition, gateCollider.position.z);
+            Vector3 startPosition = gate.position;
+            Vector3 desiredPosition = new Vector3(startPosition.x, desiredYPosition, startPosition.z);
 
-        while (timeElapsed < timeToMoveGate) {
-            timeElapsed += Time.deltaTime;
-            gate.position = Vector3.Lerp(startPosition, desiredPosition, timeElapsed / timeToMoveGate);
-            yield return null;
+            while (timeElapsed < timeToMoveGate)
+            {
+                timeElapsed += Time.deltaTime;
+                gate.position = Vector3.Lerp(startPosition, desiredPosition, timeElapsed / timeToMoveGate);
+                yield return null;
+            }
+            if (!hasCrossedGate)
+                hasCrossedGate = true;
+            gate.position = desiredPosition;
         }
-        if(!hasCrossedGate)
-            hasCrossedGate = true;
-        gate.position = desiredPosition;
     }
 
     public void setGuardianKilled() {
