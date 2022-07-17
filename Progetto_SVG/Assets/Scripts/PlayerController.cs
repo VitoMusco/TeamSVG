@@ -1067,13 +1067,15 @@ public class PlayerController : MonoBehaviour
         mouseSensitivity = sensitivity;
     }
 
-    public void playVoiceLine(AudioClip voiceLine, string subtitles) {
+    public bool playVoiceLine(AudioClip voiceLine, string subtitles) {
+        if (GlobalEvents.PlayerPlayingVoiceLine) return true;
         GlobalEvents.PlayerPlayingVoiceLine = true;
         voiceLineSource.clip = voiceLine;
         voiceLineSource.Play();
         subtitleText.text = subtitles;
         subtitleText.enabled = true;
         Invoke(nameof(finishedVoiceLine), voiceLine.length);
+        return false;
     }
 
     void finishedVoiceLine() {

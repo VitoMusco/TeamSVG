@@ -6,7 +6,7 @@ public class GlobalEvents : MonoBehaviour
 {
     private static bool playerPlayingVoiceLine = false;
 
-    private static bool spawnedForTheFirstTime = false;
+    private static bool spawnedForTheFirstTime = true;
 
     ///MAZE
 

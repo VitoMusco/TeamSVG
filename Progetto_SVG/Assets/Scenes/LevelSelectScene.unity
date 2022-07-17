@@ -5764,6 +5764,12 @@ MonoBehaviour:
   player: {fileID: 596020393}
   firstSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
   firstSpawnClipSubtitles: Dialogo primo spawn
+  firstLevelCompletion: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+    type: 3}
+  firstLevelCompletionSubtitles: Una stanza in meno, ottimo
+  secondLevelCompletion: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
+    type: 3}
+  secondLevelCompletionSubtitles: Finalmente... posto carino ma accoglienza pessima
 --- !u!114 &596020393 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4469523810957908110, guid: ec57bb63d806e6a4295270ea77a032ff,
@@ -41278,7 +41284,7 @@ PrefabInstance:
     - target: {fileID: 6874448015376211566, guid: 872feba6fcfa0ac46b3bfcc19948b26e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 872feba6fcfa0ac46b3bfcc19948b26e, type: 3}
