@@ -306,6 +306,17 @@
                 },
                 {
                     "name": "",
+                    "id": "2b5a723c-9128-4aea-9c3d-a72df78931fe",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "324a2f3c-df6c-4754-9370-524b2502d213",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Hold",

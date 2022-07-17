@@ -3868,6 +3868,14 @@ MonoBehaviour:
   playerArms: {fileID: 4146769916292405000}
   fallAngle: 90
   fallTime: 0.15
+  attackVoiceLines: []
+  defenseVoiceLines: []
+  takenDamageVoiceLines: []
+  attackVoiceLinesSubtitles: []
+  defenseVoiceLinesSubtitles: []
+  takenDamageVoiceLinesSubtitles: []
+  timeSinceLastVoiceLine: 0
+  timeBetweenVoiceLines: 20
   dotCrosshair: {fileID: 21300000, guid: 702de59e44fc9a247921b48756e06a2b, type: 3}
   upArrow: {fileID: 21300000, guid: 17a7c32027db7a04cb882d5bff29f5d4, type: 3}
   downArrow: {fileID: 21300000, guid: f04bb2b8364131d4ba9a4df61d565a19, type: 3}
@@ -3880,7 +3888,7 @@ MonoBehaviour:
   - ' Tieni premuto il tasto destro del mouse per usare la bussola<br> Premi E per
     interagire con gli oggetti<br> Premi H per disabilitare o attivare gli aiuti<br>'
   - ' Premi SPAZIO per saltare, due volte per un doppio salto<br> Premi SHIFT per
-    correre<br> Premi LCTRL per abbassarti<br> Premi LCTRL in volo per levitare<br>
+    correre<br> Premi LCTRL per abbassarti<br> Premi LCTRL o C in volo per levitare<br>
     Premi H per disabilitare o attivare gli aiuti<br>'
   - ' Tieni premuto il tasto destro del mouse per difenderti<br> Premi il tasto sinistro
     del mouse per attaccare<br> Tieni premuto il tasto sinistro del mouse per un

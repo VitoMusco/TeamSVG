@@ -5763,9 +5763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 596020393}
   firstSpawnClip: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d, type: 3}
-  firstSpawnClipSubtitles: "\u2026Dove mi trovo?... <br> Mi sembra un luogo familiare
-    ma non riesco a ricordare...<br> Provo ad esplorare un po' in giro ci sar\xE0
-    una via d\u2019uscita\u2026<br> "
+  firstSpawnClipSubtitles: "Dimostrero\u2019 a Giampiero di che pasta sono fatto."
   firstLevelCompletion: {fileID: 8300000, guid: fed5f6aee672bfa419dbd6160d8e668d,
     type: 3}
   firstLevelCompletionSubtitles: Una stanza in meno, ottimo.

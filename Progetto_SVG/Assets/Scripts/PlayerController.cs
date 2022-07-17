@@ -34,6 +34,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallAngle = 90f;
     [SerializeField] private float fallTime = 0.15f;
 
+    //VOICELINES
+    [SerializeField] private List<AudioClip> attackVoiceLines;
+    [SerializeField] private List<AudioClip> defenseVoiceLines;
+    [SerializeField] private List<AudioClip> takenDamageVoiceLines;
+    [SerializeField] private List<string> attackVoiceLinesSubtitles;
+    [SerializeField] private List<string> defenseVoiceLinesSubtitles;
+    [SerializeField] private List<string> takenDamageVoiceLinesSubtitles;
+    [SerializeField] private float timeSinceLastVoiceLine = 0f;
+    [SerializeField] private float timeBetweenVoiceLines = 20f;
+
     //UI CROSSHAIR CHANGE
     public Sprite dotCrosshair, upArrow, downArrow, confirmCrosshair, grabHand;
     public Image crosshair;
@@ -270,6 +280,7 @@ public class PlayerController : MonoBehaviour
                 handleFootSteps();
                 handleMovementPrediction();
                 handleAnimations();
+                handleVoiceLines();
             }
             
         }     
@@ -534,6 +545,11 @@ public class PlayerController : MonoBehaviour
         if (canShoot && !isDefending && magicStamina > 0f)
         {
             if (!GlobalEvents.FirstPlayerAttack) GlobalEvents.FirstPlayerAttack = true;
+            else if (attackVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines) {
+                int index = Random.Range(0, attackVoiceLines.Count);
+                playVoiceLine(attackVoiceLines[index], attackVoiceLinesSubtitles[index]);
+                timeSinceLastVoiceLine = 0f;
+            }
             shootBeam.material = laserMaterial;
             isAttacking = true;
             enableAttackBracelet();
@@ -569,6 +585,11 @@ public class PlayerController : MonoBehaviour
             shootBeam.material = electricMaterial;
             StartCoroutine(expandShootBeam());
             if (!GlobalEvents.FirstPlayerAttack) GlobalEvents.FirstPlayerAttack = true;
+            else if (attackVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines) {
+                int index = Random.Range(0, attackVoiceLines.Count);
+                playVoiceLine(attackVoiceLines[index], attackVoiceLinesSubtitles[index]);
+                timeSinceLastVoiceLine = 0f;
+            }
             attackSoundSource.clip = playerLaserAttackSound;
             attackSoundSource.loop = true;
             attackSoundSource.Play();
@@ -646,6 +667,11 @@ public class PlayerController : MonoBehaviour
         if (!isDefending && !isAttacking && magicStamina > 0f)
         {
             if (!GlobalEvents.FirstPlayerDefense) GlobalEvents.FirstPlayerDefense = true;
+            else if (defenseVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines) {
+                int index = Random.Range(0, defenseVoiceLines.Count);
+                playVoiceLine(defenseVoiceLines[index], defenseVoiceLinesSubtitles[index]);
+                timeSinceLastVoiceLine = 0f;
+            }
             shieldRenderer.enabled = true;
             shieldBraceletRenderer.enabled = true;
             decalRenderer.enabled = true;
@@ -890,6 +916,11 @@ public class PlayerController : MonoBehaviour
             if (!isDefending) {
                 StartCoroutine(shakeCamera(.2f, .25f, .25f, .25f, 0.017f));
                 StartCoroutine(handleDamageFeedback());
+                if (takenDamageVoiceLines.Count > 0 && timeSinceLastVoiceLine > timeBetweenVoiceLines) {
+                    int index = Random.Range(0, takenDamageVoiceLines.Count);
+                    playVoiceLine(takenDamageVoiceLines[index], takenDamageVoiceLinesSubtitles[index]);
+                    timeSinceLastVoiceLine = 0f;
+                }
                 print("Ho preso " + damageAmount + " danni");
                 health -= damageAmount;
                 handleHealthBar();
@@ -1120,6 +1151,11 @@ public class PlayerController : MonoBehaviour
     void finishedVoiceLine() {
         GlobalEvents.PlayerPlayingVoiceLine = false;
         subtitleText.enabled = false;
+    }
+
+    void handleVoiceLines() {
+        if(timeSinceLastVoiceLine <= timeBetweenVoiceLines)
+            timeSinceLastVoiceLine += Time.deltaTime;
     }
 
     public IEnumerator shakeCamera(float shakingTime, float shakeMultiplier, float rotationMultiplier, float shakeRange, float rotationRange)
