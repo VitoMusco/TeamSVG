@@ -436,7 +436,6 @@ public class GuardianController : MonoBehaviour
     IEnumerator die() {
         float timeElapsed = 0f;
         float slider = 0f;
-        if (!GlobalEvents.GuardianDeath) GlobalEvents.GuardianDeath = true;
         agent.SetDestination(transform.position);
         chargeParticles.Stop();
         attackSoundSource.Stop();
@@ -459,6 +458,7 @@ public class GuardianController : MonoBehaviour
             yield return null;
         }
         eventHandler.setGuardianKilled();
+        if (!GlobalEvents.GuardianDeath) GlobalEvents.GuardianDeath = true;
         Destroy(gameObject);
     }
 
