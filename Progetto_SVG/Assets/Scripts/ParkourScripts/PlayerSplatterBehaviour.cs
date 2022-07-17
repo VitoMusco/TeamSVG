@@ -4,17 +4,9 @@ using UnityEngine;
 
 public class PlayerSplatterBehaviour : MonoBehaviour
 {
-    private BoxCollider splatterCollider;
-
-    void Awake() {
-        splatterCollider = GetComponent<BoxCollider>();
-    }
-
-    void OnTriggerEnter() {
-        print("pino1");
-        if (splatterCollider.CompareTag("Player")) {
-            print("pino2");
-            splatterCollider.gameObject.GetComponent<PlayerController>().kill();
+    void OnTriggerEnter(Collider collidedObject) {
+        if (collidedObject.CompareTag("Player")) {
+            collidedObject.gameObject.GetComponent<PlayerController>().kill();
         }
     }
 }

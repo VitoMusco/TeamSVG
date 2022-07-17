@@ -9170,6 +9170,11 @@ PrefabInstance:
       objectReference: {fileID: 1890046731}
     - target: {fileID: 3090349239881835616, guid: bab8baabaf531d34786a24ae7bf1de3f,
         type: 3}
+      propertyPath: rangeOfVision
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090349239881835616, guid: bab8baabaf531d34786a24ae7bf1de3f,
+        type: 3}
       propertyPath: shootingOffset
       value: 0.99
       objectReference: {fileID: 0}
@@ -21902,6 +21907,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1890046731}
+    - target: {fileID: 3090349239881835616, guid: bab8baabaf531d34786a24ae7bf1de3f,
+        type: 3}
+      propertyPath: rangeOfVision
+      value: 23
+      objectReference: {fileID: 0}
     - target: {fileID: 3090349239881835616, guid: bab8baabaf531d34786a24ae7bf1de3f,
         type: 3}
       propertyPath: shootingOffset

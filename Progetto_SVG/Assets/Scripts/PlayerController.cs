@@ -47,6 +47,9 @@ public class PlayerController : MonoBehaviour
     //UI SUBTITLES
     [SerializeField] private TMP_Text subtitleText;
 
+    //UI DAMAGE FEEDBACK
+    [SerializeField] private Image damageFeedbackImage;
+
     //PLAYER
     public bool developerMode = false;
     public bool hasRespawned = false;
@@ -209,6 +212,7 @@ public class PlayerController : MonoBehaviour
         inputs.PlayerInputs.Jump.Enable();
         inputs.PlayerInputs.Interact.Enable();
         //UI
+        damageFeedbackImage.enabled = false;
         crosshairHintText.enabled = false;
         if (levelType >= 1 && levelType <= 3) {
             inputs.PlayerInputs.DisableHints.Enable();
@@ -491,6 +495,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void jump() {
+        if (!isAlive) return;
         if (isGrounded || !isGrounded && !hasDoubleJumped && canDoubleJump) {
             if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f)) return;
 
@@ -884,6 +889,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!isDefending) {
                 StartCoroutine(shakeCamera(.2f, .25f, .25f, .25f, 0.017f));
+                StartCoroutine(handleDamageFeedback());
                 print("Ho preso " + damageAmount + " danni");
                 health -= damageAmount;
                 handleHealthBar();
@@ -893,6 +899,32 @@ public class PlayerController : MonoBehaviour
                 staminaToRemove += damageAmount * staminaRemovalMultiplier;
             checkHealth();
         }
+    }
+
+    IEnumerator handleDamageFeedback() {
+        float timeElapsed = 0f;
+        float timeToReachPeak = 0.1f;
+        Color color = Color.white;
+        damageFeedbackImage.enabled = true;
+        while (timeElapsed < timeToReachPeak) {
+            timeElapsed += Time.deltaTime;
+            color.a = timeElapsed / timeToReachPeak;
+            damageFeedbackImage.color = color;
+            yield return null;
+        }
+
+        timeElapsed = timeToReachPeak * 3f;
+
+        while (timeElapsed > 0)
+        {
+            timeElapsed -= Time.deltaTime;
+            color.a = timeElapsed / timeToReachPeak;
+            damageFeedbackImage.color = color;
+            yield return null;
+        }
+        color.a = 0;
+        damageFeedbackImage.color = color;
+        damageFeedbackImage.enabled = false;
     }
 
     public void kill() {
@@ -913,6 +945,7 @@ public class PlayerController : MonoBehaviour
 
     void die() {
         StartCoroutine(shakeCamera(1f, .25f, .25f, .25f, 0.017f));
+        StartCoroutine(handleDamageFeedback());
         anim.SetBool("isDead", true);
         if (levelType == 1) compass.reset();
         health = 0f;
