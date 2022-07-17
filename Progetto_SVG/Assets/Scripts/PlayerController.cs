@@ -60,6 +60,9 @@ public class PlayerController : MonoBehaviour
     //UI DAMAGE FEEDBACK
     [SerializeField] private Image damageFeedbackImage;
 
+    //UI IMAGE FADE
+    [SerializeField] private Image fadeImage;
+
     //PLAYER
     public bool developerMode = false;
     public bool hasRespawned = false;
@@ -185,6 +188,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxTimeAfterNotGrounded = 0.1f;
 
     void Awake() {
+        //FADE INIZIALE
+        StartCoroutine(screenFade());
         //INPUT//
         inputs = new PlayerInput();
 
@@ -294,6 +299,25 @@ public class PlayerController : MonoBehaviour
 
     public void setFov(float fov) { 
         playerCamera.fieldOfView = fov;
+    }
+
+    IEnumerator screenFade()
+    {
+        fadeImage.enabled = true;
+        float timeElapsed = 2f;
+        float timeToReachPeak = 2f;
+        Color color = Color.black;
+
+        while (timeElapsed > 0)
+        {
+            timeElapsed -= Time.deltaTime;
+            color.a = timeElapsed / timeToReachPeak;
+            fadeImage.color = color;
+            yield return null;
+        }
+        color.a = 0;
+        fadeImage.color = color;
+        fadeImage.enabled = false;
     }
 
     void handleCameraLook() {
