@@ -52,6 +52,7 @@ public class QuizBehaviour : MonoBehaviour
     }
 
     void destroy() {
+        if (!GlobalEvents.FirstGhostSpawn) GlobalEvents.FirstGhostSpawn = true;
         ghostPrefab.gameObject.SetActive(true);
         ghostPrefab.transform.position = ghostSpawner.position;
         ghostPrefab.transform.rotation = ghostSpawner.rotation;

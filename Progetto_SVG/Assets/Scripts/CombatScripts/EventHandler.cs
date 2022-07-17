@@ -35,7 +35,7 @@ public class EventHandler : MonoBehaviour
     [SerializeField] private string playerDefenseClipSubtitles;
 
     void Awake() {
-        if (GlobalEvents.SpawnedInCombat) {
+        if (!GlobalEvents.SpawnedInCombat) {
             GlobalEvents.SpawnedInCombatPlayed = player.playVoiceLine(firstSpawnClip, firstSpawnClipSubtitles);
         }
         gateCrossDetector = GetComponent<BoxCollider>();

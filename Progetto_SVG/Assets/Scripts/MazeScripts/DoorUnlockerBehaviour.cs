@@ -36,7 +36,7 @@ public class DoorUnlockerBehaviour : MonoBehaviour
     IEnumerator unlockDoor() {
         float timeElapsed = 0f;
         float timeToMove = 5f;
-
+        if (!GlobalEvents.OpenedMazeDoor) GlobalEvents.OpenedMazeDoor = true;
         doorSoundSource.Play();
 
         while (timeElapsed < timeToMove) {
@@ -59,6 +59,7 @@ public class DoorUnlockerBehaviour : MonoBehaviour
     public void solvedQuiz(int quizId) {
         if (foundQuizes[quizId - 1] != 1) return;
         quizIsAwaitingSolution = false;
+        if (!GlobalEvents.FirstQuizCorrectAnswer) GlobalEvents.FirstQuizCorrectAnswer = true;
         foundQuizes[quizId - 1] = 2;
         quizBoxes[quizId - 1].lockQuiz();
         for (int i=0; i<foundQuizes.Length; i++) {
@@ -99,6 +100,7 @@ public class DoorUnlockerBehaviour : MonoBehaviour
 
     public void enteredWrongAnswer() {
         if (ghostPrefab.isActive()) return;
+        if (!GlobalEvents.FirstWrongAnswer) GlobalEvents.FirstWrongAnswer = true;
         ghostPrefab.gameObject.SetActive(true);
         ghostPrefab.transform.position = ghostSpawner.position;
         ghostPrefab.transform.rotation = ghostSpawner.rotation;

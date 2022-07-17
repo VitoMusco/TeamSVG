@@ -43,6 +43,7 @@ public class ObjectParkourMovement : MonoBehaviour
     {
         if (collidedObject.CompareTag("Player"))
         {
+            if (!GlobalEvents.FirstPlatformRide) GlobalEvents.FirstPlatformRide = true;
             player = collidedObject.gameObject.GetComponent<CharacterController>();
         }
     }

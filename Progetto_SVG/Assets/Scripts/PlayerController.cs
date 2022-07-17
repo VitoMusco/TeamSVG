@@ -424,6 +424,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!isGrounded)
             {
+                if (!GlobalEvents.FirstLevitation) GlobalEvents.FirstLevitation = true;
                 velocity.y += -2f * Time.deltaTime;
                 isLevitating = true;
                 levitationBraceletRendererL.enabled = true;
@@ -582,6 +583,7 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.tag == "Quiz") {
                 compass.foundQuiz(hit.transform.gameObject);
                 hit.collider.GetComponent<QuizBehaviour>().getGrabbed();
+                if(!GlobalEvents.TakenFirstQuiz) GlobalEvents.TakenFirstQuiz = true;
                 //getQuizPaper();Provvisorio
             }
         }

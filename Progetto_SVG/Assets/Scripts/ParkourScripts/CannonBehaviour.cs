@@ -57,6 +57,7 @@ public class CannonBehaviour : MonoBehaviour
         if (timeToSpawn >= spawnTime)
         {
             soundSource.Play();
+            if (!GlobalEvents.FirstCannonShot) GlobalEvents.FirstCannonShot = true;
             Instantiate(dmgObject, cannonBallSpawner.position, transform.rotation);
             timeToSpawn = 0;
         }

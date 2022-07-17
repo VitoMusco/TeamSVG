@@ -51,7 +51,7 @@ public class MazeEventHandler : MonoBehaviour
     
 
     void Awake() {
-        if (GlobalEvents.SpawnedInMaze)
+        if (!GlobalEvents.SpawnedInMaze)
         {
             GlobalEvents.SpawnedInMaze = player.playVoiceLine(firstMazeSpawnClip, firstMazeSpawnClipSubtitles);
         }

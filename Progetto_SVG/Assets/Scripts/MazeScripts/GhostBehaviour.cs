@@ -90,12 +90,14 @@ public class GhostBehaviour : MonoBehaviour
 
     void attack() {
         if (isActivated) {
+            if (!GlobalEvents.FirstGhostSlap) GlobalEvents.FirstGhostSlap = true;
             player.takeDamage(10f);
             isAttacking = false;
         }
     }
 
     public void kill() {
+        if (!GlobalEvents.FirstGhostDeath) GlobalEvents.FirstGhostDeath = true;
         transform.position = new Vector3(0f, 0f, 0f);
         timeAfterSpawning = 0f;
         timeAfterActivation = 0f;
