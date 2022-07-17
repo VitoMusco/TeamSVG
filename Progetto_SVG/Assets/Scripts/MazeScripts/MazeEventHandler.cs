@@ -62,11 +62,39 @@ public class MazeEventHandler : MonoBehaviour
         if (!player.checkIfAlive()) {
             Invoke(nameof(resetLevel), player.getTimeToRespawn());
         }
+        handleVoiceLines();
+
+    }
+
+    void resetLevel() {
+        resetQuizes();
+        killAllGhosts();
+        resetQuizGroup();
+    }
+
+    void resetQuizes() {
+        foreach (QuizBehaviour quiz in quizes) {
+            quiz.reset();
+        }
+    }
+    void killAllGhosts() {
+        foreach (GhostBehaviour ghost in ghosts)
+        {
+            ghost.kill();
+        }
+    }
+
+    void resetQuizGroup() {
+        quizGroup.reset();
+    }
+
+    void handleVoiceLines() {
         if (GlobalEvents.SpawnedInMaze && !GlobalEvents.SpawnedInMazePlayed)
         {
             GlobalEvents.SpawnedInMazePlayed = player.playVoiceLine(firstMazeSpawnClip, firstMazeSpawnClipSubtitles);
         }
-        if (GlobalEvents.UsedCompass && !GlobalEvents.UsedCompassPlayed) {
+        if (GlobalEvents.UsedCompass && !GlobalEvents.UsedCompassPlayed)
+        {
             GlobalEvents.UsedCompassPlayed = player.playVoiceLine(usedCompassClip, usedCompassClipSubtitles);
         }
         if (GlobalEvents.UsedCompass && !GlobalEvents.UsedCompassPlayed)
@@ -117,28 +145,5 @@ public class MazeEventHandler : MonoBehaviour
         {
             GlobalEvents.OpenedMazeDoorPlayed = player.playVoiceLine(openedMazeDoorClip, openedMazeDoorClipSubtitles);
         }
-
-    }
-
-    void resetLevel() {
-        resetQuizes();
-        killAllGhosts();
-        resetQuizGroup();
-    }
-
-    void resetQuizes() {
-        foreach (QuizBehaviour quiz in quizes) {
-            quiz.reset();
-        }
-    }
-    void killAllGhosts() {
-        foreach (GhostBehaviour ghost in ghosts)
-        {
-            ghost.kill();
-        }
-    }
-
-    void resetQuizGroup() {
-        quizGroup.reset();
     }
 }

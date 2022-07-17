@@ -16,11 +16,33 @@ public class EventHandler : MonoBehaviour
     [SerializeField] private bool guardianHasBeenKilled = false;
     [SerializeField] private float timeToMoveGate = 3f;
 
+    [SerializeField] private AudioClip firstSpawnClip;
+    [SerializeField] private string firstSpawnClipSubtitles;
+
+    [SerializeField] private AudioClip guardianAttackClip;
+    [SerializeField] private string guardianAttackClipSubtitles;
+
+    [SerializeField] private AudioClip halfGuardianLifeClip;
+    [SerializeField] private string halfGuardianLifeClipSubtitles;
+
+    [SerializeField] private AudioClip guardianDeathClip;
+    [SerializeField] private string guardianDeathClipSubtitles;
+
+    [SerializeField] private AudioClip playerAttackClip;
+    [SerializeField] private string playerAttackClipSubtitles;
+
+    [SerializeField] private AudioClip playerDefenseClip;
+    [SerializeField] private string playerDefenseClipSubtitles;
+
     void Awake() {
+        if (GlobalEvents.SpawnedInCombat) {
+            GlobalEvents.SpawnedInCombatPlayed = player.playVoiceLine(firstSpawnClip, firstSpawnClipSubtitles);
+        }
         gateCrossDetector = GetComponent<BoxCollider>();
     }
 
     void Update() {
+        handleVoiceLines();
         if (!player.checkIfAlive() && !guardianHasBeenKilled) {
             gate.position = new Vector3(gate.position.x, -2.6f, gate.position.z);
             gateCollider.position = new Vector3(gateCollider.position.x, -2.6f, gateCollider.position.z);
@@ -61,6 +83,29 @@ public class EventHandler : MonoBehaviour
         guardianHasBeenKilled = true;
         portal.enable();
         StartCoroutine(operateGate());
+    }
+
+    void handleVoiceLines() {
+        if (GlobalEvents.FirstGuardianAttack)
+        {
+            GlobalEvents.FirstGuardianAttackPlayed = player.playVoiceLine(guardianAttackClip, guardianAttackClipSubtitles);
+        }
+        if (GlobalEvents.HalfGuardianLife)
+        {
+            GlobalEvents.HalfGuardianLifePlayed = player.playVoiceLine(halfGuardianLifeClip, halfGuardianLifeClipSubtitles);
+        }
+        if (GlobalEvents.GuardianDeath)
+        {
+            GlobalEvents.GuardianDeathPlayed = player.playVoiceLine(guardianDeathClip, guardianDeathClipSubtitles);
+        }
+        if (GlobalEvents.FirstPlayerAttack)
+        {
+            GlobalEvents.FirstPlayerAttackPlayed = player.playVoiceLine(playerAttackClip, guardianDeathClipSubtitles);
+        }
+        if (GlobalEvents.FirstPlayerDefense)
+        {
+            GlobalEvents.FirstPlayerDefensePlayed = player.playVoiceLine(playerDefenseClip, playerDefenseClipSubtitles);
+        }
     }
 
 }

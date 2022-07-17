@@ -91,6 +91,9 @@ public class GlobalEvents : MonoBehaviour
     private static bool firstPlayerAttack = false;
     private static bool firstPlayerAttackPlayed = false;
 
+    private static bool firstPlayerDefense = false;
+    private static bool firstPlayerDefensePlayed = false;
+
 
     //GettersAndSetters
     public static bool PlayerPlayingVoiceLine { get => playerPlayingVoiceLine; set => playerPlayingVoiceLine = value; }
@@ -147,4 +150,6 @@ public class GlobalEvents : MonoBehaviour
     public static bool GuardianDeathPlayed { get => guardianDeathPlayed; set => guardianDeathPlayed = value; }
     public static bool FirstPlayerAttack { get => firstPlayerAttack; set => firstPlayerAttack = value; }
     public static bool FirstPlayerAttackPlayed { get => firstPlayerAttackPlayed; set => firstPlayerAttackPlayed = value; }
+    public static bool FirstPlayerDefense { get => firstPlayerDefense; set => firstPlayerDefense = value; }
+    public static bool FirstPlayerDefensePlayed { get => firstPlayerDefensePlayed; set => firstPlayerDefensePlayed = value; }
 }
